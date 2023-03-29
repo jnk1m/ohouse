@@ -1,4 +1,4 @@
 package com.ohouse.ohouse.controller;
 
-public class menuController {
+public class MenuController {
 }
