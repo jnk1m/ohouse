@@ -1,15 +1,16 @@
 package com.ohouse.ohouse.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
   @Id
@@ -34,6 +35,15 @@ public class User {
   @Column(name = "free_side")
   private boolean freeSide;
 
+  public User(String googleId, String phoneNumber, String email, boolean isVerified, boolean auth, int orderCount, boolean freeSide) {
+    this.googleId = googleId;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+    this.isVerified = isVerified;
+    this.auth = auth;
+    this.orderCount = orderCount;
+    this.freeSide = freeSide;
+  }
 }
 
 
