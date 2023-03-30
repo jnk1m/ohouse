@@ -1,12 +1,16 @@
 package com.ohouse.ohouse.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
   @Id
   @Column(name = "google_id")
