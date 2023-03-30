@@ -2,11 +2,10 @@ package com.ohouse.ohouse.entity;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "user")
 @Getter
 public class User {
   @Id
@@ -32,3 +31,5 @@ public class User {
   private boolean freeSide;
 
 }
+
+
