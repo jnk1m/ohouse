@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user")
@@ -14,18 +15,23 @@ import javax.persistence.*;
 public class User {
   @Id
   @Column(name = "google_id")
+  @NotNull
   private String googleId;
 
   @Column(name = "phone_number")
+  @NotNull
   private String phoneNumber;
 
   @Column(name = "email")
+  @NotNull
   private String email;
 
   @Column(name = "is_verified")
+  @NotNull
   private boolean isVerified;
 
   @Column(name = "auth")
+  @NotNull
   private boolean auth;
 
   @Column(name = "order_count")

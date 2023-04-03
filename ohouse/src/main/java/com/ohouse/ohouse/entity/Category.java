@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
@@ -17,6 +18,7 @@ public class Category {
   private Long categoryId;
 
   @Column(name = "category_name")
+  @NotNull
   private String categoryName;
 
   public Category(String categoryName) {

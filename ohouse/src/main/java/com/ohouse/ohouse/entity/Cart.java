@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cart")
@@ -19,20 +20,25 @@ public class Cart {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "google_id")
+  @NotNull
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "menu_id")
+  @NotNull
   private Menu menu;
 
   @Column(name = "quantity")
+  @NotNull
   private int quantity;
 
+  /*nullable*/
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "option_id")
   private Option option;
 
   @Column(name = "order_complete")
+  @NotNull
   private boolean orderComplete;
 
   @Builder

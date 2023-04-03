@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -19,6 +20,7 @@ public class Menu {
   private Long id;
 
   @Column(name = "menu_name_eng")
+  @NotNull
   private String menuNameEng;
 
   /*nullable*/
@@ -26,6 +28,7 @@ public class Menu {
   private String descriptionEng;
 
   @Column(name = "menu_name_kor")
+  @NotNull
   private String menuNameKor;
 
   /*nullable*/
@@ -33,13 +36,16 @@ public class Menu {
   private String descriptionKor;
 
   @Column(name = "menu_price")
+  @NotNull
   private BigDecimal menuPrice;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id")
+  @NotNull
   private Category category;
 
   @Column(name = "is_available")
+  @NotNull
   private boolean isAvailable;
 
   /*nullable*/
@@ -47,6 +53,7 @@ public class Menu {
   private String imagePath;
 
   @Column(name = "chit_name")
+  @NotNull
   private String chitName;
 
   @Builder
