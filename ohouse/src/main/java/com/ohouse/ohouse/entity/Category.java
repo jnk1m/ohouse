@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "category")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

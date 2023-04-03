@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "options")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Option {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
