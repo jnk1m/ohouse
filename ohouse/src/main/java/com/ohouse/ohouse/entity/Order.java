@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -15,11 +16,10 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "order_id")
-  private int orderId;
+  @EmbeddedId
+  private OrderId orderId;
 
+  @MapsId("googleId")
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "google_id")
   @NotNull
@@ -50,8 +50,8 @@ public class Order {
   private String deliveryPhone;
 
   @Builder
-  public Order(User user, BigDecimal orderPrice, String paymentMethod,
-               String specialInstruction, String deliveryAddress, String deliveryPhone) {
+  public Order(OrderId orderId, User user, BigDecimal orderPrice, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
+    this.orderId = orderId;
     this.user = user;
     this.orderPrice = orderPrice;
     this.paymentMethod = paymentMethod;
@@ -59,5 +59,26 @@ public class Order {
     this.deliveryAddress = deliveryAddress;
     this.deliveryPhone = deliveryPhone;
   }
-
 }
+
+@Embeddable
+class OrderId implements Serializable {
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "order_id")
+  private Long orderId;
+
+  @Column(name = "google_id")
+  private String googleId;
+}
+
+/*Builder Example:
+Order order = Order.builder()
+        .orderId(new OrderId(1L, "googleId123"))
+        .user(userInstance)
+        .orderPrice(new BigDecimal("100.00"))
+        .paymentMethod("credit")
+        .specialInstruction("Leave it at the door")
+        .deliveryAddress("123 Main St")
+        .deliveryPhone("555-123-4567")
+        .build();
+ */
