@@ -16,7 +16,7 @@ public class Cart {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "cart_id")
-  private int cartId;
+  private Long cartId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "google_id")
@@ -35,18 +35,18 @@ public class Cart {
   /*nullable*/
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "option_id")
-  private Option option;
+  private Options options;
 
   @Column(name = "order_complete")
   @NotNull
   private boolean orderComplete;
 
   @Builder
-  public Cart(User user, Menu menu, int quantity, Option option, boolean orderComplete) {
+  public Cart(User user, Menu menu, int quantity, Options options, boolean orderComplete) {
     this.user = user;
     this.menu = menu;
     this.quantity = quantity;
-    this.option = option;
+    this.options = options;
     this.orderComplete = orderComplete;
   }
 }

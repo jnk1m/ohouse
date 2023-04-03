@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Table(name = "options")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Option {
+public class Options {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "option_id")
@@ -26,7 +26,7 @@ public class Option {
   @NotNull
   private BigDecimal optionPrice;
 
-  public Option(String name, BigDecimal optionPrice) {
+  public Options(String name, BigDecimal optionPrice) {
     this.name = name;
     this.optionPrice = optionPrice;
   }

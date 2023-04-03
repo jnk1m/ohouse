@@ -16,7 +16,7 @@ public class MenuOption {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "menu_option_id")
-  private int menuOptionId;
+  private Long menuOptionId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id")
@@ -31,12 +31,12 @@ public class MenuOption {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "option_id")
   @NotNull
-  private Option option;
+  private Options options;
 
   @Builder
-  public MenuOption(Category category, Menu menu, Option option) {
+  public MenuOption(Category category, Menu menu, Options options) {
     this.category = category;
     this.menu = menu;
-    this.option = option;
+    this.options = options;
   }
 }
