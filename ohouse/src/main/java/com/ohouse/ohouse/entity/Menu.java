@@ -1,6 +1,7 @@
 package com.ohouse.ohouse.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,6 +48,20 @@ public class Menu {
 
   @Column(name = "chit_name")
   private String chitName;
+
+  @Builder
+  public Menu(String menuNameEng, String descriptionEng, String menuNameKor, String descriptionKor,
+              BigDecimal menuPrice, Category category, boolean isAvailable, String imagePath, String chitName) {
+    this.menuNameEng = menuNameEng;
+    this.descriptionEng = descriptionEng;
+    this.menuNameKor = menuNameKor;
+    this.descriptionKor = descriptionKor;
+    this.menuPrice = menuPrice;
+    this.category = category;
+    this.isAvailable = isAvailable;
+    this.imagePath = imagePath;
+    this.chitName = chitName;
+  }
 
 
 }
