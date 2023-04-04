@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.entity;
 
+import com.ohouse.ohouse.enums.RoleType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,8 +32,9 @@ public class User {
   private boolean isVerified;
 
   @Column(name = "auth")
+  @Enumerated(EnumType.ORDINAL)
   @NotNull
-  private boolean auth;
+  private RoleType auth;
 
   @Column(name = "order_count")
   private int orderCount;
@@ -41,7 +43,7 @@ public class User {
   private boolean freeSide;
 
   @Builder
-  private User(String googleId, String phoneNumber, String email, boolean isVerified, boolean auth) {
+  private User(String googleId, String phoneNumber, String email, boolean isVerified, RoleType auth) {
     this.googleId = googleId;
     this.phoneNumber = phoneNumber;
     this.email = email;
@@ -49,6 +51,16 @@ public class User {
     this.auth = auth;
   }
 
+  /*Builder Example
+  User user = User.builder()
+          .googleId("exampleGoogleId")
+          .phoneNumber("01012345678")
+          .email("example@example.com")
+          .isVerified(true)
+          .auth(RoleType.USER)
+          .build();
+
+   */
 }
 
 
