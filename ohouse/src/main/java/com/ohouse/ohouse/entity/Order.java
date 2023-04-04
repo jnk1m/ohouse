@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.entity;
 
+import com.ohouse.ohouse.enums.OrderStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,8 +35,9 @@ public class Order {
   private BigDecimal orderPrice;
 
   @Column(name = "order_status")
+  @Enumerated(EnumType.STRING)
   @NotNull
-  private String orderStatus;
+  private OrderStatus orderStatus;
 
   @Column(name = "payment_method")
   @NotNull
@@ -54,7 +56,7 @@ public class Order {
   private String deliveryPhone;
 
   @Builder
-  public Order(OrderId orderId, User user, BigDecimal orderPrice, String orderStatus, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
+  public Order(OrderId orderId, User user, BigDecimal orderPrice, OrderStatus orderStatus, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
     this.orderId = orderId;
     this.user = user;
     this.orderPrice = orderPrice;
@@ -81,7 +83,7 @@ Order order = Order.builder()
         .orderId(new OrderId(null, "googleId123"))
         .user(userInstance)
         .orderPrice(new BigDecimal("100.00"))
-        .orderStatus("완료")
+        .orderStatus(OrderStatus.CREATED)
         .paymentMethod("credit")
         .specialInstruction("Leave it at the door")
         .deliveryAddress("123 Main St")
