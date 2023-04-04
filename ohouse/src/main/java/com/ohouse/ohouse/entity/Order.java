@@ -33,7 +33,11 @@ public class Order {
   @NotNull
   private BigDecimal orderPrice;
 
-  @Column(name = "order_state")
+  @Column(name = "order_status")
+  @NotNull
+  private String orderStatus;
+
+  @Column(name = "payment_method")
   @NotNull
   private String paymentMethod;
 
@@ -50,10 +54,11 @@ public class Order {
   private String deliveryPhone;
 
   @Builder
-  public Order(OrderId orderId, User user, BigDecimal orderPrice, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
+  public Order(OrderId orderId, User user, BigDecimal orderPrice, String orderStatus, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
     this.orderId = orderId;
     this.user = user;
     this.orderPrice = orderPrice;
+    this.orderStatus = orderStatus;
     this.paymentMethod = paymentMethod;
     this.specialInstruction = specialInstruction;
     this.deliveryAddress = deliveryAddress;
@@ -73,9 +78,10 @@ class OrderId implements Serializable {
 
 /*Builder Example:
 Order order = Order.builder()
-        .orderId(new OrderId(1L, "googleId123"))
+        .orderId(new OrderId(null, "googleId123"))
         .user(userInstance)
         .orderPrice(new BigDecimal("100.00"))
+        .orderStatus("완료")
         .paymentMethod("credit")
         .specialInstruction("Leave it at the door")
         .deliveryAddress("123 Main St")
