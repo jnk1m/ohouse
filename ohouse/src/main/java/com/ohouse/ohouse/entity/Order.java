@@ -1,10 +1,7 @@
 package com.ohouse.ohouse.entity;
 
 import com.ohouse.ohouse.enums.OrderStatus;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,10 +14,11 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
-  @EmbeddedId
-  private OrderId orderId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "order_id")
+  private Long orderId;
 
-  @MapsId("googleId")
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "google_id")
   @NotNull
@@ -56,8 +54,7 @@ public class Order {
   private String deliveryPhone;
 
   @Builder
-  public Order(OrderId orderId, User user, BigDecimal orderPrice, OrderStatus orderStatus, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
-    this.orderId = orderId;
+  public Order(User user, BigDecimal orderPrice, OrderStatus orderStatus, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
     this.user = user;
     this.orderPrice = orderPrice;
     this.orderStatus = orderStatus;
@@ -66,21 +63,13 @@ public class Order {
     this.deliveryAddress = deliveryAddress;
     this.deliveryPhone = deliveryPhone;
   }
+
+
 }
 
-@Embeddable
-class OrderId implements Serializable {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "order_id")
-  private Long orderId;
-
-  @Column(name = "google_id")
-  private String googleId;
-}
 
 /*Builder Example:
 Order order = Order.builder()
-        .orderId(new OrderId(null, "googleId123"))
         .user(userInstance)
         .orderPrice(new BigDecimal("100.00"))
         .orderStatus(OrderStatus.CREATED)

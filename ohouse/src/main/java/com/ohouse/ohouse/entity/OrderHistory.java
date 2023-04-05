@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,17 +15,17 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderHistory {
-  @EmbeddedId
-  private OrderHistoryId orderHistoryId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "order_history_id")
+  private Long orderHistoryId;
 
-  @MapsId("googleId")
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "google_id")
   @NotNull
   private User user;
 
-  @MapsId("orderId")
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "order_id")
   @NotNull
   private Order order;
@@ -41,28 +40,19 @@ public class OrderHistory {
   private LocalDateTime historyDate;
 
   @Builder
-  public OrderHistory(OrderHistoryId orderHistoryId, User user, Order order, OrderStatus orderStatus) {
-    this.orderHistoryId = orderHistoryId;
+  public OrderHistory(User user, Order order, OrderStatus orderStatus) {
     this.user = user;
     this.order = order;
     this.orderStatus = orderStatus;
   }
 }
 
-@Embeddable
-class OrderHistoryId implements Serializable {
-  @Column(name = "google_id")
-  private String googleId;
-
-  @Column(name = "order_id")
-  private Long orderId;
-}
 
 /*Builder Example
 OrderHistory.builder()
-        .orderHistoryId(new OrderHistoryId("googleId123", 1L))
         .user(userInstance)
         .order(orderInstance)
         .orderStatus(OrderStatus.CREATED)
         .build();
-        */
+
+*/
