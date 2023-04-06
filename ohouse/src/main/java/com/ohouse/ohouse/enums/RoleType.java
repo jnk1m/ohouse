@@ -1,7 +1,7 @@
 package com.ohouse.ohouse.enums;
 
 public enum RoleType {
-  USER, //Ordinal: 0
-  ADMIN; //Ordinal: 1
-
+  ROLE_GUEST,
+  ROLE_USER,
+  ROLE_ADMIN
 }
