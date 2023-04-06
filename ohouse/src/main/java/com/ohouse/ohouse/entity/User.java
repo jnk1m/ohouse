@@ -31,10 +31,10 @@ public class User {
   @NotNull
   private boolean isVerified;
 
-  @Column(name = "auth")
-  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "user_role")
+  @Enumerated(EnumType.STRING)
   @NotNull
-  private RoleType auth;
+  private RoleType userRole;
 
   @Column(name = "order_count")
   private int orderCount;
@@ -43,12 +43,12 @@ public class User {
   private boolean freeSide;
 
   @Builder
-  private User(String googleId, String phoneNumber, String email, boolean isVerified, RoleType auth) {
+  private User(String googleId, String phoneNumber, String email, boolean isVerified, RoleType userRole) {
     this.googleId = googleId;
     this.phoneNumber = phoneNumber;
     this.email = email;
     this.isVerified = isVerified;
-    this.auth = auth;
+    this.userRole = userRole;
   }
 
   /*Builder Example
@@ -57,7 +57,7 @@ public class User {
           .phoneNumber("01012345678")
           .email("example@example.com")
           .isVerified(true)
-          .auth(RoleType.USER)
+          .userRole(RoleType.ROLE_USER)
           .build();
 
    */
