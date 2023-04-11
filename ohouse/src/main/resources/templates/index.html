@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ohouse</title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+</head>
+<body>
+<h1>Welcome to Ohouse!</h1>
+    <div class="container">
+        <div class="categories">
+            <div th:each="category : ${categories}" class="category" th:data-category="${category.categoryName}">
+                <span th:text="${category.categoryName}"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".category").click(function () {
+                var category = $(this).data("category");
+                $(".menu-item").hide();
+                $(".menu-item." + category).show();
+            });
+        });
+    </script>
+</body>
+</html>
