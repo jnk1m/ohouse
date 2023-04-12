@@ -16,4 +16,9 @@ public class CategoryServiceImpl implements CategoryService {
   public List<Category> getMenuCategories() {
     return categoryRepository.getMenuCategories();
   }
+
+  @Override
+  public Category findCategory(Long categoryId) {
+    return categoryRepository.findById(categoryId).orElseThrow(()-> new RuntimeException("Category not found."));
+  }
 }
