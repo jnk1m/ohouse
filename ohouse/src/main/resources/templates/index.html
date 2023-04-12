@@ -7,24 +7,66 @@
 </head>
 <body>
 <h1>Welcome to Ohouse!</h1>
-    <div class="container">
-        <div class="categories">
-            <div th:each="category : ${categories}" class="category" th:data-category="${category.categoryName}">
-                <span th:text="${category.categoryName}"></span>
-            </div>
+
+<div class="container">
+    <div class="categories" style="display: flex; flex-direction: row;">
+        <div th:each="category : ${categories}" class="category" style="flex-grow: 1;">
+            <span th:text="${category.categoryName}" th:data-categoryid="${category.categoryId}" class="categoryId" style="cursor: pointer;"></span>
         </div>
     </div>
+    <div class="menu-items" style="display: flex; flex-wrap: wrap;">
+<!--        <div class="menu-item">-->
+<!--            <div class="menu-name">ㅁ</div>-->
+<!--            <div class="menu-price">ㅁ</div>-->
+<!--            <button class="add-button">Add</button>-->
+<!--        </div>-->
+</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".categoryId").click(function () {
+            var categoryId = Number($(this).data("categoryid"));
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".category").click(function () {
-                var category = $(this).data("category");
-                $(".menu-item").hide();
-                $(".menu-item." + category).show();
+            $.ajax({
+                type: "POST",
+                url: "/menus",
+                headers: {
+                    "X-CSRF-TOKEN": $("input[name='_csrf']").val()
+                },
+                data: {
+                    categoryId: categoryId
+                },
+                success: function (menus) {
+                    var menuItems = $(".menu-items");
+                    menuItems.empty();
+
+                    for (var i = 0; i < menus.length; i++) {
+                        var menu = menus[i];
+                        var menuItem = $("<div>").addClass("menu-id" + menu.menuId);
+                        var menuName = $("<div>").addClass("menu-name").text(menu.menuNameKor);
+                        var menuDescription = $("<div>").addClass("menu-description").text(menu.descriptionKor);
+                        var menuPrice = $("<div>").addClass("menu-price").text(menu.menuPrice);
+
+                        menuItem.append(menuName);
+                        menuItem.append(menuPrice);
+                        menuItem.append(menuDescription);
+
+                        menuItem.click(function () {
+                            showMenuDetail(menu.menuId);
+                        });
+
+                        menuItems.append(menuItem);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
             });
         });
-    </script>
+    });
+
+</script>
+
 </body>
 </html>
