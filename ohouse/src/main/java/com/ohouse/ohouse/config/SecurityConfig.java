@@ -14,15 +14,17 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
             .authorizeHttpRequests((authz) -> authz
-                    .antMatchers("/").permitAll()
-                    .anyRequest().authenticated()
+                    .antMatchers("/**").permitAll()
+                    .anyRequest().permitAll()
             )
             .formLogin()
             .and()
             .httpBasic()
             .and()
+            .csrf().disable()
             .anonymous()
             .authorities("ROLE_ANONYMOUS");
+
     return http.build();
 
   }
