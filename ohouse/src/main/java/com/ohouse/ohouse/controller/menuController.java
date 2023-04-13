@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -27,20 +26,18 @@ public class MenuController {
 
   @PostMapping()
   @ResponseBody
-  public List<MenuDTO> getMenuList(@RequestParam Long categoryId){
+  public List<MenuDTO> getMenuList(@RequestParam Long categoryId) {
 
     Category category = categoryService.findCategory(categoryId);
 
     List<Menu> menuList = menuService.getMenusInCategory(category);
     List<MenuDTO> menuDTOList = new ArrayList<>();
 
-    for (Menu menu: menuList) {
-      MenuDTO menuDTO = new MenuDTO(menu.getMenuId(), menu.getMenuNameEng(), menu.getDescriptionEng(), menu.getMenuNameKor(), menu.getDescriptionKor(), menu.getMenuPrice(), menu.getImagePath());
-      System.out.println(menuDTO.getMenuNameEng());
+    for (Menu menu : menuList) {
+      MenuDTO menuDTO = new MenuDTO(menu.getMenuId(), menu.getMenuNameEng(), menu.getDescriptionEng(),
+              menu.getMenuNameKor(), menu.getDescriptionKor(), menu.getMenuPrice(), menu.getImagePath());
       menuDTOList.add(menuDTO);
     }
-
-
 
     return menuDTOList;
   }
