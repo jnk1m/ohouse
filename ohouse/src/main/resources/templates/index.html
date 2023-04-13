@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ohouse</title>
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 <body>
 <h1>Welcome to Ohouse!</h1>
@@ -11,15 +11,13 @@
 <div class="container">
     <div class="categories" style="display: flex; flex-direction: row;">
         <div th:each="category : ${categories}" class="category" style="flex-grow: 1;">
-            <span th:text="${category.categoryName}" th:data-categoryid="${category.categoryId}" class="categoryId" style="cursor: pointer;"></span>
+            <span th:text="${category.categoryName}" th:data-categoryid="${category.categoryId}" class="categoryId"
+                  style="cursor: pointer;"></span>
         </div>
     </div>
-    <div class="menu-items" style="display: flex; flex-wrap: wrap;">
-<!--        <div class="menu-item">-->
-<!--            <div class="menu-name">ㅁ</div>-->
-<!--            <div class="menu-price">ㅁ</div>-->
-<!--            <button class="add-button">Add</button>-->
-<!--        </div>-->
+    <div class="menu-items" style="display: flex; flex-wrap: wrap; border: solid;"></div>
+    <img src="../images/steaksalad.png" alt="image"/> <!--testing in progress-->
+    <img src="../images/sweet-morning.png" alt="image"/>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,21 +41,29 @@
 
                     for (var i = 0; i < menus.length; i++) {
                         var menu = menus[i];
-                        var menuItem = $("<div>").addClass("menu-id" + menu.menuId);
-                        var menuName = $("<div>").addClass("menu-name").text(menu.menuNameKor);
-                        var menuDescription = $("<div>").addClass("menu-description").text(menu.descriptionKor);
+                        var menuItem = $("<div>").addClass("menu-item");
+
+                        // var menuImage = $("<img>").attr("src", menu.imagePath).addClass("menu-image");
+                        // var menuImage = $("<img>").attr("src", "../images/steak-salad.png").addClass("menu-image");
+                        var menuImage = $("<img>").attr("src", "../images/steak-salad.png").addClass("menu-image");
+
+                        var menuName = $("<div>").addClass("menu-name").text(menu.menuNameEng);
+                        var menuDescription = $("<div>").addClass("menu-description").text(menu.descriptionEng);
                         var menuPrice = $("<div>").addClass("menu-price").text(menu.menuPrice);
+                        var addButton = $("<button>").addClass("add-button").text("Add");
 
+                        menuItem.append(menuImage);
                         menuItem.append(menuName);
-                        menuItem.append(menuPrice);
                         menuItem.append(menuDescription);
+                        menuItem.append(menuPrice);
+                        menuItem.append(addButton);
 
-                        menuItem.click(function () {
-                            showMenuDetail(menu.menuId);
-                        });
+                        var menuContainer = $("<div>").addClass("menu-container");
+                        menuContainer.append(menuItem);
 
-                        menuItems.append(menuItem);
+                        $(".menu-items").append(menuContainer);
                     }
+
                 },
                 error: function (xhr, status, error) {
                     console.error(error);
@@ -65,8 +71,9 @@
             });
         });
     });
-
 </script>
 
 </body>
 </html>
+
+
