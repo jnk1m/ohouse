@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ohouse</title>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
 </head>
 <body>
 <h1>Welcome to Ohouse!</h1>
@@ -16,8 +16,7 @@
         </div>
     </div>
     <div class="menu-items" style="display: flex; flex-wrap: wrap; border: solid;"></div>
-    <img src="../images/steaksalad.png" alt="image"/> <!--testing in progress-->
-    <img src="../images/sweet-morning.png" alt="image"/>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,9 +42,7 @@
                         var menu = menus[i];
                         var menuItem = $("<div>").addClass("menu-item");
 
-                        // var menuImage = $("<img>").attr("src", menu.imagePath).addClass("menu-image");
-                        // var menuImage = $("<img>").attr("src", "../images/steak-salad.png").addClass("menu-image");
-                        var menuImage = $("<img>").attr("src", "../images/steak-salad.png").addClass("menu-image");
+                        var menuImage = $("<img>").attr("src", menu.imagePath).attr("alt", menu.menuNameEng).addClass("menu-image");
 
                         var menuName = $("<div>").addClass("menu-name").text(menu.menuNameEng);
                         var menuDescription = $("<div>").addClass("menu-description").text(menu.descriptionEng);
