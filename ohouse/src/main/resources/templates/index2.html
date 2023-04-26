@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ohouse</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+<h1>Welcome to Ohouse!</h1>
+
+<!--<div id="g_id_onload"-->
+<!--     data-client_id="1050921234215-9hfaqqbh4n6nlljbtg17mgb3ur1jj2a4.apps.googleusercontent.com"-->
+<!--     data-context="signin"-->
+<!--     data-login_uri="www.localhost:8080"-->
+<!--     data-itp_support="true">-->
+<!--    <span>로그인</span>-->
+<!--</div>-->
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<div id="g_id_onload"
+     data-client_id="1050921234215-9hfaqqbh4n6nlljbtg17mgb3ur1jj2a4.apps.googleusercontent.com"
+     data-login_uri="http://localhost:8080/login/oauth2/code/google"
+     data-auto_prompt="true">
+</div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-size="large"
+     data-theme="outline"
+     data-text="sign_in_with"
+     data-shape="rectangular"
+     data-logo_alignment="left">
+</div>
+
+<div class="container">
+    <div class="categories">
+        <div th:each="category : ${categories}" class="category">
+            <span th:text="${category.categoryName}" th:data-categoryid="${category.categoryId}" class="categoryId"
+                  style="cursor: pointer;"></span>
+        </div>
+    </div>
+    <div class="menu-items"></div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".categoryId").click(function () {
+            var categoryId = Number($(this).data("categoryid"));
+
+            $.ajax({
+                type: "POST",
+                url: "/menus",
+                headers: {
+                    "X-CSRF-TOKEN": $("input[name='_csrf']").val()
+                },
+                data: {
+                    categoryId: categoryId
+                },
+                success: function (menus) {
+                    var menuItems = $(".menu-items");
+                    menuItems.empty();
+
+                    for (var i = 0; i < menus.length; i++) {
+                        var menu = menus[i];
+                        var menuItem = $("<div>").addClass("menu-item");
+
+                        if (menu.imagePath != null) {
+                            var menuImage = $("<img>").attr("src", menu.imagePath).attr("alt", menu.menuNameEng).addClass("menu-image");
+                        } else {
+                            var menuImage = "";
+                        }
+                        var menuName = $("<div>").addClass("menu-name").html("<b>" + menu.menuNameEng + "</b>");
+                        var menuDescription = $("<div>").addClass("menu-description").text(menu.descriptionEng);
+                        var menuPrice = $("<div>").addClass("menu-price").text("$" + menu.menuPrice);
+                        var addButton = $("<button>").addClass("add-button").text("Add");
+
+                        menuItem.append(menuImage);
+                        menuItem.append(menuName);
+                        menuItem.append(menuDescription);
+                        menuItem.append(menuPrice);
+                        menuItem.append(addButton);
+
+
+                        var menuContainer = $("<div>").addClass("menu-container");
+                        menuContainer.append(menuItem);
+
+                        $(".menu-items").append(menuContainer);
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
