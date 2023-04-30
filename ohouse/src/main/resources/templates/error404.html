@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>O House | 404 </title>
     <!-- SEO Meta Tags-->
     <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
-    <meta name="keywords" content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
+    <meta name="keywords"
+          content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
     <meta name="author" content="Createx Studio">
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,56 +20,29 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
-  </head>
-  <!-- Body-->
-  <body class="handheld-toolbar-enabled">
-    <main class="page-wrapper">
-      <!-- Header -->
-      <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light" th:include="header :: header"></header>
-      <div class="container py-5 mb-lg-3">
+</head>
+<!-- Body-->
+<body class="handheld-toolbar-enabled">
+<main class="page-wrapper">
+    <!-- Header -->
+    <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
+            th:include="header :: header"></header>
+    <div class="container py-5 mb-lg-3">
         <div class="row justify-content-center pt-lg-4 text-center">
-          <div class="col-lg-5 col-md-7 col-sm-9">
-            <h1 class="display-404 py-lg-3">404</h1>
-            <h2 class="h3 mb-4">We can't seem to find the page you are looking for.</h2>
-            <p class="fs-md mb-4">
-              <u>Here are some helpful links instead:</u>
-            </p>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-xl-8 col-lg-10">
-            <div class="row">
-              <div class="col-sm-4 mb-3"><a class="card h-100 border-0 shadow-sm" href="/">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center"><i class="ci-home text-primary h4 mb-0"></i>
-                      <div class="ps-3">
-                        <h5 class="fs-sm mb-0">Homepage</h5><span class="text-muted fs-ms">Return to homepage</span>
-                      </div>
-                    </div>
-                  </div></a></div>
-              <div class="col-sm-4 mb-3"><a class="card h-100 border-0 shadow-sm" href="#">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center"><i class="ci-search text-success h4 mb-0"></i>
-                      <div class="ps-3">
-                        <h5 class="fs-sm mb-0">Search</h5><span class="text-muted fs-ms">Find with advanced search</span>
-                      </div>
-                    </div>
-                  </div></a></div>
-              <div class="col-sm-4 mb-3"><a class="card h-100 border-0 shadow-sm" href="help-topics.html">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center"><i class="ci-help text-info h4 mb-0"></i>
-                      <div class="ps-3">
-                        <h5 class="fs-sm mb-0">Help &amp; Support</h5><span class="text-muted fs-ms">Visit our help center</span>
-                      </div>
-                    </div>
-                  </div></a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+            <div class="col-lg-5 col-md-7 col-sm-9">
+                <h1 class="display-404 py-lg-3">404</h1>
+                <h2 class="h3 mb-4">We can't seem to find the page you are looking for.</h2>
 
-    <!-- Footer-->
-    <footer class="footer bg-darker pt-5" th:include="footer :: footer"></footer>
-  </body>
+                <div class="d-lg-flex d-none flex-sm-row flex-column justify-content-center">
+                    <a class="btn btn-lg btn-accent me-sm-3 mb-sm-3 mb-2" href="/">Return to homepage</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer-->
+<footer class="footer bg-darker pt-5" th:include="footer :: footer"></footer>
+</body>
 </html>
