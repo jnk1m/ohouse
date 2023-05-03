@@ -24,20 +24,6 @@
     <main class="page-wrapper">
     <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light" th:include="header :: header"></header>
 
-      <!-- Page title-->
-<!--      <section class="bg-darker bg-size-cover bg-position-center py-5">-->
-<!--        <div class="container py-md-4">-->
-<!--          <nav aria-label="breadcrumb">-->
-<!--            <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">-->
-<!--              <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i class="fa-solid fa-house" style="color: #ffffff;"></i> Home > <span th:text="${category.categoryName}"/></a></li>-->
-<!--            </ol>-->
-<!--          </nav>-->
-<!--          <h1 class="text-light text-center text-lg-start py-3"><span style="text-decoration: underline;" th:text="${category.categoryName}"></span></h1>-->
-<!--            <a class="btn btn-primary " data-scroll style="white-space: normal;">-->
-<!--                Contact us at <i class="fa-solid fa-phone"></i> <b>784-4926</b> for orders-->
-<!--            </a>-->
-<!--        </div>-->
-<!--      </section>-->
         <section class="bg-darker bg-size-cover bg-position-center py-5">
             <div class="container py-md-4 d-flex flex-column align-items-center">
                 <nav aria-label="breadcrumb">
@@ -52,13 +38,11 @@
             </div>
         </section>
 
-
-
         <!-- Menu (Products grid)-->
       <section class="container tab-content py-4 py-sm-5" id="menus">
         <div class="row row-cols-auto pt-3 pt-sm-0 ">
           <div class="col-lg-3 col-md-4 col-sm-6 mb-grid-gutter" th:each="menu : ${menus}">
-            <div class="card product-card border pb-2">
+            <div class="card product-card border pb-2" >
                 <a class="d-block" href="#quick-view" data-bs-toggle="modal">
                     <img class="card-img-top"
                          th:if="${menu.imagePath eq null}"
@@ -67,17 +51,15 @@
                     />
                     <img class="card-img-top"
                          th:unless="${menu.imagePath eq null}"
-                         src="/images/main/burger.jpeg"
+                         th:src="@{${menu.imagePath}}"
                          th:alt="${menu.menuNameEng}"
                     />
-                    <!--메뉴 사진 받으면 위 src 부분 삭제하고 아래 주석 되살리기-->
-                    <!--                         th:src="@{${menu.imagePath}}"-->
                 </a>
 
 
                 <div class="card-body pt-1 pb-2">
-                <h3 class="product-title fs-md pt-2" th:text="${menu.menuNameEng}"></h3>
-                <p class="fs-ms text-muted" style="max-height: 70px; overflow: auto" th:text="${menu.descriptionEng}"></p>
+                <h3 class="product-title fs-md pt-2" style="height: 2rem" th:text="${menu.menuNameEng}"></h3>
+                <p class="fs-ms text-muted" style="height: 80px; overflow: auto" th:text="${menu.descriptionEng}"></p>
                 <div class="d-flex align-items-center justify-content-lg-end">
                   <div class="product-price"><span class="text-accent" th:text=" '$' + ${menu.menuPrice}"></span></div>
                   <button class="btn btn-primary btn-sm ms-3" type="button"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
