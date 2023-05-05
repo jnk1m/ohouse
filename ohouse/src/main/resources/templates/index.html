@@ -22,6 +22,25 @@
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
+    <style>
+      /* desktop*/
+      .desktop-number {
+        display: inline;
+      }
+      .mobile-number {
+        display: none;
+      }
+
+      /* mobile */
+      @media (max-width: 767px) {
+        .desktop-number {
+          display: none;
+        }
+        .mobile-number {
+          display: inline;
+        }
+      }
+    </style>
   </head>
   <!-- Body-->
   <body class="handheld-toolbar-enabled">
@@ -38,7 +57,10 @@
                 <div class="h2 text-light mb-3 pb-4" style="background-color: rgba(0, 0, 0, 0.5)"><h3 class="text-light">Welcome to O House</h3>
                   Find comfort in our flavors <br>Satisfy your cravings here!</div>
               <a class="btn btn-primary btn-lg" href="#cuisine" data-scroll style="white-space: normal;">
-                Contact us at <i class="fa-solid fa-phone"></i> <b>784-4926</b> for orders
+                Contact us at <i class="fa-solid fa-phone"></i>
+                <span class="desktop-number fw-bold">784-4926</span>
+                <span class="mobile-number fw-bold">0505-784-4926</span>
+                for orders
               </a>
             </div>
           </div>
@@ -51,27 +73,27 @@
         <h2 class="text-center pt-4 pt-sm-3">Check out our menu!</h2>
         <p class="text-muted text-center mb-5">Get ready for delicious food prepared just for you</p>
         <div class="row">
-          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/1"><img class="card-img-top" src="/images/main/breakfast.jpeg" alt="Breakfast">
+          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/1"><img class="card-img-top" src="/images/menu/eggs-your-way.jpeg" alt="Breakfast">
               <div class="card-body py-4 text-center">
                 <h3 class="h5 mt-1">Breakfast</h3>
               </div></a></div>
-          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/2"><img class="card-img-top" src="/images/main/appetizer.jpg" alt="Appetizer">
+          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/2"><img class="card-img-top" src="/images/menu/fish-taco.jpeg" alt="Appetizer">
               <div class="card-body py-4 text-center">
                 <h3 class="h5 mt-1">Appetizer</h3>
               </div></a></div>
-          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/3"><img class="card-img-top" src="/images/main/pasta.jpg" alt="Pasta">
+          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/3"><img class="card-img-top" src="/images/menu/seafood-spaghetti.jpeg" alt="Pasta">
               <div class="card-body py-4 text-center">
                 <h3 class="h5 mt-1">Pasta</h3>
               </div></a></div>
-          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/4"><img class="card-img-top" src="/images/main/burger.jpeg" alt="Sandwich &amp; Burger">
+          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/4"><img class="card-img-top" src="/images/menu/signature-cheese-burger.jpeg" alt="Sandwich &amp; Burger">
               <div class="card-body py-4 text-center">
                 <h3 class="h5 mt-1">Sandwich &amp; Burger </h3>
               </div></a></div>
-          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/5"><img class="card-img-top" src="/images/main/grill.jpg" alt="Grill">
+          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/5"><img class="card-img-top" src="/images/menu/t-bone-steak.jpeg" alt="Grill">
               <div class="card-body py-4 text-center">
                 <h3 class="h5 mt-1">Grill</h3>
               </div></a></div>
-          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/6"><img class="card-img-top" src="/images/main/koreanfood.jpg" alt="Korean Food">
+          <div class="col-md-4 col-sm-6 mb-grid-gutter"><a class="card border-0 shadow" href="menus/6"><img class="card-img-top" src="/images/menu/bolgogi-bibimbap.png" alt="Korean Food">
               <div class="card-body py-4 text-center">
                 <h3 class="h5 mt-1">Korean Food</h3>
               </div></a></div>
