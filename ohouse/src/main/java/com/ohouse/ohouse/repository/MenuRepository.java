@@ -23,6 +23,6 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
           "JOIN mo.category c " +
           "JOIN mo.options o " +
           "WHERE mo.menu = :menu")
-  List<MenuOptionDTO> findByMenuId(@Param("menu") Menu menu);
+  List<MenuOptionDTO> findOptionByMenuId(@Param("menu") Menu menu);
 
 }
