@@ -1,8 +1,8 @@
 package com.ohouse.ohouse.controller;
 
 import com.ohouse.ohouse.domain.MenuDTO;
+import com.ohouse.ohouse.domain.MenuOptionDTO;
 import com.ohouse.ohouse.entity.Category;
-import com.ohouse.ohouse.entity.Menu;
 import com.ohouse.ohouse.service.CategoryService;
 import com.ohouse.ohouse.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @Slf4j
@@ -37,18 +38,25 @@ public class MenuController {
       throw new InvalidCategoryIdException("Invalid Category");
     }
 
-    List<Menu> menuList = menuService.getMenusInCategory(category);
-    List<MenuDTO> menuDTOList = new ArrayList<>();
-
-    for (Menu menu : menuList) {
-      MenuDTO menuDTO = new MenuDTO(menu.getMenuId(), menu.getMenuNameEng(), menu.getDescriptionEng(),
-              menu.getMenuNameKor(), menu.getDescriptionKor(), menu.getMenuPrice(), menu.getImagePath());
-      menuDTOList.add(menuDTO);
-    }
+    List<MenuDTO> menuDTOList = menuService.getMenusInCategory(category);
 
     model.addAttribute("category", category);
     model.addAttribute("menus", menuDTOList);
     return "menu-list";
+  }
+
+  @GetMapping("/detail/{menuId}")
+  public String getMenu(@PathVariable Long menuId, Model model) {
+    MenuDTO menuDTO = menuService.getMenuDTO(menuId);
+
+    Map<String, List<MenuOptionDTO>> menuOptions = menuService.getMenuOptions(menuService.getMenu(menuId));
+
+    Set<Map.Entry<String, List<MenuOptionDTO>>> menuOptionSet = menuOptions.entrySet();
+
+    model.addAttribute("menu", menuDTO);
+    model.addAttribute("menuOptions", menuOptionSet);
+
+    return "menu-detail";
   }
 }
 
