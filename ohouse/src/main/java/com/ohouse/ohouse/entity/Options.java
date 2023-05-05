@@ -20,14 +20,14 @@ public class Options {
 
   @Column(name = "option_name")
   @NotNull
-  private String name;
+  private String optionName;
 
   @Column(name = "option_price")
   @NotNull
   private BigDecimal optionPrice;
 
-  public Options(String name, BigDecimal optionPrice) {
-    this.name = name;
+  public Options(String optionName, BigDecimal optionPrice) {
+    this.optionName = optionName;
     this.optionPrice = optionPrice;
   }
 }
