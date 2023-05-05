@@ -5,6 +5,7 @@
     <title>Header</title>
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <header class="navbar d-block navbar-expand-lg navbar-light bg-light">
@@ -22,22 +23,11 @@
                     </ul>
                 </li>
             </ul>
+
             <!-- Primary menu-->
             <ul class="navbar-nav">
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Cuisine</a>
                     <div class="dropdown-menu px-2 ps-0 pb-4">
-<!--                        <div class="d-flex">-->
-<!--                            <div th:each="category, i : ${categories.subList(0, 3)}" class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">-->
-<!--                                <div class="widget mb-3"><a class="d-block" th:href="@{/menus/{categoryId}(categoryId=${category.categoryId})}"><img class="d-block mx-auto mb-3" th:src="@{/images/icon/__${category.categoryName}__.png}" width="60" th:alt="${category.categoryName}">-->
-<!--                                    <h6 class="fs-base text-center"><span th:text="${category.categoryName}"></span></h6></a></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="d-flex">-->
-<!--                            <div th:each="category, i : ${categories.subList(3, 6)}" class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">-->
-<!--                                <div class="widget mb-3"><a class="d-block" th:href="@{/menus/{categoryId}(categoryId=${category.categoryId})}"><img class="d-block mx-auto mb-3" th:src="@{/images/icon/__${category.categoryName}__.png}" width="60" th:alt="${category.categoryName}">-->
-<!--                                    <h6 class="fs-base text-center"><span th:text="${category.categoryName}"></span></h6></a></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                         <div class="d-flex">
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
                                 <div class="widget mb-3"><a class="d-block" href="/menus/1"><img class="d-block mx-auto mb-3" src="/images/icon/Breakfast.png" width="60" alt="Side Orders">
@@ -47,17 +37,20 @@
                                 <div class="widget mb-3"><a class="d-block" href="/menus/2"><img class="d-block mx-auto mb-3" src="/images/icon/Appetizer.png" width="60" alt="Drink &amp; Coffee &amp; Beer">
                                     <h6 class="fs-base text-center">Appetizer</h6></a></div>
                             </div>
-                            <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/3"><img class="d-block mx-auto mb-3" src="/images/icon/Pasta.png" width="60" alt="Drink &amp; Coffee &amp; Beer">
-                                    <h6 class="fs-base text-center">Pasta</h6></a></div>
-                            </div>
                         </div>
 
                         <div class="d-flex">
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
+                                <div class="widget mb-3"><a class="d-block" href="/menus/3"><img class="d-block mx-auto mb-3" src="/images/icon/Pasta.png" width="60" alt="Drink &amp; Coffee &amp; Beer">
+                                    <h6 class="fs-base text-center">Pasta</h6></a></div>
+                            </div>
+                            <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
                                 <div class="widget mb-3"><a class="d-block" href="/menus/4"><img class="d-block mx-auto mb-3" src="/images/icon/Sandwich.png" width="60" alt="Side Orders">
                                     <h6 class="fs-base text-center">Sandwich</h6></a></div>
                             </div>
+                        </div>
+
+                        <div class="d-flex">
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
                                 <div class="widget mb-3"><a class="d-block" href="/menus/5"><img class="d-block mx-auto mb-3" src="/images/icon/Grill.png" width="60" alt="Drink &amp; Coffee &amp; Beer">
                                     <h6 class="fs-base text-center">Grill</h6></a></div>
@@ -73,7 +66,6 @@
                                 <div class="widget mb-3"><a class="d-block" href="/menus/7"><img class="d-block mx-auto mb-3" src="/images/icon/SideOrders.png" width="60" alt="Side Orders">
                                     <h6 class="fs-base text-center">Side Orders </h6></a></div>
                             </div>
-
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
                                 <div class="widget mb-3"><a class="d-block" href="/menus/9"><img class="d-block mx-auto mb-3" src="/images/icon/Drink.png" width="60" alt="Drink &amp; Coffee &amp; Beer">
                                     <h6 class="fs-base text-center">Drink &amp; Coffee &amp; Beer </h6></a></div>
