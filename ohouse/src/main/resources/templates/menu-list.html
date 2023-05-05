@@ -17,6 +17,25 @@
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
 
+      <style>
+          /* desktop*/
+          .desktop-number {
+              display: inline;
+          }
+          .mobile-number {
+              display: none;
+          }
+
+          /* mobile */
+          @media (max-width: 767px) {
+              .desktop-number {
+                  display: none;
+              }
+              .mobile-number {
+                  display: inline;
+              }
+          }
+      </style>
   </head>
   <!-- Body-->
   <body class="handheld-toolbar-enabled">
@@ -32,8 +51,11 @@
                     </ol>
                 </nav>
                 <h1 class="text-light text-center text-lg-start py-3"><span style="text-decoration: underline;" th:text="${category.categoryName}"></span></h1>
-                <a class="btn btn-primary" href="#menus" data-scroll style="white-space: normal;">
-                    Contact us at <i class="fa-solid fa-phone"></i> <b>784-4926</b> for orders
+                <a class="btn btn-primary btn-lg" href="#menus" data-scroll style="white-space: normal;">
+                    Contact us at <i class="fa-solid fa-phone"></i>
+                    <span class="desktop-number fw-bold">784-4926</span>
+                    <span class="mobile-number fw-bold">0505-784-4926</span>
+                    for orders
                 </a>
             </div>
         </section>
@@ -43,7 +65,7 @@
         <div class="row row-cols-auto pt-3 pt-sm-0 ">
           <div class="col-lg-3 col-md-4 col-sm-6 mb-grid-gutter" th:each="menu : ${menus}">
             <div class="card product-card border pb-2" >
-                <a class="d-block" href="#quick-view" data-bs-toggle="modal">
+                <a class="d-block" th:href="@{/menus/detail/{menuId}(menuId=${menu.menuId})}">
                     <img class="card-img-top"
                          th:if="${menu.imagePath eq null}"
                          src="/images/menu/default-img.jpg"
@@ -55,14 +77,13 @@
                          th:alt="${menu.menuNameEng}"
                     />
                 </a>
-
-
                 <div class="card-body pt-1 pb-2">
                 <h3 class="product-title fs-md pt-2" style="height: 2rem" th:text="${menu.menuNameEng}"></h3>
-                <p class="fs-ms text-muted" style="height: 80px; overflow: auto" th:text="${menu.descriptionEng}"></p>
                 <div class="d-flex align-items-center justify-content-lg-end">
                   <div class="product-price"><span class="text-accent" th:text=" '$' + ${menu.menuPrice}"></span></div>
-                  <button class="btn btn-primary btn-sm ms-3" type="button"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <a class="btn btn-primary btn-sm ms-3" type="button" th:href="@{/menus/detail/{menuId}(menuId=${menu.menuId})}">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </a>
                 </div>
               </div>
             </div>
