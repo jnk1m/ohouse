@@ -17,25 +17,6 @@
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
 
-      <style>
-          /* desktop*/
-          .desktop-number {
-              display: inline;
-          }
-          .mobile-number {
-              display: none;
-          }
-
-          /* mobile */
-          @media (max-width: 767px) {
-              .desktop-number {
-                  display: none;
-              }
-              .mobile-number {
-                  display: inline;
-              }
-          }
-      </style>
   </head>
   <!-- Body-->
   <body class="handheld-toolbar-enabled">
@@ -52,10 +33,7 @@
                 </nav>
                 <h1 class="text-light text-center text-lg-start py-3"><span style="text-decoration: underline;" th:text="${category.categoryName}"></span></h1>
                 <a class="btn btn-primary btn-lg" href="#menus" data-scroll style="white-space: normal;">
-                    Contact us at <i class="fa-solid fa-phone"></i>
-                    <span class="desktop-number fw-bold">784-4926</span>
-                    <span class="mobile-number fw-bold">0505-784-4926</span>
-                    for orders
+                    Contact us at [DSN] 784-4926, <i class="fa-solid fa-phone"></i> 0505-784-4926 for orders
                 </a>
             </div>
         </section>

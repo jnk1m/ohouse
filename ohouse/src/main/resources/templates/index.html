@@ -22,25 +22,6 @@
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-    <style>
-      /* desktop*/
-      .desktop-number {
-        display: inline;
-      }
-      .mobile-number {
-        display: none;
-      }
-
-      /* mobile */
-      @media (max-width: 767px) {
-        .desktop-number {
-          display: none;
-        }
-        .mobile-number {
-          display: inline;
-        }
-      }
-    </style>
   </head>
   <!-- Body-->
   <body class="handheld-toolbar-enabled">
@@ -50,17 +31,14 @@
       <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light" th:include="header :: header"></header>
 
       <!-- Hero section-->
-      <section class="bg-darker bg-size-cover bg-position-center py-5 py-lg-10" style="background-image: url(/images/main/inside.jpeg);">
+      <section class="bg-darker bg-size-cover bg-position-center py-5 py-lg-10" style="background-image: url(/images/main/main2.jpeg);">
         <div class="container">
           <div class="row justify-content-center align-items-center">
             <div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 text-center">
                 <div class="h2 text-light mb-3 pb-4" style="background-color: rgba(0, 0, 0, 0.5)"><h3 class="text-light">Welcome to O House</h3>
                   Find comfort in our flavors <br>Satisfy your cravings here!</div>
               <a class="btn btn-primary btn-lg" href="#cuisine" data-scroll style="white-space: normal;">
-                Contact us at <i class="fa-solid fa-phone"></i>
-                <span class="desktop-number fw-bold">784-4926</span>
-                <span class="mobile-number fw-bold">0505-784-4926</span>
-                for orders
+                Contact us at [DSN] 784-4926, <i class="fa-solid fa-phone"></i> 0505-784-4926 for orders
               </a>
             </div>
           </div>
