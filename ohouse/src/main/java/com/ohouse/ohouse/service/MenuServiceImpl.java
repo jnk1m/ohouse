@@ -1,10 +1,10 @@
-package com.ohouseab.service;
+package com.ohouse.ohouse.service;
 
-import com.ohouseab.domain.MenuDTO;
-import com.ohouseab.domain.MenuOptionDTO;
-import com.ohouseab.entity.Category;
-import com.ohouseab.entity.Menu;
-import com.ohouseab.repository.MenuRepository;
+import com.ohouse.ohouse.domain.MenuDTO;
+import com.ohouse.ohouse.domain.MenuOptionDTO;
+import com.ohouse.ohouse.entity.Category;
+import com.ohouse.ohouse.entity.Menu;
+import com.ohouse.ohouse.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.ohouseab.service;
+package com.ohouse.ohouse.service;
 
-import com.ohouseab.entity.Category;
+import com.ohouse.ohouse.entity.Category;
 
 import java.util.List;
 
