@@ -12,19 +12,19 @@ cache:
 
 script: "mvn test -B"
 
-before_deploy:
-  - zip -r webservice-ohouse *
-  - mkdir -p deploy
-  - mv webservice-ohouse.zip deploy/webservice-ohouse.zip
+# before_deploy:
+#   - zip -r webservice-ohouse *
+#   - mkdir -p deploy
+#   - mv webservice-ohouse.zip deploy/webservice-ohouse.zip
 
-deploy:
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
-    bucket: ohouse-springboot-build
-    region: ap-northeast-2
-    acl: private
-    local_dir: deploy
+# deploy:
+#   - provider: s3
+#     access_key_id: $AWS_ACCESS_KEY
+#     secret_access_key: $AWS_SECRET_KEY
+#     bucket: ohouse-springboot-build
+#     region: ap-northeast-2
+#     acl: private
+#     local_dir: deploy
 
 notifications:
   email:
