@@ -1,4 +1,4 @@
-package com.ohouseab.domain;
+package com.ohouse.ohouse.domain;
 
 import lombok.Getter;
 import lombok.Setter;
