@@ -10,7 +10,7 @@ cache:
   directories:
     - $HOME/.m2
 
-script: "mvn clean compile"
+script: "mvn test -B"
 
 before_deploy:
   - zip -r webservice-ohouse *
