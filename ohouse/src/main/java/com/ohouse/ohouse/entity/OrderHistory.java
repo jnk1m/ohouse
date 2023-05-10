@@ -1,6 +1,6 @@
-package com.ohouseab.entity;
+package com.ohouse.ohouse.entity;
 
-import com.ohouseab.enums.OrderStatus;
+import com.ohouse.ohouse.enums.OrderStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

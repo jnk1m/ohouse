@@ -1,10 +1,11 @@
-package com.ohouseab.entity;
+package com.ohouse.ohouse.entity;
 
-import com.ohouseab.enums.OrderStatus;
+import com.ohouse.ohouse.enums.OrderStatus;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
