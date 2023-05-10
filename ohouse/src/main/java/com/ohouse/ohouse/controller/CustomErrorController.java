@@ -1,4 +1,4 @@
-package com.ohouseab.controller;
+package com.ohouse.ohouse.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
