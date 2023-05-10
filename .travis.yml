@@ -2,6 +2,15 @@ language: java
 jdk:
   - openjdk11
 
+env:
+  global:
+    - DB_URL=$DB_URL
+    - DB_USERNAME=$DB_USERNAME
+    - DB_PASSWORD=$DB_PASSWORD
+
+services:
+  - mysql
+
 branches:
   only:
     - main
