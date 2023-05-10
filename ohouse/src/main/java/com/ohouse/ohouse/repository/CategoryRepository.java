@@ -1,6 +1,6 @@
-package com.ohouse.ohouse.repository;
+package com.ohouseab.repository;
 
-import com.ohouse.ohouse.entity.Category;
+import com.ohouseab.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

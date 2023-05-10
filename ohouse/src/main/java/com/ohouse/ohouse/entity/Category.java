@@ -1,4 +1,4 @@
-package com.ohouse.ohouse.entity;
+package com.ohouseab.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

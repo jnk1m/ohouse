@@ -1,4 +1,4 @@
-package com.ohouse.ohouse.config;
+package com.ohouseab.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

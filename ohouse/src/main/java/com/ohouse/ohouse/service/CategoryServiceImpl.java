@@ -1,7 +1,7 @@
-package com.ohouse.ohouse.service;
+package com.ohouseab.service;
 
-import com.ohouse.ohouse.entity.Category;
-import com.ohouse.ohouse.repository.CategoryRepository;
+import com.ohouseab.entity.Category;
+import com.ohouseab.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.ohouse.ohouse.enums;
+package com.ohouseab.enums;
 
 public enum RoleType {
   ROLE_GUEST,

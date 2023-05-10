@@ -1,6 +1,6 @@
-package com.ohouse.ohouse.entity;
+package com.ohouseab.entity;
 
-import com.ohouse.ohouse.enums.RoleType;
+import com.ohouseab.enums.RoleType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,8 +1,8 @@
-package com.ohouse.ohouse.repository;
+package com.ohouseab.repository;
 
-import com.ohouse.ohouse.domain.MenuOptionDTO;
-import com.ohouse.ohouse.entity.Category;
-import com.ohouse.ohouse.entity.Menu;
+import com.ohouseab.domain.MenuOptionDTO;
+import com.ohouseab.entity.Category;
+import com.ohouseab.entity.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
