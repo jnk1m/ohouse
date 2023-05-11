@@ -4,6 +4,7 @@ import com.ohouse.ohouse.domain.MenuDTO;
 import com.ohouse.ohouse.domain.MenuOptionDTO;
 import com.ohouse.ohouse.entity.Category;
 import com.ohouse.ohouse.exception.InvalidCategoryIdException;
+import com.ohouse.ohouse.exception.MenuNotFoundException;
 import com.ohouse.ohouse.service.CategoryService;
 import com.ohouse.ohouse.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class MenuController {
   private final CategoryService categoryService;
 
   @GetMapping("/{categoryId}")
-  public String getMenus(@PathVariable Long categoryId, Model model) {
+  public String getMenus(@PathVariable Long categoryId, Model model) throws InvalidCategoryIdException {
     Category category = categoryService.findCategory(categoryId);
 
     /*Category ID 1 to 11 are valid menu IDs, but 12 and above are reserved for options.
@@ -45,7 +46,7 @@ public class MenuController {
   }
 
   @GetMapping("/detail/{menuId}")
-  public String getMenu(@PathVariable Long menuId, Model model) {
+  public String getMenuWithOptions(@PathVariable Long menuId, Model model) throws MenuNotFoundException {
     MenuDTO menuDTO = menuService.getMenuDTO(menuId);
 
     Map<String, List<MenuOptionDTO>> menuOptions = menuService.getMenuOptions(menuService.getMenu(menuId));
