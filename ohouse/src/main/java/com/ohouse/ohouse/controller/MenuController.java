@@ -28,7 +28,7 @@ public class MenuController {
   private final CategoryService categoryService;
 
   @GetMapping("/{categoryId}")
-  public String getMenus(@PathVariable Long categoryId, Model model) throws InvalidCategoryIdException {
+  public String getMenusInCategory(@PathVariable Long categoryId, Model model) throws InvalidCategoryIdException {
     Category category = categoryService.findCategory(categoryId);
 
     /*Category ID 1 to 11 are valid menu IDs, but 12 and above are reserved for options.
