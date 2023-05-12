@@ -22,10 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -116,9 +113,15 @@ class MenuControllerTest {
     mvc.perform(get("/menus/detail/{menuId}", 1L))
             .andExpect(status().isOk())
             .andExpect(model().attribute("menuOptions", menuOptions.entrySet()))
-            .andExpect(view().name("menu-detail"));
-//            .andExpect(result -> {
-//
-//            });
+            .andExpect(view().name("menu-detail"))
+            .andExpect(result -> {
+              Map<String, Object> modelMap = Objects.requireNonNull(result.getModelAndView()).getModel();
+              Set<Map.Entry<String, List<MenuOptionDTO>>> menuOptionSet = (Set<Map.Entry<String, List<MenuOptionDTO>>>) modelMap.get("menuOptions");
+              for (Map.Entry<String, List<MenuOptionDTO>> entry : menuOptionSet) {
+                int expectedListSize = 2;
+                assertEquals(expectedListSize, entry.getValue().size());
+              }
+            });
   }
 }
+
