@@ -2,15 +2,6 @@ language: java
 jdk:
   - openjdk11
 
-env:
-  global:
-    - DB_URL=$DB_URL
-    - DB_USERNAME=$DB_USERNAME
-    - DB_PASSWORD=$DB_PASSWORD
-
-services:
-  - mysql
-
 branches:
   only:
     - main
@@ -24,19 +15,29 @@ before_script:
 
 script: "mvn clean package"
 
-# before_deploy:
-#   - zip -r webservice-ohouse *
-#   - mkdir -p deploy
-#   - mv webservice-ohouse.zip deploy/webservice-ohouse.zip
+before_deploy:
+  - zip -r webservice-ohouse *
+  - mkdir -p deploy
+  - mv webservice-ohouse.zip deploy/webservice-ohouse.zip
 
-# deploy:
-#   - provider: s3
-#     access_key_id: $AWS_ACCESS_KEY
-#     secret_access_key: $AWS_SECRET_KEY
-#     bucket: ohouse-springboot-build
-#     region: ap-northeast-2
-#     acl: private
-#     local_dir: deploy
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: ohouse-springboot-build
+    region: ap-northeast-2
+    acl: private
+    local_dir: deploy
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: ohouse-springboot-build
+    key: webservice-ohouse.zip
+    bundle_type: zip
+    application: webservice-ohouse
+    deployment_group: webservice-ohouse-group
+    region: ap-northeast-2
 
 notifications:
   email:
