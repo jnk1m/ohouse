@@ -88,7 +88,7 @@ class MenuControllerTest {
 
   @Test
   @WithMockUser
-  void testGetMenus_validCategoryId() throws Exception {
+  void testGetMenusInCategory_validCategoryId() throws Exception {
     mvc.perform(get("/menus/{categoryId}", 1L))
             .andExpect(status().isOk())
             .andExpect(model().attribute("category", category))
@@ -98,9 +98,10 @@ class MenuControllerTest {
 
   @Test
   @WithMockUser
-  void testGetMenus_invalidCategoryId() throws Exception {
-    given(categoryService.findCategory(12L))
-            .willThrow(new InvalidCategoryIdException("Invalid Category"));
+  void testGetMenusInCategory_invalidCategoryId() throws Exception {
+    given(categoryService.findCategory(12L)).willAnswer(invocation -> {
+      throw new InvalidCategoryIdException("Invalid Category");
+    });
 
     mvc.perform(get("/menus/{categoryId}", 12L))
             .andExpect(status().isNotFound())
@@ -111,13 +112,13 @@ class MenuControllerTest {
 
   @Test
   @WithMockUser
-  void getMenuWithOptions() throws Exception {
+  void getMenuWithOptions_validMenuId() throws Exception {
     mvc.perform(get("/menus/detail/{menuId}", 1L))
             .andExpect(status().isOk())
             .andExpect(model().attribute("menuOptions", menuOptions.entrySet()))
-            .andExpect(view().name("menu-detail"))
-            .andExpect(result -> {
-
-            });
+            .andExpect(view().name("menu-detail"));
+//            .andExpect(result -> {
+//
+//            });
   }
 }
