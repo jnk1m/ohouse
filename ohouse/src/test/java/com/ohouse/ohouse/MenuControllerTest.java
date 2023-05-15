@@ -106,7 +106,6 @@ class MenuControllerTest {
             .andExpect(result -> assertEquals("Invalid Category", result.getResolvedException().getMessage()));
   }
 
-
   @Test
   @WithMockUser
   void getMenuWithOptions_validMenuId() throws Exception {
@@ -122,6 +121,19 @@ class MenuControllerTest {
                 assertEquals(expectedListSize, entry.getValue().size());
               }
             });
+  }
+
+  @Test
+  @WithMockUser
+  void getMenuWithOptions_invalidMenuId() throws Exception {
+    given(menuService.getMenu(anyLong())).willAnswer(invocation -> {
+      throw new MenuNotFoundException("Menu Not Found");
+    });
+
+    mvc.perform(get("/menus/detail/{menuId}", anyLong()))
+            .andExpect(status().isNotFound())
+            .andExpect(result -> assertTrue(result.getResolvedException() instanceof MenuNotFoundException))
+            .andExpect(result -> assertEquals("Menu Not Found", result.getResolvedException().getMessage()));
   }
 }
 
