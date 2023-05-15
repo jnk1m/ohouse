@@ -17,6 +17,13 @@
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
 
+  <style>
+      .custom-btn {
+          padding: 2px 8px;
+          font-size: 12px;
+      }
+  </style>
+
   </head>
   <!-- Body-->
   <body class="handheld-toolbar-enabled">
@@ -24,14 +31,9 @@
     <main class="page-wrapper">
     <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light" th:include="header :: header"></header>
 
-        <section class="bg-darker bg-size-cover bg-position-center py-5">
+        <section class="bg-darker bg-size-cover bg-position-center py-5" style="background-image: url(/images/main/inside.jpeg);">
             <div class="container py-md-4 d-flex flex-column align-items-center">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start align-items-center">
-                        <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i class="fa-solid fa-house" style="color: #ffffff;"></i> Home > <span th:text="${category.categoryName}"/></a></li>
-                    </ol>
-                </nav>
-                <h1 class="text-light text-center text-lg-start py-3"><span style="text-decoration: underline;" th:text="${category.categoryName}"></span></h1>
+                <h1 class="text-light text-center text-lg-start py-3"><span style="text-decoration: underline; background-color: rgba(0, 0, 0, 0.5)" th:text="${category.categoryName}"></span></h1>
                 <a class="btn btn-primary btn-lg" href="#menus" data-scroll style="white-space: normal;">
                     Contact us at [DSN] 784-4926, <br/> <i class="fa-solid fa-phone"></i> 0505-784-4926 for orders
                 </a>
@@ -41,30 +43,36 @@
         <!-- Menu (Products grid)-->
       <section class="container tab-content py-4 py-sm-5" id="menus">
         <div class="row row-cols-auto pt-3 pt-sm-0 ">
-          <div class="col-lg-3 col-md-4 col-sm-6 mb-grid-gutter" th:each="menu : ${menus}">
-            <div class="card product-card border pb-2" >
-                <a class="d-block" th:href="@{/menus/detail/{menuId}(menuId=${menu.menuId})}">
-                    <img class="card-img-top"
-                         th:if="${menu.imagePath eq null}"
-                         src="/images/menu/default-img.jpg"
-                         th:alt="${menu.menuNameEng}"
-                    />
-                    <img class="card-img-top"
-                         th:unless="${menu.imagePath eq null}"
-                         th:src="@{${menu.imagePath}}"
-                         th:alt="${menu.menuNameEng}"
-                    />
-                </a>
-                <div class="card-body pt-1 pb-2">
-                <h3 class="product-title fs-md pt-2" style="height: 2rem" th:text="${menu.menuNameEng}"></h3>
-                <div class="d-flex align-items-center justify-content-lg-end">
-                  <div class="product-price"><span class="text-accent" th:text=" '$' + ${menu.menuPrice}"></span></div>
-                    <a class="btn btn-primary btn-sm ms-3" type="button" th:href="@{/menus/detail/{menuId}(menuId=${menu.menuId})}">
-                        <i class="fa-solid fa-magnifying-glass-plus"></i>
-                    </a>
-                </div>
+          <div class="col-lg-3 col-md-4 col-6 mb-grid-gutter" th:each="menu : ${menus}">
+              <div class="card product-card border pb-2" >
+                  <a class="d-block" th:href="@{/menus/detail/{menuId}(menuId=${menu.menuId})}">
+                      <img class="card-img-top"
+                           th:if="${menu.imagePath eq null}"
+                           src="/images/menu/default-img.jpg"
+                           th:alt="${menu.menuNameEng}"
+                      />
+                      <img class="card-img-top"
+                           th:unless="${menu.imagePath eq null}"
+                           th:src="@{${menu.imagePath}}"
+                           th:alt="${menu.menuNameEng}"
+                      />
+                  </a>
+                  <div class="card-body pt-1 pb-2">
+                      <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                          <div>
+                              <h3 class="product-title fs-md pt-2 pb-2" style="height: 4rem; font-size: 1em; overflow: auto" th:text="${menu.menuNameEng}"></h3>
+                          </div>
+                          <div class="d-flex align-items-center justify-content-lg-end justify-content-start">
+                              <div class="product-price" style="font-size: 1em"><span class="text-accent" th:text=" '$' + ${menu.menuPrice}"></span></div>
+                              <a class="btn btn-outline-secondary rounded-pill btn-icon ms-2 custom-btn" type="button" th:href="@{/menus/detail/{menuId}(menuId=${menu.menuId})}">
+                                  <i class="fa-solid fa-chevron-right"></i>
+                              </a>
+                          </div>
+
+                      </div>
+                  </div>
               </div>
-            </div>
+
           </div>
         </div>
       </section>
