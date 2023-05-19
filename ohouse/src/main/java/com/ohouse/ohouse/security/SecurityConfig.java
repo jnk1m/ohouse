@@ -1,13 +1,12 @@
-package com.ohouse.ohouse.config;
+package com.ohouse.ohouse.security;
 
-import com.ohouse.ohouse.config.auth.CustomOAuth2UserService;
 import com.ohouse.ohouse.enums.Role;
+import com.ohouse.ohouse.security.auth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-//@Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,6 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/", "/menus/**", "/css/**", "/js/**", "/images/**","/policies/**","/contacts","/about").permitAll()
             .antMatchers("/mypage").hasRole(Role.USER.name())
             .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/login")
+            .successHandler(new CustomAuthenticationSuccessHandler())
             .and()
             .logout()
             .logoutSuccessUrl("/")
