@@ -18,6 +18,10 @@
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+
 </head>
 <!-- Body-->
 <body class="handheld-toolbar-enabled">
@@ -27,7 +31,7 @@
             th:include="header :: header"></header>
 
     <!-- Product Gallery + description-->
-    <section class="row g-0 mx-n2 pb-5 mb-xl-3">
+    <section class="row g-0 mx-n2 pb-5 mb-xl-3" style="font-family: 'Lato', sans-serif;">
         <div class="col-xl-7 px-2 mb-3">
             <div class="h-100 bg-light rounded-3 p-3">
                 <div class="product-gallery">
@@ -37,13 +41,11 @@
                             <img
                                     th:if="${menu.imagePath eq null}"
                                     src="/images/menu/default-img.jpg"
-                                    th:alt="${menu.menuNameEng}"
-                            />
+                                    th:alt="${menu.menuNameEng}"/>
                             <img
                                     th:unless="${menu.imagePath eq null}"
                                     th:src="@{${menu.imagePath}}"
-                                    th:alt="${menu.menuNameEng}"
-                            />
+                                    th:alt="${menu.menuNameEng}"/>
                         </div>
                     </div>
                 </div>
@@ -72,14 +74,9 @@
                     <div class="pb-3" th:text="${menu.descriptionEng}"></div>
                     <div th:text="${menu.descriptionKor}"></div>
                 </form>
-                <!--                <button class="btn btn-primary btn-shadow me-3 mb-3" type="submit"><i class="ci-cart fs-lg me-2"></i>Add-->
-                <!--                    to Cart-->
-                <!--                </button>-->
             </div>
         </div>
     </section>
-
-
 </main>
 
 <!-- Footer-->
