@@ -1,4 +1,4 @@
-package com.ohouse.ohouse.config.auth;
+package com.ohouse.ohouse.security.auth;
 
 import com.ohouse.ohouse.entity.User;
 import com.ohouse.ohouse.repository.UserRepository;
