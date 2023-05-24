@@ -1,13 +1,11 @@
 package com.ohouse.ohouse;
 
-import com.ohouse.ohouse.config.SecurityConfig;
 import com.ohouse.ohouse.controller.MainController;
+import com.ohouse.ohouse.security.auth.CustomOAuth2UserService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,12 +13,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(MainController.class)
-@ExtendWith(SpringExtension.class)
-@Import(SecurityConfig.class)
 class MainControllerTest {
 
   @Autowired
   MockMvc mvc;
+
+  @MockBean
+  CustomOAuth2UserService customOAuth2UserService;
 
   @Test
   void testIndex() throws Exception {
