@@ -43,7 +43,7 @@ public class OAuthAttributes {
             .userName(name)
             .phoneNumber("")
             .email(email)
-            .isVerified(false)
+            .isPhoneVerified(false)
             .role(Role.USER)
             .build();
   }
