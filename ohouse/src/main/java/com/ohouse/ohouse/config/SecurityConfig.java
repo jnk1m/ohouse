@@ -1,6 +1,7 @@
-package com.ohouse.ohouse.security;
+package com.ohouse.ohouse.config;
 
 import com.ohouse.ohouse.enums.Role;
+import com.ohouse.ohouse.security.CustomAuthenticationSuccessHandler;
 import com.ohouse.ohouse.security.auth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and()
             .formLogin()
-            .loginPage("/login")
+            .loginPage("/oauth2/authorization/google")
             .successHandler(new CustomAuthenticationSuccessHandler())
             .and()
             .logout()
