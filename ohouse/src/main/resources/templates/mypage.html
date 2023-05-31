@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>O House | Menus</title>
+    <title>O House | Account</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
     <!-- SEO Meta Tags-->
     <meta name="description"
           content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
@@ -34,7 +35,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
                             <li class="breadcrumb-item">
-                                <a class="text-nowrap" href="index.html">
+                                <a class="text-nowrap" href="">
                                     <i class="fa-solid fa-house"></i>
                                     Home > Account > Profile info
                                 </a>
@@ -56,7 +57,7 @@
                         <div class="d-md-flex justify-content-between align-items-center text-center text-md-start p-4">
                             <div class="d-md-flex align-items-center">
                                 <div class="ps-md-3">
-                                    <h3 class="fs-base mb-0" th:text="${user.userName}"></h3>
+                                    <h3 class="fs-base mb-0" th:text="'Welcome! ' + ${user.userName}"></h3>
                                     <span class="text-accent fs-sm" th:text="${user.email}"></span>
                                 </div>
                             </div>
@@ -103,8 +104,9 @@
                 <section class="col-lg-8">
                     <!-- Toolbar-->
                     <div class="d-none d-lg-flex justify-content-between align-items-center pt-lg-3 pb-4 pb-lg-5 mb-lg-3">
-                        <h6 class="fs-base text-light mb-0">Update you profile details below:</h6>
-                        <a class="btn btn-danger btn-sm" href="/logout">
+                        <h6 class="fs-base text-light mb-0">Check out your profile details below:</h6>
+                        <a class="btn btn-danger btn-sm" href="/logout"
+                           onclick="return confirm('We kindly remind you that remaining logged into Google may result in automatic sign-in our O House. For a different account access, please ensure to first log out from Google.');">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             Sign out
                         </a>
@@ -125,11 +127,11 @@
                             </div>
                         </div>
                     </form>
-                    <form action="/account/sendVerificationCode" method="post">
-                        <label for="phoneNumber">Phone Number:</label><br>
-                        <input type="number" id="phoneNumber" name="phoneNumber"><br>
-                        <input type="submit" value="Submit">
-                    </form>
+                    <!--                    <form action="/account/sendVerificationCode" method="post">-->
+                    <!--                        <label for="phoneNumber">Phone Number:</label><br>-->
+                    <!--                        <input type="number" id="phoneNumber" name="phoneNumber"><br>-->
+                    <!--                        <input type="submit" value="Submit">-->
+                    <!--                    </form>-->
                 </section>
             </div>
         </div>
