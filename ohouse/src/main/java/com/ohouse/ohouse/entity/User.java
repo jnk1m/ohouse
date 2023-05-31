@@ -24,14 +24,13 @@ public class User {
   private String userName;
 
   @Column(name = "phone_number")
-  @NotNull
   private String phoneNumber;
 
   @Column(name = "email")
   @NotNull
   private String email;
 
-  @Column(name = "is_verified")
+  @Column(name = "is_phone_verified")
   @NotNull
   private boolean isPhoneVerified;
 
