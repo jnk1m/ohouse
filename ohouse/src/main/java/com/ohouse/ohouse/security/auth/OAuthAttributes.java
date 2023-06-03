@@ -41,7 +41,7 @@ public class OAuthAttributes {
   public User toEntity() {
     return User.builder()
             .userName(name)
-            .phoneNumber("")
+            .phoneNumber(null)
             .email(email)
             .isPhoneVerified(false)
             .role(Role.USER)
