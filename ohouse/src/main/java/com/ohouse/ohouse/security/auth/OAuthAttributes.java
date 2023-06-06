@@ -23,7 +23,7 @@ public class OAuthAttributes {
     this.email = email;
   }
 
-  public static OAuthAttributes of(String registrationId, String userNameAttributeName,
+  public static OAuthAttributes of(String userNameAttributeName,
                                    Map<String, Object> attributes) {
     return ofGoogle(userNameAttributeName, attributes);
   }
