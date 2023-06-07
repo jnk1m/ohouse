@@ -30,7 +30,7 @@ public class UserController {
 
     model.addAttribute("user", userDTO);
 
-    return "/mypage";
+    return "mypage";
   }
 
   @PostMapping("/sendVerificationCode")
