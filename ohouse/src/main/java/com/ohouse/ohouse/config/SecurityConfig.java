@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -16,11 +17,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
+            .sessionManagement()
+            .invalidSessionUrl("/")
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            .and()
             .csrf().disable()
             .headers().frameOptions().disable()
             .and()
             .authorizeRequests()
-            .antMatchers("/", "/menus/**", "/css/**", "/js/**", "/images/**","/policies/**","/contacts","/about").permitAll()
+            .antMatchers("/", "/menus/**", "/css/**", "/js/**", "/images/**", "/policies/**", "/contacts", "/about").permitAll()
             .antMatchers("/account").hasRole(Role.USER.name())
             .anyRequest().authenticated()
             .and()
@@ -34,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .oauth2Login()
             .userInfoEndpoint()
             .userService(customOAuth2UserService);
+
   }
 
 
