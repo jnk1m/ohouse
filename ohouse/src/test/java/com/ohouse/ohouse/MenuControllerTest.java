@@ -1,5 +1,6 @@
 package com.ohouse.ohouse;
 
+import com.ohouse.ohouse.config.RedisConfig;
 import com.ohouse.ohouse.controller.MenuController;
 import com.ohouse.ohouse.domain.MenuDTO;
 import com.ohouse.ohouse.domain.MenuOptionDTO;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -28,6 +31,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = MenuController.class)
+@Import(RedisConfig.class)
+@ActiveProfiles("dev")
 class MenuControllerTest {
   @Autowired
   private MockMvc mvc;
