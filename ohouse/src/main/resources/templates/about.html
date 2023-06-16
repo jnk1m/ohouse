@@ -2,20 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>O House </title>
+    <title>O House | About</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
     <!-- SEO Meta Tags-->
-    <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
-    <meta name="keywords"
-          content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
+    <meta name="description" content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
     <meta name="author" content="Createx Studio">
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon and Touch Icons-->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
+
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     <!-- Main Theme Styles + Bootstrap-->
@@ -24,6 +19,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
 </head>
 <!-- Body-->
@@ -33,13 +31,14 @@
     <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
             th:include="header :: header"></header>
 
+    <div style="font-family: 'Lato', sans-serif;">
     <!-- Row 1-->
     <section class="row g-0">
         <div class="col-md-6 bg-position-center bg-size-cover bg-secondary"
              style="min-height: 15rem; background-image: url(/images/main/about1.jpeg);"></div>
         <div class="col-md-6 px-3 px-md-5 py-5">
             <div class="mx-auto py-lg-5" style="max-width: 35rem;">
-                <h2 class="h3 pb-3">Welcome to O House Restaurant!</h2>
+                <h2 class="h3 pb-3" style="font-weight: bold">Welcome to O House Restaurant!</h2>
                 <p class="fs-sm pb-3 text-muted">O House is a newly opened gem in 2023, nestled alongside a stunning
                     golf course, offering breathtaking views and an exceptional dining experience. We specialize in
                     hosting special occasions and events, making it the perfect destination for memorable
@@ -58,7 +57,7 @@
              style="min-height: 15rem; background-image: url(/images/menu/t-bone-steak.jpeg);"></div>
         <div class="col-md-6 px-3 px-md-5 py-5 order-md-1">
             <div class="mx-auto py-lg-5" style="max-width: 35rem;">
-                <h2 class="h3 pb-3">Discover the O House Dining Experience</h2>
+                <h2 class="h3 pb-3" style="font-weight: bold">Discover the O House Dining Experience</h2>
                 <p class="fs-sm pb-3 text-muted">Our restaurant boasts a stylish, elegant interior that complements
                     the delicious food we offer. If you're seeking a dining experience that combines captivating
                     ambiance with mouthwatering dishes, look no further than O House.
@@ -69,7 +68,7 @@
         </div>
     </section>
 
-
+    </div>
 </main>
 <!-- Footer-->
 <footer class="footer bg-darker pt-5" th:include="footer :: footer"></footer>

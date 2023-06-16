@@ -31,10 +31,10 @@ public class MenuController {
   public String getMenusInCategory(@PathVariable Long categoryId, Model model) throws InvalidCategoryIdException {
     Category category = categoryService.findCategory(categoryId);
 
-    /*Category ID 1 to 11 are valid menu IDs, but 12 and above are reserved for options.
-    Therefore, when customers request the list of available menus, only the ones with IDs between 1 and 11 should be returned.
-    Any ID higher than 11 should result in an error message.*/
-    if (categoryId > 11) {
+    // Categories 8, 10, and 11 are not in use due to menu consolidation.
+    // Starting from ID 12, they are not used for menu retrieval.
+    // Exception is thrown if the category ID is 8 or greater than or equal to 10.
+    if (categoryId >= 10 || categoryId == 8) {
       throw new InvalidCategoryIdException("Invalid Category");
     }
 

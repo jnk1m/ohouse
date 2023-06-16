@@ -1,6 +1,6 @@
 package com.ohouse.ohouse;
 
-import com.ohouse.ohouse.config.SecurityConfig;
+import com.ohouse.ohouse.config.RedisConfig;
 import com.ohouse.ohouse.controller.MenuController;
 import com.ohouse.ohouse.domain.MenuDTO;
 import com.ohouse.ohouse.domain.MenuOptionDTO;
@@ -8,17 +8,16 @@ import com.ohouse.ohouse.entity.Category;
 import com.ohouse.ohouse.entity.Menu;
 import com.ohouse.ohouse.exception.InvalidCategoryIdException;
 import com.ohouse.ohouse.exception.MenuNotFoundException;
+import com.ohouse.ohouse.security.auth.CustomOAuth2UserService;
 import com.ohouse.ohouse.service.CategoryService;
 import com.ohouse.ohouse.service.MenuService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -32,11 +31,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = MenuController.class)
-@ExtendWith(SpringExtension.class)
-@Import(SecurityConfig.class)
+@Import(RedisConfig.class)
+@ActiveProfiles("dev")
 class MenuControllerTest {
   @Autowired
   private MockMvc mvc;
+
+  @MockBean
+  CustomOAuth2UserService customOAuth2UserService;
 
   @MockBean
   private CategoryService categoryService;
@@ -45,16 +47,14 @@ class MenuControllerTest {
   private MenuService menuService;
 
   private Category category;
-  private MenuDTO menuDTO;
   private List<MenuDTO> menuDTOList;
   private Map<String, List<MenuOptionDTO>> menuOptions;
-  private Menu menu;
 
   @BeforeEach
   void setUp() throws MenuNotFoundException {
     category = new Category("Breakfast");
-    menu = new Menu("Menu 1", "Description 1", "메뉴 1", "설명 1", new BigDecimal(10), category, true, null, "menu");
-    menuDTO = new MenuDTO(1L, "Menu 1", "Description 1", "메뉴 1", "설명 1", new BigDecimal(10), null);
+    Menu menu = new Menu("Menu 1", "Description 1", "메뉴 1", "설명 1", new BigDecimal(10), category, true, null, "menu");
+    MenuDTO menuDTO = new MenuDTO(1L, "Menu 1", "Description 1", "메뉴 1", "설명 1", new BigDecimal(10), null);
     menuDTOList = Arrays.asList(
             menuDTO, new MenuDTO(2L, "Menu 2", "Description 2", "메뉴 2", "설명 2", new BigDecimal(20), null)
     );
@@ -84,7 +84,6 @@ class MenuControllerTest {
 
 
   @Test
-  @WithMockUser
   void testGetMenusInCategory_validCategoryId() throws Exception {
     mvc.perform(get("/menus/{categoryId}", 1L))
             .andExpect(status().isOk())
@@ -94,7 +93,6 @@ class MenuControllerTest {
   }
 
   @Test
-  @WithMockUser
   void testGetMenusInCategory_invalidCategoryId() throws Exception {
     given(categoryService.findCategory(12L)).willAnswer(invocation -> {
       throw new InvalidCategoryIdException("Invalid Category");
@@ -107,7 +105,6 @@ class MenuControllerTest {
   }
 
   @Test
-  @WithMockUser
   void getMenuWithOptions_validMenuId() throws Exception {
     mvc.perform(get("/menus/detail/{menuId}", 1L))
             .andExpect(status().isOk())
@@ -124,7 +121,6 @@ class MenuControllerTest {
   }
 
   @Test
-  @WithMockUser
   void getMenuWithOptions_invalidMenuId() throws Exception {
     given(menuService.getMenu(anyLong())).willAnswer(invocation -> {
       throw new MenuNotFoundException("Menu Not Found");

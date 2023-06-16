@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
 </head>
 <body>
 <header class="navbar d-block navbar-expand-lg navbar-light bg-light">
-    <div class="container"><a class="navbar-brand d-none d-sm-block me-4 order-lg-1" href="/" th:href="@{/}"><img src="/images/main/logo.png" width="142" alt="OHouse"></a><a class="navbar-brand d-sm-none me-2 order-lg-1" href="/" th:href="@{/}"><img src="/images/main/logo.png" width="70" alt="OHouse"></a>
+    <div class="container" style="font-family: 'Lato', sans-serif;"><a
+            class="navbar-brand d-none d-sm-block me-4 order-lg-1" href="/" th:href="@{/}"><img
+            src="/images/main/logo.png" width="142" alt="OHouse"></a><a class="navbar-brand d-sm-none me-2 order-lg-1"
+                                                                        href="/" th:href="@{/}"><img
+            src="/images/main/logo.png" width="70" alt="OHouse"></a>
         <div class="navbar-toolbar d-flex align-items-center order-lg-3">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a class="navbar-tool d-none d-lg-flex" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#searchBox" role="button" aria-expanded="false" aria-controls="searchBox"><span class="navbar-tool-tooltip">Search</span>
-        </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span></button>
+            <a class="navbar-tool ms-2" href="/account">
+                <span class="navbar-tool-tooltip">Account</span>
+                <div class="navbar-tool-icon-box"><i class="fa-regular fa-circle-user fa-xl"></i></div>
+            </a>
         </div>
         <div class="collapse navbar-collapse me-auto order-lg-2" id="navbarCollapse">
             <ul class="navbar-nav navbar-mega-nav ms-lg-4 pe-lg-2 me-lg-2">
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle ps-lg-0" href="#" data-bs-toggle="dropdown">About</a>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle ps-lg-0" href="#"
+                                                 data-bs-toggle="dropdown">About</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/about">O House</a></li>
                         <li><a class="dropdown-item" href="/contacts">Contacts</a></li>
@@ -24,51 +39,68 @@
                 </li>
             </ul>
 
+
             <!-- Primary menu-->
             <ul class="navbar-nav">
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Cuisine</a>
                     <div class="dropdown-menu px-2 ps-0 pb-4">
                         <div class="d-flex">
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/1"><img class="d-block mx-auto mb-3" src="/images/icon/Breakfast.png" width="60" alt="Breakfast">
+                                <div class="widget mb-3"><a class="d-block" href="/menus/1"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/Breakfast.png" width="60"
+                                        alt="Breakfast">
                                     <h6 class="fs-base text-center">Breakfast</h6></a></div>
                             </div>
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/2"><img class="d-block mx-auto mb-3" src="/images/icon/Appetizer.png" width="60" alt="Appetizer">
+                                <div class="widget mb-3"><a class="d-block" href="/menus/2"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/Appetizer.png" width="60"
+                                        alt="Appetizer">
                                     <h6 class="fs-base text-center">Appetizer</h6></a></div>
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/3"><img class="d-block mx-auto mb-3" src="/images/icon/Pasta.png" width="60" alt="Pasta">
+                                <div class="widget mb-3"><a class="d-block" href="/menus/3"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/Pasta.png" width="60"
+                                        alt="Pasta">
                                     <h6 class="fs-base text-center">Pasta</h6></a></div>
                             </div>
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/4"><img class="d-block mx-auto mb-3" src="/images/icon/Sandwich.png" width="60" alt="Sandwich">
+                                <div class="widget mb-3"><a class="d-block" href="/menus/4"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/Sandwich.png" width="60"
+                                        alt="Sandwich">
                                     <h6 class="fs-base text-center">Sandwich</h6></a></div>
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/5"><img class="d-block mx-auto mb-3" src="/images/icon/Grill.png" width="60" alt="Grill">
+                                <div class="widget mb-3"><a class="d-block" href="/menus/5"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/Grill.png" width="60"
+                                        alt="Grill">
                                     <h6 class="fs-base text-center">Grill</h6></a></div>
                             </div>
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/6"><img class="d-block mx-auto mb-3" src="/images/icon/KoreanFood.png" width="60" alt="Korean Food">
+                                <div class="widget mb-3"><a class="d-block" href="/menus/6"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/KoreanFood.png" width="60"
+                                        alt="Korean Food">
                                     <h6 class="fs-base text-center">Korean Food</h6></a></div>
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/7"><img class="d-block mx-auto mb-3" src="/images/icon/SideOrders.png" width="60" alt="Side Orders">
-                                    <h6 class="fs-base text-center">Side Orders </h6></a></div>
+                                <div class="widget mb-3"><a class="d-block" href="/menus/7"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/SideOrders.png" width="60"
+                                        alt="Golfers Pick">
+                                    <h6 class="fs-base text-center">Golfer's Pick</h6></a></div>
                             </div>
                             <div class="mega-dropdown-column pt-4 px-3" style="width: 12rem;">
-                                <div class="widget mb-3"><a class="d-block" href="/menus/9"><img class="d-block mx-auto mb-3" src="/images/icon/Drink.png" width="60" alt="Drink &amp; Coffee &amp; Beer">
-                                    <h6 class="fs-base text-center">Drink &amp; Coffee &amp; Beer </h6></a></div>
+                                <div class="widget mb-3"><a class="d-block" href="/menus/9"><img
+                                        class="d-block mx-auto mb-3" src="/images/icon/Drink.png" width="60"
+                                        alt="Drink">
+                                    <h6 class="fs-base text-center">Drink</h6></a></div>
                             </div>
                         </div>
                     </div>
@@ -76,14 +108,17 @@
                 <li class="nav-item"><a class="nav-link"> <i class="fa-solid fa-check"></i> The delivery service will be launching soon!</a></li>
             </ul>
         </div>
-
     </div>
 </header>
 
 <!-- Main theme script-->
 <script src="/js/theme.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

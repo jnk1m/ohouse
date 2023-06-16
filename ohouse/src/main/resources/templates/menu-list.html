@@ -3,24 +3,20 @@
 <head>
     <meta charset="utf-8">
     <title>O House | Menus</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
     <!-- SEO Meta Tags-->
-    <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
-    <meta name="keywords"
-          content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
+    <meta name="description" content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
     <meta name="author" content="Createx Studio">
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <link rel="manifest" href="site.webmanifest">-->
-<!--    <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">-->
-<!--    <meta name="msapplication-TileColor" content="#ffffff">-->
-<!--    <meta name="theme-color" content="#ffffff">-->
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&&family=Merriweather:ital,wght@1,900&display=swap" rel="stylesheet">
 
     <style>
         .custom-btn {
@@ -29,7 +25,11 @@
         }
 
         .hero {
-            font-family: 'Courgette', cursive;
+            font-family: 'Merriweather', serif;
+        }
+
+        .body{
+            font-family: 'Lato', sans-serif;
         }
 
     </style>
@@ -41,24 +41,28 @@
 <main class="page-wrapper">
     <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
             th:include="header :: header"></header>
-    <section class="bg-darker bg-size-cover bg-position-center py-5"
-             style="background-image: url(/images/main/inside.jpeg);">
-        <div class="container py-md-4 d-flex flex-column align-items-center">
-            <em class="display-1 text-light text-center text-lg-start p-1 hero" style="backdrop-filter: blur(2px)">
+    <section class="bg-darker bg-size-cover bg-position-center py-5">
+        <div class="container py-md-4 d-flex flex-column align-items-center hero">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start align-items-center p-2">
+                    <li class="breadcrumb-item"><a class="text-nowrap" href=""><i class="fa-solid fa-house" style="color: #ffffff;"></i> Home > <span th:text="${category.categoryName}"/></a></li>
+                </ol>
+            </nav>
+            <em class="display-1 text-light text-center text-lg-start p-1" style="backdrop-filter: blur(2px); text-shadow:1px 1px 1px #000">
                 <span th:text="${category.categoryName}"></span></em>
         </div>
     </section>
 
-    <section class="container pt-3" id="cuisine">
-        <div class="row justify-content-center align-items-center p-3">
-            <a class="btn btn-danger btn-lg" href="#menus" data-scroll style="white-space: normal;">
+    <section class="container pt-3 body">
+        <div class="row justify-content-center align-items-center px-3 pt-3">
+            <a class="btn btn-danger btn-lg" href="/contacts" data-scroll style="white-space: normal;">
                 Contact us at [DSN] 784-4926, <i class="fa-solid fa-phone"></i> 0505-784-4926 for orders
             </a>
         </div>
     </section>
 
     <!-- Menu (Products grid)-->
-    <section class="container tab-content py-3" id="menus">
+    <section class="container tab-content py-3 body">
         <div class="row row-cols-auto pt-3 pt-sm-0 ">
             <div class="col-lg-3 col-md-4 col-6 mb-grid-gutter" th:each="menu : ${menus}">
                 <div class="card product-card border pb-2">

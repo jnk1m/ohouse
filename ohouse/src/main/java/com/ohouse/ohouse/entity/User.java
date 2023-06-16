@@ -1,6 +1,6 @@
 package com.ohouse.ohouse.entity;
 
-import com.ohouse.ohouse.enums.RoleType;
+import com.ohouse.ohouse.enums.Role;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,26 +15,29 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
   @Id
-  @Column(name = "google_id")
+  @Column(name = "user_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long userId;
+
+  @Column(name = "user_name")
   @NotNull
-  private String googleId;
+  private String userName;
 
   @Column(name = "phone_number")
-  @NotNull
   private String phoneNumber;
 
   @Column(name = "email")
   @NotNull
   private String email;
 
-  @Column(name = "is_verified")
+  @Column(name = "is_phone_verified")
   @NotNull
-  private boolean isVerified;
+  private boolean isPhoneVerified;
 
   @Column(name = "user_role")
   @Enumerated(EnumType.STRING)
   @NotNull
-  private RoleType userRole;
+  private Role role;
 
   @Column(name = "order_count")
   private int orderCount;
@@ -43,24 +46,33 @@ public class User {
   private boolean freeSide;
 
   @Builder
-  private User(String googleId, String phoneNumber, String email, boolean isVerified, RoleType userRole) {
-    this.googleId = googleId;
+  private User(String userName, String phoneNumber, String email, boolean isPhoneVerified, Role role) {
+    this.userName = userName;
     this.phoneNumber = phoneNumber;
     this.email = email;
-    this.isVerified = isVerified;
-    this.userRole = userRole;
+    this.isPhoneVerified = isPhoneVerified;
+    this.role = role;
   }
 
   /*Builder Example
   User user = User.builder()
-          .googleId("exampleGoogleId")
+          .userName("exampleUserName")
           .phoneNumber("01012345678")
           .email("example@example.com")
-          .isVerified(true)
-          .userRole(RoleType.ROLE_USER)
+          .isPhoneVerified(true)
+          .userRole(ROLE.USER)
           .build();
 
    */
+
+  public String getRoleKey() {
+    return this.role.getKey();
+  }
+
+  public User update(String userName) {
+    this.userName = userName;
+    return this;
+  }
 }
 
 

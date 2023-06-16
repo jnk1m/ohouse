@@ -3,20 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>O House | Menu</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
     <!-- SEO Meta Tags-->
-    <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
-    <meta name="keywords"
-          content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
+    <meta name="description" content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
     <meta name="author" content="Createx Studio">
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
 
 </head>
 <!-- Body-->
@@ -27,7 +29,7 @@
             th:include="header :: header"></header>
 
     <!-- Product Gallery + description-->
-    <section class="row g-0 mx-n2 pb-5 mb-xl-3">
+    <section class="row g-0 mx-n2 pb-5 mb-xl-3" style="font-family: 'Lato', sans-serif;">
         <div class="col-xl-7 px-2 mb-3">
             <div class="h-100 bg-light rounded-3 p-3">
                 <div class="product-gallery">
@@ -37,13 +39,11 @@
                             <img
                                     th:if="${menu.imagePath eq null}"
                                     src="/images/menu/default-img.jpg"
-                                    th:alt="${menu.menuNameEng}"
-                            />
+                                    th:alt="${menu.menuNameEng}"/>
                             <img
                                     th:unless="${menu.imagePath eq null}"
                                     th:src="@{${menu.imagePath}}"
-                                    th:alt="${menu.menuNameEng}"
-                            />
+                                    th:alt="${menu.menuNameEng}"/>
                         </div>
                     </div>
                 </div>
@@ -52,6 +52,7 @@
         <div class="col-xl-5 px-2 mb-3">
             <div class="h-100 bg-light rounded-3 py-4 px-4 px-sm-4">
                 <h1 class="h2" th:text="${menu.menuNameEng}"></h1>
+                <h1 class="h2 text-dark" th:text="${menu.menuNameKor}"></h1>
                 <div class="h2 fw-normal text-accent" th:text="'$' + ${menu.menuPrice}"></div>
                 <form class="mb-grid-gutter">
                     <div class="row mx-n2">
@@ -72,14 +73,9 @@
                     <div class="pb-3" th:text="${menu.descriptionEng}"></div>
                     <div th:text="${menu.descriptionKor}"></div>
                 </form>
-                <!--                <button class="btn btn-primary btn-shadow me-3 mb-3" type="submit"><i class="ci-cart fs-lg me-2"></i>Add-->
-                <!--                    to Cart-->
-                <!--                </button>-->
             </div>
         </div>
     </section>
-
-
 </main>
 
 <!-- Footer-->
