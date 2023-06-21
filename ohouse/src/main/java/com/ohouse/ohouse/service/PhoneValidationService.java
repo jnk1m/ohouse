@@ -2,6 +2,7 @@ package com.ohouse.ohouse.service;
 
 import com.twilio.Twilio;
 import com.twilio.rest.verify.v2.service.Verification;
+import com.twilio.rest.verify.v2.service.VerificationCheck;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class PhoneValidationService {
     this.SERVICE_SID = service_sid;
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-    com.twilio.rest.verify.v2.Service service = com.twilio.rest.verify.v2.Service.creator("My First Verify Service").create();
+    com.twilio.rest.verify.v2.Service service = com.twilio.rest.verify.v2.Service.creator("Ohouse phone").create();
 
   }
 
@@ -29,9 +30,16 @@ public class PhoneValidationService {
                     phoneNumber,
                     "sms")
             .create();
-
-    System.out.println(verification.getStatus());
-
   }
 
+  public String checkVerificationCode(String phoneNumber, String verificationCode) {
+    VerificationCheck verificationCheck = VerificationCheck.creator(
+                    SERVICE_SID)
+            .setTo(phoneNumber)
+            .setCode(verificationCode)
+            .create();
+
+    System.out.println(verificationCheck.getStatus());
+    return verificationCheck.getStatus();
+  }
 }
