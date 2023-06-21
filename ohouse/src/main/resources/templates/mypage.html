@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV5JTYY4LL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-VV5JTYY4LL');
+    </script>
     <meta charset="utf-8">
     <title>O House | Account</title>
     <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
@@ -21,9 +34,8 @@
           rel="stylesheet">
 
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+          href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/js/intlTelInput.min.js"></script>
 
 
 </head>
@@ -92,7 +104,7 @@
                             <ul class="list-unstyled mb-0">
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center px-4 py-3 active"
-                                       href="/account">
+                                       href="/accounts">
                                         Profile info
                                     </a>
                                 </li>
@@ -151,6 +163,7 @@
                         </div>
                     </div>
 
+                    <!--Verification Modal -->
                     <div class="modal fade" id="phoneVerify">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -159,25 +172,55 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <!--                                    <form action="/account/sendVerificationCode" method="post">-->
-                                    <!--                                        <label for="phoneNumber">Phone Number:</label><br>-->
-                                    <!--                                        <input type="number" id="phoneNumber" name="phoneNumber"><br>-->
-                                    <!--                                        <input type="submit" value="Submit">-->
-                                    <!--                                    </form>-->
-                                    <form action="/account/sendVerificationCode" method="post" id="login"
-                                          onsubmit="process(event)">
-                                        <p>Enter your phone number:</p>
-                                        <input id="phone" type="tel" name="phone"/>
-                                        <input type="submit" class="btn-outline-primary" value="Verify"/>
-                                    </form>
+                                    <div class="container">
+                                        <form onsubmit="process(event)">
+                                            <p>Enter your phone number:</p>
+                                            <input id="phone" type="tel" name="phone"/>
+                                            <input type="submit" class="btn-outline-primary" value="Verify"/>
+                                        </form>
+                                    </div>
+                                    <div class="container">
+                                        <form id="verification-form">
+                                            <label for="verification-code">Verification Code:</label><br>
+                                            <input type="text" id="verification-code" name="verification-code"><br>
+                                            <div id="error-message" style="color:red;"></div>
+                                        </form>
+                                    </div>
                                     <div class="alert alert-info" style="display: none;"></div>
+                                    <div class="alert alert-error" style="display: none;"></div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Check Verification Modal -->
+                    <div class="modal fade" id="verificationModal" tabindex="-1"
+                         aria-labelledby="verificationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="verificationModalLabel">Verification</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="submit-verification">Submit
+                                        Verification Code
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </section>
             </div>
         </div>
@@ -207,14 +250,49 @@
     });
 
     const info = document.querySelector(".alert-info");
+    const error = document.querySelector(".alert-error");
+
+    const verificationForm = document.getElementById('verification-form');
+    const errorMessage = document.getElementById('error-message');
+
+    let phoneNumber;
 
     function process(event) {
         event.preventDefault();
 
-        const phoneNumber = phoneInput.getNumber();
+        phoneNumber = phoneInput.getNumber();
 
-        info.style.display = "";
-        info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+        info.style.display = "none";
+        error.style.display = "none";
+
+        if (phoneInput.isValidNumber()) {
+            fetch('/accounts/verification-codes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phoneNumber: phoneNumber
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    var verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'), {
+                        keyboard: false
+                    });
+                    verificationModal.show();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        } else {
+            error.style.display = "";
+            error.innerHTML = `Invalid phone number.`;
+        }
     }
+
+
+
 </script>
 </html>
