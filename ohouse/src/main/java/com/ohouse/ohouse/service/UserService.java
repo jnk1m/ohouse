@@ -5,4 +5,6 @@ import com.ohouse.ohouse.domain.UserDTO;
 public interface UserService {
 
   UserDTO getUserByEmail(String email);
+
+  void savePhoneNumberAndMarkVerified(Long userId, String phoneNumber);
 }
