@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDTO {
+  private Long userId;
+
   private String userName;
 
   private String phoneNumber;
@@ -14,7 +16,8 @@ public class UserDTO {
 
   private boolean isPhoneVerified;
 
-  public UserDTO(String userName, String phoneNumber, String email, boolean isPhoneVerified) {
+  public UserDTO(Long userId, String userName, String phoneNumber, String email, boolean isPhoneVerified) {
+    this.userId = userId;
     this.userName = userName;
     this.phoneNumber = phoneNumber;
     this.email = email;

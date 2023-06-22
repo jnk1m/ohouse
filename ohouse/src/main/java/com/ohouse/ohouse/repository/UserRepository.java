@@ -10,8 +10,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
   Optional<User> findByEmail(String email);
 
-  @Query("SELECT new com.ohouse.ohouse.domain.UserDTO(u.userName, u.phoneNumber, u.email, u.isPhoneVerified) " +
+  @Query("SELECT new com.ohouse.ohouse.domain.UserDTO(u.userId, u.userName, u.phoneNumber, u.email, u.isPhoneVerified) " +
           "FROM User u " +
           "WHERE u.email = :email")
   Optional<UserDTO> findByEmailToDTO (String email);
+
 }
