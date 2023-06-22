@@ -21,7 +21,6 @@ public class PhoneValidationService {
 
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     com.twilio.rest.verify.v2.Service service = com.twilio.rest.verify.v2.Service.creator("Ohouse phone").create();
-
   }
 
   public void sendVerification(String phoneNumber) {
@@ -39,7 +38,6 @@ public class PhoneValidationService {
             .setCode(verificationCode)
             .create();
 
-    System.out.println(verificationCheck.getStatus());
     return verificationCheck.getStatus();
   }
 }
