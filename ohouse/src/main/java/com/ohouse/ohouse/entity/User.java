@@ -73,6 +73,14 @@ public class User {
     this.userName = userName;
     return this;
   }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public void setPhoneVerified(boolean phoneVerified) {
+    isPhoneVerified = phoneVerified;
+  }
 }
 
 
