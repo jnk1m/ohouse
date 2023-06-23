@@ -5,6 +5,7 @@ import com.ohouse.ohouse.security.auth.SessionUser;
 import com.ohouse.ohouse.service.PhoneValidationService;
 import com.ohouse.ohouse.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class UserController {
   private final PhoneValidationService phoneValidationService;
 
   @ModelAttribute("userDTO")
+  @Cacheable(value = "userDTO", key = "#session.getAttribute('user').email")
   public UserDTO getUserDTO(HttpSession session) {
     SessionUser user = (SessionUser) session.getAttribute("user");
 
