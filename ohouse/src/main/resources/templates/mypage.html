@@ -172,17 +172,17 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="container">
+                                    <div class="container p-2">
                                         <form onsubmit="process(event)">
                                             <p>Enter your phone number:</p>
                                             <input id="phone" type="tel" name="phone" required/>
                                             <input type="submit" class="btn-outline-primary" value="Send"/>
                                         </form>
                                     </div>
-                                    <div class="container">
+                                    <div class="container p-2">
                                         <form id="code-verification-form">
-                                            <input type="text" id="verification-code" required/>
-                                            <button type="submit" id="verify-code-button">Verify Code</button>
+                                            <input type="number" id="verification-code" required disabled/>
+                                            <button type="submit" id="verify-code-button" disabled>Verify Code</button>
                                         </form>
                                     </div>
                                     <div class="alert alert-info" style="display: none;"></div>
@@ -257,9 +257,8 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    // verificationCodeInput.disabled = false;
-                    // verifyCodeButton.disabled = false;
+                    verificationCodeInput.disabled = false;
+                    verifyCodeButton.disabled = false;
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -275,6 +274,11 @@
 
         const verificationCode = verificationCodeInput.value;
 
+        if (verificationCode.length !== 6) {
+            error.style.display = "";
+            error.innerHTML = `Invalid Verification Code. Please check the code and try again.`;
+        }
+
         fetch('/accounts/verification-codes/verification', {
             method: 'POST',
             headers: {
@@ -287,20 +291,25 @@
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Server responded with a status of " + response.status);
+                    return response.json().then(error => {
+                        throw new Error(error.message);
+                    });
                 }
-                return response;
+                return response.json();
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 if (data.message === "Verification successful") {
-                    console.log('Verification successful');
+                    alert('Verification successful!');
+                    window.location.href = '/accounts';
                 } else {
-                    console.log('Verification failed');
+                    error.style.display = "";
+                    error.innerHTML = `Invalid Verification Code. Please check the code and try again.`;
                 }
             })
             .catch((error) => {
+                error.style.display = "";
+                error.innerHTML = error.toString();
                 console.error('Error:', error);
             });
     }
