@@ -5,7 +5,9 @@ import com.ohouse.ohouse.security.auth.SessionUser;
 import com.ohouse.ohouse.service.PhoneValidationService;
 import com.ohouse.ohouse.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,7 @@ public class UserController {
   private final PhoneValidationService phoneValidationService;
 
   @ModelAttribute("userDTO")
-  @Cacheable(value = "userDTO", key = "#session.getAttribute('user').email")
+  @CachePut(value = "userDTO", key = "#session.getAttribute('user').email")
   public UserDTO getUserDTO(HttpSession session) {
     SessionUser user = (SessionUser) session.getAttribute("user");
 
@@ -52,7 +54,6 @@ public class UserController {
   @PostMapping("/verification-codes/verification")
   public ResponseEntity<String> checkVerificationCode(@RequestBody Map<String, String> payload, @ModelAttribute("userDTO") UserDTO userDTO) {
     String phoneNumber = payload.get("phoneNumber");
-
     String verificationCheckResult = phoneValidationService.checkVerificationCode(phoneNumber, payload.get("verificationCode"));
 
     if (verificationCheckResult.equals("approved")) {
@@ -60,9 +61,20 @@ public class UserController {
 
       return new ResponseEntity<>("{\"message\": \"Verification successful\"}", HttpStatus.OK);
     } else {
-      return new ResponseEntity<>("{\"message\": \"Verification failed\"}", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("{\"message\": \"Verification failed\"}", HttpStatus.OK);
     }
   }
 
-
+  // It checks whether the cause of the exception is a ConstraintViolationException and
+  // if the constraint that is violated is "user.phone_number_UNIQUE".
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+    if (e.getCause() instanceof ConstraintViolationException) {
+      ConstraintViolationException cause = (ConstraintViolationException) e.getCause();
+      if (cause.getConstraintName().equals("user.phone_number_UNIQUE")) {
+        return new ResponseEntity<>("{\"message\": \"This phone number is already verified.\"}", HttpStatus.BAD_REQUEST);
+      }
+    }
+    return new ResponseEntity<>("{\"message\": \"An error occurred.\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
