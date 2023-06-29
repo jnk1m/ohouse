@@ -257,8 +257,13 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    verificationCodeInput.disabled = false;
-                    verifyCodeButton.disabled = false;
+                    if (data.message === "Code sent") {
+                        verificationCodeInput.disabled = false;
+                        verifyCodeButton.disabled = false;
+                    }else if(data.message === "Duplicate Phone"){
+                        error.style.display = "";
+                        error.innerHTML = `This phone number is already in use for verification. Please try using a different number`;
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -291,25 +296,22 @@
         })
             .then(response => {
                 if (!response.ok) {
-                    return response.json().then(error => {
-                        throw new Error(error.message);
-                    });
+                    throw new Error("Server responded with a status of " + response.status);
                 }
-                return response.json();
+                return response;
             })
             .then(response => response.json())
             .then(data => {
                 if (data.message === "Verification successful") {
                     alert('Verification successful!');
                     window.location.href = '/accounts';
-                } else {
+                }
+                else {
                     error.style.display = "";
                     error.innerHTML = `Invalid Verification Code. Please check the code and try again.`;
                 }
             })
             .catch((error) => {
-                error.style.display = "";
-                error.innerHTML = error.toString();
                 console.error('Error:', error);
             });
     }
