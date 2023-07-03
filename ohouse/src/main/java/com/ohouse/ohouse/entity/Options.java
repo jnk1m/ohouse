@@ -16,7 +16,7 @@ public class Options {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "option_id")
-  private Long optionId;
+  private int optionId;
 
   @Column(name = "option_name")
   @NotNull

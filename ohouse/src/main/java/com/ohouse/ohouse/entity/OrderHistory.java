@@ -18,7 +18,7 @@ public class OrderHistory {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "order_history_id")
-  private Long orderHistoryId;
+  private int orderHistoryId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "google_id")

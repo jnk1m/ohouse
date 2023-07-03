@@ -16,7 +16,7 @@ public class MenuOption {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "menu_option_id")
-  private Long menuOptionId;
+  private int menuOptionId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id")
