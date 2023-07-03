@@ -39,19 +39,10 @@ public class UserController {
   }
 
   @PostMapping("/verification-codes")
-  public ResponseEntity<?> sendVerificationCode(@RequestBody Map<String, String> payload) {
-    String phoneNumber = payload.get("phoneNumber");
-
-    try {
-
-      boolean phoneNumberAlreadyExists = userService.isPhoneNumberAlreadyExists(phoneNumber);
-
-      if (phoneNumberAlreadyExists) {
-        return new ResponseEntity<>("{\"message\": \"Duplicate Phone\"}", HttpStatus.OK);
-      } else {
-        phoneValidationService.sendVerification(phoneNumber);
-        return new ResponseEntity<>("{\"message\": \"Code sent\"}", HttpStatus.OK);
-      }
+  public ResponseEntity<String> sendVerificationCode(@RequestBody Map<String, String> payload) {
+   try {
+      phoneValidationService.sendVerification(payload.get("phoneNumber"));
+      return new ResponseEntity<>("{\"message\": \"Code sent\"}", HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>("{\"message\": \"Error while sending verification code\"}", HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -63,11 +54,16 @@ public class UserController {
     String phoneNumber = payload.get("phoneNumber");
     String verificationCheckResult = phoneValidationService.checkVerificationCode(phoneNumber, payload.get("verificationCode"));
 
-    if (verificationCheckResult.equals("approved")) {
-      userService.savePhoneNumberAndMarkVerified(userDTO.getUserId(), phoneNumber);
-      return new ResponseEntity<>("{\"message\": \"Verification successful\"}", HttpStatus.OK);
-    } else {
-      return new ResponseEntity<>("{\"message\": \"Verification failed\"}", HttpStatus.OK);
+    try {
+      if (verificationCheckResult.equals("approved")) {
+        userService.savePhoneNumberAndMarkVerified(userDTO.getUserId(), phoneNumber);
+        return new ResponseEntity<>("{\"message\": \"Verification successful\"}", HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>("{\"message\": \"Verification failed\"}", HttpStatus.OK);
+      }
+    } catch (Exception e) {
+      //여기 고치기
+      return new ResponseEntity<>("{\"message\": \"Error while checking verification code\"}", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
