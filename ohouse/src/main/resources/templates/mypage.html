@@ -260,9 +260,6 @@
                     if (data.message === "Code sent") {
                         verificationCodeInput.disabled = false;
                         verifyCodeButton.disabled = false;
-                    }else if(data.message === "Duplicate Phone"){
-                        error.style.display = "";
-                        error.innerHTML = `This phone number is already in use for verification. Please try using a different number`;
                     }
                 })
                 .catch((error) => {
