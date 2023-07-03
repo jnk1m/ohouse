@@ -26,8 +26,4 @@ public class UserServiceImpl implements UserService {
     user.setPhoneVerified(true);
   }
 
-  @Override
-  public boolean isPhoneNumberAlreadyExists(String phoneNumber) {
-    return userRepository.countByPhoneNumber(phoneNumber) > 0;
-  }
 }

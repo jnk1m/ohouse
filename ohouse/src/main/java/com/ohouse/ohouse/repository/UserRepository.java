@@ -15,6 +15,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
           "WHERE u.email = :email")
   Optional<UserDTO> findByEmailToDTO (String email);
 
-  int countByPhoneNumber(String phoneNumber);
 
 }

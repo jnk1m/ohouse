@@ -8,5 +8,4 @@ public interface UserService {
 
   void savePhoneNumberAndMarkVerified(Long userId, String phoneNumber);
 
-  boolean isPhoneNumberAlreadyExists(String phoneNumber);
 }
