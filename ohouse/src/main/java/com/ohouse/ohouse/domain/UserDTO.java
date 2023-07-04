@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class UserDTO implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private Long userId;
+  private int userId;
 
   private String userName;
 
@@ -20,7 +20,7 @@ public class UserDTO implements Serializable {
 
   private boolean isPhoneVerified;
 
-  public UserDTO(Long userId, String userName, String phoneNumber, String email, boolean isPhoneVerified) {
+  public UserDTO(int userId, String userName, String phoneNumber, String email, boolean isPhoneVerified) {
     this.userId = userId;
     this.userName = userName;
     this.phoneNumber = phoneNumber;

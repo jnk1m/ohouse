@@ -12,9 +12,9 @@ import java.util.Map;
 public interface MenuService {
   List<MenuDTO> getMenusInCategory(Category category);
 
-  MenuDTO getMenuDTO(Long menuId) throws MenuNotFoundException;
+  MenuDTO getMenuDTO(int menuId) throws MenuNotFoundException;
 
-  Menu getMenu(Long menuId) throws MenuNotFoundException;
+  Menu getMenu(int menuId) throws MenuNotFoundException;
 
   Map<String, List<MenuOptionDTO>> getMenuOptions(Menu menu);
 

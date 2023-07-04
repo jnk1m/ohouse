@@ -6,6 +6,6 @@ public interface UserService {
 
   UserDTO getUserByEmail(String email);
 
-  void savePhoneNumberAndMarkVerified(Long userId, String phoneNumber);
+  void savePhoneNumberAndMarkVerified(int userId, String phoneNumber);
 
 }

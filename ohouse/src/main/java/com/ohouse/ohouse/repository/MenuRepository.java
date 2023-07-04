@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface MenuRepository extends JpaRepository<Menu, Long> {
+public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
   @Query("SELECT m FROM Menu m WHERE m.category = :category AND m.isAvailable = true")
   List<Menu> findByCategoryAndIsAvailableTrue(@Param("category") Category categoryId);
 
   @Query("SELECT m FROM Menu m WHERE m.menuId = :menuId AND m.isAvailable = true")
-  Optional<Menu> findByMenuIdAndIsAvailableTrue(@Param("menuId") Long menuId);
+  Optional<Menu> findByMenuIdAndIsAvailableTrue(@Param("menuId") int menuId);
 
   @Query("SELECT new com.ohouse.ohouse.domain.MenuOptionDTO(c.categoryName, o.optionName) " +
           "FROM MenuOption mo " +

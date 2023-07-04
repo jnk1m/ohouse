@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class MenuDTO {
-  private Long menuId;
+  private int menuId;
 
   private String menuNameEng;
 
@@ -22,7 +22,7 @@ public class MenuDTO {
 
   private String imagePath;
 
-  public MenuDTO(Long menuId, String menuNameEng, String descriptionEng, String menuNameKor, String descriptionKor, BigDecimal menuPrice, String imagePath) {
+  public MenuDTO(int menuId, String menuNameEng, String descriptionEng, String menuNameKor, String descriptionKor, BigDecimal menuPrice, String imagePath) {
     this.menuId = menuId;
     this.menuNameEng = menuNameEng;
     this.descriptionEng = descriptionEng;

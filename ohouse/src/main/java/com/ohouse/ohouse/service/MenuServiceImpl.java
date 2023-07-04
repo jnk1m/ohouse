@@ -34,12 +34,12 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
-  public Menu getMenu(Long menuId) throws MenuNotFoundException {
+  public Menu getMenu(int menuId) throws MenuNotFoundException {
     return menuRepository.findByMenuIdAndIsAvailableTrue(menuId).orElseThrow(() -> new MenuNotFoundException("Menu Not Found"));
   }
 
   @Override
-  public MenuDTO getMenuDTO(Long menuId) throws MenuNotFoundException {
+  public MenuDTO getMenuDTO(int menuId) throws MenuNotFoundException {
     Menu menu = menuRepository.findByMenuIdAndIsAvailableTrue(menuId).orElseThrow(() -> new MenuNotFoundException("Menu Not Found"));
 
     return new MenuDTO(menu.getMenuId(), menu.getMenuNameEng(), menu.getDescriptionEng(),

@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public void savePhoneNumberAndMarkVerified(Long userId, String phoneNumber) {
+  public void savePhoneNumberAndMarkVerified(int userId, String phoneNumber) {
     User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("No user found with id: " + userId));
     user.setPhoneNumber(phoneNumber);
     user.setPhoneVerified(true);

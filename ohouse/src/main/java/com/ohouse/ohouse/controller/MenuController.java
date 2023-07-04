@@ -28,7 +28,7 @@ public class MenuController {
   private final CategoryService categoryService;
 
   @GetMapping("/{categoryId}")
-  public String getMenusInCategory(@PathVariable Long categoryId, Model model) throws InvalidCategoryIdException {
+  public String getMenusInCategory(@PathVariable int categoryId, Model model) throws InvalidCategoryIdException {
     Category category = categoryService.findCategory(categoryId);
 
     // Categories 8, 10, and 11 are not in use due to menu consolidation.
@@ -46,7 +46,7 @@ public class MenuController {
   }
 
   @GetMapping("/detail/{menuId}")
-  public String getMenuWithOptions(@PathVariable Long menuId, Model model) throws MenuNotFoundException {
+  public String getMenuWithOptions(@PathVariable int menuId, Model model) throws MenuNotFoundException {
     MenuDTO menuDTO = menuService.getMenuDTO(menuId);
 
     Map<String, List<MenuOptionDTO>> menuOptions = menuService.getMenuOptions(menuService.getMenu(menuId));

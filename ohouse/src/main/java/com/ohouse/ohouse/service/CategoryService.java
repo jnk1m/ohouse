@@ -7,5 +7,5 @@ import java.util.List;
 public interface CategoryService {
   List<Category> getMenuCategories();
 
-  Category findCategory(Long categoryId);
+  Category findCategory(int categoryId);
 }
