@@ -19,7 +19,7 @@ public class Cart {
   private int cartId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "google_id")
+  @JoinColumn(name = "user_id")
   @NotNull
   private User user;
 
@@ -32,21 +32,10 @@ public class Cart {
   @NotNull
   private int quantity;
 
-  /*nullable*/
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "option_id")
-  private Options options;
-
-  @Column(name = "order_complete")
-  @NotNull
-  private boolean orderComplete;
-
   @Builder
-  public Cart(User user, Menu menu, int quantity, Options options, boolean orderComplete) {
+  public Cart(User user, Menu menu, int quantity) {
     this.user = user;
     this.menu = menu;
     this.quantity = quantity;
-    this.options = options;
-    this.orderComplete = orderComplete;
   }
 }

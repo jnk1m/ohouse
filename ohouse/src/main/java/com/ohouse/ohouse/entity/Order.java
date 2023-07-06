@@ -1,11 +1,13 @@
 package com.ohouse.ohouse.entity;
 
 import com.ohouse.ohouse.enums.OrderStatus;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -20,7 +22,7 @@ public class Order {
   private int orderId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "google_id")
+  @JoinColumn(name = "user_id")
   @NotNull
   private User user;
 
@@ -28,54 +30,39 @@ public class Order {
   @Column(name = "order_date")
   private LocalDateTime orderDate;
 
-  @Column(name = "order_price")
+  @Column(name = "price")
   @NotNull
-  private BigDecimal orderPrice;
+  private BigDecimal price;
+
+  @Column(name = "payment_method")
+  @NotNull
+  private String paymentMethod;
+
+  @Column(name = "delivery_address")
+  @NotNull
+  private String deliveryAddress;
+
+  @Column(name = "delivery_contact")
+  @NotNull
+  private String deliveryContact;
+
+  /*nullable*/
+  @Column(name = "special_instruction")
+  private String specialInstruction;
 
   @Column(name = "order_status")
   @Enumerated(EnumType.STRING)
   @NotNull
   private OrderStatus orderStatus;
 
-  @Column(name = "payment_method")
-  @NotNull
-  private String paymentMethod;
-
-  /*nullable*/
-  @Column(name = "special_instruction")
-  private String specialInstruction;
-
-  @Column(name = "delivery_address")
-  @NotNull
-  private String deliveryAddress;
-
-  @Column(name = "delivery_phone")
-  @NotNull
-  private String deliveryPhone;
-
   @Builder
-  public Order(User user, BigDecimal orderPrice, OrderStatus orderStatus, String paymentMethod, String specialInstruction, String deliveryAddress, String deliveryPhone) {
+  public Order(User user, BigDecimal price, String paymentMethod, String deliveryAddress, String deliveryContact, String specialInstruction, OrderStatus orderStatus) {
     this.user = user;
-    this.orderPrice = orderPrice;
-    this.orderStatus = orderStatus;
+    this.price = price;
     this.paymentMethod = paymentMethod;
-    this.specialInstruction = specialInstruction;
     this.deliveryAddress = deliveryAddress;
-    this.deliveryPhone = deliveryPhone;
+    this.deliveryContact = deliveryContact;
+    this.specialInstruction = specialInstruction;
+    this.orderStatus = orderStatus;
   }
-
-
 }
-
-
-/*Builder Example:
-Order order = Order.builder()
-        .user(userInstance)
-        .orderPrice(new BigDecimal("100.00"))
-        .orderStatus(OrderStatus.CREATED)
-        .paymentMethod("credit")
-        .specialInstruction("Leave it at the door")
-        .deliveryAddress("123 Main St")
-        .deliveryPhone("555-123-4567")
-        .build();
- */

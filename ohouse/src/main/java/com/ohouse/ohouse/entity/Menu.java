@@ -53,7 +53,6 @@ public class Menu {
   private String imagePath;
 
   @Column(name = "chit_name")
-  @NotNull
   private String chitName;
 
   @Builder
