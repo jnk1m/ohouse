@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "cart_option")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CartOption {
