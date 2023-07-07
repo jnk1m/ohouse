@@ -19,7 +19,7 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
   @Query("SELECT m FROM Menu m WHERE m.menuId = :menuId AND m.isAvailable = true")
   Optional<Menu> findByMenuIdAndIsAvailableTrue(@Param("menuId") int menuId);
 
-  @Query("SELECT new com.ohouse.ohouse.domain.MenuOptionDTO(c.categoryName, o.optionName) " +
+  @Query("SELECT new com.ohouse.ohouse.domain.MenuOptionDTO(c.categoryName, o.optionName, o.optionId) " +
           "FROM MenuOption mo " +
           "JOIN mo.category c " +
           "JOIN mo.options o " +
