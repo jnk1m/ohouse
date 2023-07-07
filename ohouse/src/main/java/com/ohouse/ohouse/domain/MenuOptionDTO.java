@@ -10,8 +10,11 @@ public class MenuOptionDTO {
 
   private String optionName;
 
-  public MenuOptionDTO(String categoryName, String optionName) {
+  private int optionId;
+
+  public MenuOptionDTO(String categoryName, String optionName, int optionId) {
     this.categoryName = categoryName;
     this.optionName = optionName;
+    this.optionId = optionId;
   }
 }
