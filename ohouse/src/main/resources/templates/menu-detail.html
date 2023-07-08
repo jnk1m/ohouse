@@ -67,13 +67,6 @@
                     <div class="row mx-n2">
                         <div class="col-6 px-2">
                             <div class="mb-3">
-                                <div class="pt-2 pb-2" th:each="entry : ${menuOptions}">
-                                    <label class="form-label" for="1" th:text="${entry.key}"></label>
-                                    <select class="form-select" id="1">
-                                        <option th:each="option : ${entry.value}"
-                                                th:text="${option.optionName}"></option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -81,6 +74,28 @@
                     <h5 class="pt-2">Description</h5>
                     <div class="pb-3" th:text="${menu.descriptionEng}"></div>
                     <div th:text="${menu.descriptionKor}"></div>
+                </form>
+                <form th:action="@{/carts}"  method="post">
+                    <div class="pt-2 pb-2" th:each="entry : ${menuOptions}">
+                        <label class="form-label" for="1" th:text="${entry.key}"></label>
+                        <select class="form-select" id="1" name="menuOption">
+                            <option th:each="option : ${entry.value}"
+                                    th:text="${option.optionName}"
+                                    th:value="${option.optionId}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity">Quantity:</label>
+                        <select id="quantity" name="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <input type="hidden" th:value="${menu.menuId}" name="menuId">
+                    <input type="submit" value="Add to Cart">
                 </form>
             </div>
         </div>
@@ -94,7 +109,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-
-
 </body>
 </html>
