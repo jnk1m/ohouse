@@ -7,13 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
   Optional<User> findByEmail(String email);
 
-  @Query("SELECT new com.ohouse.ohouse.domain.UserDTO(u.userId, u.userName, u.phoneNumber, u.email, u.isPhoneVerified) " +
-          "FROM User u " +
-          "WHERE u.email = :email")
-  Optional<UserDTO> findByEmailToDTO (String email);
+  @Query("SELECT COUNT(u.userId) FROM User u WHERE u.userId = :userId AND u.isPhoneVerified = true")
+  int countVerifiedPhoneByUserId(int userId);
 
-
+  @Query("SELECT u.phoneNumber FROM User u WHERE u.userId = :userId")
+  String findPhoneNumberById(int userId);
 }
