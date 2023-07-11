@@ -1,7 +1,6 @@
 package com.ohouse.ohouse.controller;
 
 import com.ohouse.ohouse.domain.UserDTO;
-import com.ohouse.ohouse.security.auth.SessionUser;
 import com.ohouse.ohouse.service.PhoneValidationService;
 import com.ohouse.ohouse.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +25,18 @@ public class UserController {
   @ModelAttribute("userDTO")
   @CachePut(value = "userDTO", key = "#session.getAttribute('user').email")
   public UserDTO getUserDTO(HttpSession session) {
-    SessionUser user = (SessionUser) session.getAttribute("user");
-
-    return userService.getUserByEmail(user.getEmail());
+    return (UserDTO) session.getAttribute("user");
   }
 
   @GetMapping()
   public String getAccountPage(Model model, @ModelAttribute("userDTO") UserDTO userDTO) {
+    boolean phoneVerificationStatus = userService.checkPhoneVerificationStatus(userDTO.getUserId());
+
+    if (phoneVerificationStatus) {
+      model.addAttribute("phoneNumber", userService.getPhoneById(userDTO.getUserId()));
+    }
+
+    model.addAttribute("phoneVerificationStatus", phoneVerificationStatus);
     model.addAttribute("user", userDTO);
 
     return "mypage";
@@ -40,14 +44,13 @@ public class UserController {
 
   @PostMapping("/verification-codes")
   public ResponseEntity<String> sendVerificationCode(@RequestBody Map<String, String> payload) {
-   try {
+    try {
       phoneValidationService.sendVerification(payload.get("phoneNumber"));
       return new ResponseEntity<>("{\"message\": \"Code sent\"}", HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>("{\"message\": \"Error while sending verification code\"}", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
 
   @PostMapping("/verification-codes/verification")
   public ResponseEntity<String> checkVerificationCode(@RequestBody Map<String, String> payload, @ModelAttribute("userDTO") UserDTO userDTO) {
@@ -62,7 +65,7 @@ public class UserController {
         return new ResponseEntity<>("{\"message\": \"Verification failed\"}", HttpStatus.OK);
       }
     } catch (Exception e) {
-      //여기 고치기
+      //TODO
       return new ResponseEntity<>("{\"message\": \"Error while checking verification code\"}", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
