@@ -5,25 +5,35 @@ import com.ohouse.ohouse.entity.User;
 import com.ohouse.ohouse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
+  @Transactional
   @Override
-  public UserDTO getUserByEmail(String email) {
-    return userRepository.findByEmailToDTO(email).orElseThrow();
+  public User getUserById(int userId) {
+    return userRepository.findById(userId).orElseThrow();
   }
 
   @Override
   @Transactional
   public void savePhoneNumberAndMarkVerified(int userId, String phoneNumber) {
     User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("No user found with id: " + userId));
-    user.setPhoneNumber(phoneNumber);
-    user.setPhoneVerified(true);
+    user.updateVerifiedPhoneNumber(phoneNumber);
+  }
+
+  @Override
+  public boolean checkPhoneVerificationStatus(int userId) {
+    return userRepository.countVerifiedPhoneByUserId(userId) > 0;
+  }
+
+  @Override
+  public String getPhoneById(int userId) {
+    return userRepository.findPhoneNumberById(userId);
   }
 
 }
