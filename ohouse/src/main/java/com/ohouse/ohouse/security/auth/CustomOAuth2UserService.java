@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.security.auth;
 
+import com.ohouse.ohouse.domain.UserDTO;
 import com.ohouse.ohouse.entity.User;
 import com.ohouse.ohouse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             , oAuth2User.getAttributes());
 
     User user = saveOrUpdate(attributes);
-    httpSession.setAttribute("user", new SessionUser(user));
+
+    httpSession.setAttribute("user", new UserDTO(user.getUserId(), user.getUserName(), user.getEmail()));
 
     return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())), attributes.getAttributes(),
             attributes.getNameAttributeKey());
