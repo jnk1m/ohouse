@@ -14,17 +14,12 @@ public class UserDTO implements Serializable {
 
   private String userName;
 
-  private String phoneNumber;
-
   private String email;
 
-  private boolean isPhoneVerified;
 
-  public UserDTO(int userId, String userName, String phoneNumber, String email, boolean isPhoneVerified) {
+  public UserDTO(int userId, String userName, String email) {
     this.userId = userId;
     this.userName = userName;
-    this.phoneNumber = phoneNumber;
     this.email = email;
-    this.isPhoneVerified = isPhoneVerified;
   }
 }
