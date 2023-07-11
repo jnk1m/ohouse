@@ -151,10 +151,10 @@
                             <div class="col-sm-6">
                                 <label class="form-label" for="account-phone">Phone Number</label>
                                 <input class="form-control" type="text" id="account-phone"
-                                       th:value="${user.phoneNumber}"
-                                       th:if="${user.isPhoneVerified}" disabled>
+                                       th:value="${phoneNumber}"
+                                       th:if="${phoneVerificationStatus}" disabled>
                             </div>
-                            <div th:unless="${user.isPhoneVerified}">
+                            <div th:unless="${phoneVerificationStatus}">
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#phoneVerify">
                                     Verify Phone Number
@@ -302,8 +302,7 @@
                 if (data.message === "Verification successful") {
                     alert('Verification successful!');
                     window.location.href = '/accounts';
-                }
-                else {
+                } else {
                     error.style.display = "";
                     error.innerHTML = `Invalid Verification Code. Please check the code and try again.`;
                 }
