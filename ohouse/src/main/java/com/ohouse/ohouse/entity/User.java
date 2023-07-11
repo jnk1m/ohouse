@@ -62,7 +62,6 @@ public class User {
           .isPhoneVerified(true)
           .userRole(ROLE.USER)
           .build();
-
    */
 
   public String getRoleKey() {
@@ -74,13 +73,11 @@ public class User {
     return this;
   }
 
-  public void setPhoneNumber(String phoneNumber) {
+  public void updateVerifiedPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+    isPhoneVerified = true;
   }
 
-  public void setPhoneVerified(boolean phoneVerified) {
-    isPhoneVerified = phoneVerified;
-  }
 }
 
 
