@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.service;
 
+import com.ohouse.ohouse.domain.UserCartDTO;
 import com.ohouse.ohouse.entity.Cart;
 import com.ohouse.ohouse.entity.CartOption;
 import com.ohouse.ohouse.repository.CartOptionRepository;
@@ -28,6 +29,11 @@ public class CartServiceImpl implements CartService {
       savedCartOptions.add(cartOptionRepository.save(cartOption));
     }
     return savedCartOptions;
+  }
+
+  @Override
+  public List<UserCartDTO> getCartList(int userId) {
+    return cartRepository.findCartByUser(userId);
   }
 
 
