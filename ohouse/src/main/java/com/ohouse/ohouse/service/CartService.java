@@ -1,6 +1,6 @@
 package com.ohouse.ohouse.service;
 
-import com.ohouse.ohouse.domain.UserCartDTO;
+import com.ohouse.ohouse.domain.CartItemDTO;
 import com.ohouse.ohouse.entity.Cart;
 import com.ohouse.ohouse.entity.CartOption;
 
@@ -12,5 +12,5 @@ public interface CartService {
 
   List<CartOption> createCartOption(List<CartOption> cartOptionList);
 
-  List<UserCartDTO> getCartList(int userId);
+  List<CartItemDTO> getCartItemList(int userId);
 }

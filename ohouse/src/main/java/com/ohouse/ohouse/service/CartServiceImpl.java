@@ -1,6 +1,7 @@
 package com.ohouse.ohouse.service;
 
-import com.ohouse.ohouse.domain.UserCartDTO;
+import com.ohouse.ohouse.domain.CartItemDTO;
+import com.ohouse.ohouse.domain.CartOptionDTO;
 import com.ohouse.ohouse.entity.Cart;
 import com.ohouse.ohouse.entity.CartOption;
 import com.ohouse.ohouse.repository.CartOptionRepository;
@@ -32,8 +33,16 @@ public class CartServiceImpl implements CartService {
   }
 
   @Override
-  public List<UserCartDTO> getCartList(int userId) {
-    return cartRepository.findCartByUser(userId);
+  public List<CartItemDTO> getCartItemList(int userId) {
+    List<CartItemDTO> cartItemsByUserId = cartRepository.findCartItemsByUserId(userId);
+    cartItemsByUserId.forEach(cartItemDTO -> {
+      List<CartOptionDTO> optionByCartId = cartOptionRepository.findOptionByCartId(cartItemDTO.getCartId());
+      optionByCartId.stream()
+              .filter(optionDTO -> optionDTO.getParentCartId() == cartItemDTO.getCartId())
+              .forEach(matchingOption -> cartItemDTO.getOptions().add(matchingOption));
+    });
+
+    return cartItemsByUserId;
   }
 
 
