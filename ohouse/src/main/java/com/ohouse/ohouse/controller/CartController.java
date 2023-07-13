@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.controller;
 
+import com.ohouse.ohouse.domain.CartItemDTO;
 import com.ohouse.ohouse.domain.UserCartDTO;
 import com.ohouse.ohouse.domain.UserDTO;
 import com.ohouse.ohouse.entity.Cart;
@@ -30,7 +31,7 @@ public class CartController {
   @GetMapping
   public String getCartList(HttpSession session, Model model){
     UserDTO userDTO = (UserDTO) session.getAttribute("user");
-    List<UserCartDTO> cartList = cartService.getCartList(userDTO.getUserId());
+    List<CartItemDTO> cartList = cartService.getCartList(userDTO.getUserId());
 
     model.addAttribute("cartList",cartList);
     return "carts";
