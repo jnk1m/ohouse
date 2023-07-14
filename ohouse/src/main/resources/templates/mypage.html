@@ -177,12 +177,14 @@
                                             <p>Enter your phone number:</p>
                                             <input id="phone" type="tel" name="phone" required/>
                                             <input type="submit" class="btn-outline-primary" value="Send"/>
+                                            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                                         </form>
                                     </div>
                                     <div class="container p-2">
                                         <form id="code-verification-form">
                                             <input type="number" id="verification-code" required disabled/>
                                             <button type="submit" id="verify-code-button" disabled>Verify Code</button>
+                                            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                                         </form>
                                     </div>
                                     <div class="alert alert-info" style="display: none;"></div>
