@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV5JTYY4LL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-VV5JTYY4LL');
+    </script>
+    <meta charset="utf-8">
+    <title>O House | Cart</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
+    <!-- SEO Meta Tags-->
+    <meta name="description"
+          content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
+    <meta name="author" content="Createx Studio">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+    <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Header -->
+<header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
+        th:include="header :: header"></header>
+
+<main class="page-wrapper">
+    <div class="container pt-4 pb-3 py-sm-4">
+        <div class="rounded-3 shadow-lg mt-4 mb-5">
+            <ul class="nav nav-tabs nav-justified mb-4">
+                <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4 active" href="carts.html">1. Your order</a>
+                </li>
+                <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4" href="checkout.html">2. Checkout</a></li>
+            </ul>
+            <div class="px-3 px-sm-4 px-xl-5 pt-1 pb-4 pb-sm-5">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 pt-sm-2">
+                        <!-- Items in cart-->
+                        <div th:each="cartItem : ${cartList}"
+                             class="d-sm-flex justify-content-between align-items-center mt-3 mb-4 pb-3 border-bottom">
+                            <!-- Item-->
+                            <div class="d-block d-sm-flex align-items-center text-center text-sm-start">
+                                <div class="pt-2">
+                                    <h3 class="product-title fs-base mb-2"><a
+                                            th:href="@{/menus/detail/{menuId}(menuId=${cartItem.cartMenuDTO.menuId})}"
+                                            th:text="${cartItem.cartMenuDTO.menuNameEng}"></a></h3>
+
+                                    <div th:unless="${#lists.isEmpty(cartItem.options)}" class="fs-sm">
+                                        <span class="text-muted me-2">Options:</span>
+                                        <span th:each="option : ${cartItem.options}"
+                                              th:text="'*'+${option.optionName}+' '"></span>
+                                    </div>
+
+                                    <div class="fs-lg text-accent pt-2"
+                                         th:text="'$' + ${cartItem.cartMenuDTO.menuPrice}"></div>
+                                </div>
+                            </div>
+                            <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start"
+                                 style="max-width: 9rem;">
+                                <label class="form-label" for="quantity1">Quantity</label>
+                                <input class="form-control" type="number" id="quantity1" th:value="${cartItem.quantity}"
+                                       min="1" disabled>
+                                <button class="btn btn-link px-0 text-danger" type="button"><i
+                                    class="fa-regular fa-square-minus"></i><span class="fs-sm"> Remove</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar-->
+                    <div class="col-lg-4 col-md-5 pt-3 pt-sm-4">
+                        <div class="rounded-3 bg-secondary px-3 px-sm-4 py-4">
+                            <div class="text-center mb-4 pb-3 border-bottom">
+                                <h3 class="h5 mb-3 pb-1">Total</h3>
+                                <h4 class="fw-normal" th:text=" '$' + ${totalPrice}"></h4>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label mb-3" for="order-comments"><span
+                                        class="badge bg-info fs-xs me-2">Note</span>Additional comments</label>
+                                <textarea class="form-control" rows="4" id="order-comments"></textarea>
+                            </div>
+                            <a class="btn btn-primary btn-shadow d-block w-100 mt-4 mb-3"
+                               href="food-delivery-checkout.html"><i class="ci-card fs-lg me-2"></i>Proceed to Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer-->
+<footer class="footer bg-dark pt-5" th:include="footer :: footer"></footer>
+
+<!-- Main theme script-->
+<script src="/js/theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
