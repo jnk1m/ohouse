@@ -6,16 +6,14 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Getter
-@Setter
 public class UserDTO implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private int userId;
+  private final int userId;
 
-  private String userName;
+  private final String userName;
 
-  private String email;
-
+  private final String email;
 
   public UserDTO(int userId, String userName, String email) {
     this.userId = userId;

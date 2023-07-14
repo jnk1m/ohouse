@@ -8,9 +8,9 @@ import java.util.List;
 
 @Getter
 public class CartItemDTO {
-  private int cartId;
-  private int quantity;
-  private CartMenuDTO cartMenuDTO;
+  private final int cartId;
+  private final int quantity;
+  private final CartMenuDTO cartMenuDTO;
   private List<CartOptionDTO> options = new ArrayList<>();
 
   public CartItemDTO(Integer cartId, Integer quantity, Integer menuId, String menuNameEng, BigDecimal menuPrice) {

@@ -1,26 +1,24 @@
 package com.ohouse.ohouse.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Getter
-@Setter
 public class MenuDTO {
-  private int menuId;
+  private final int menuId;
 
-  private String menuNameEng;
+  private final String menuNameEng;
 
-  private String descriptionEng;
+  private final String descriptionEng;
 
-  private String menuNameKor;
+  private final String menuNameKor;
 
-  private String descriptionKor;
+  private final String descriptionKor;
 
-  private BigDecimal menuPrice;
+  private final BigDecimal menuPrice;
 
-  private String imagePath;
+  private final String imagePath;
 
   public MenuDTO(int menuId, String menuNameEng, String descriptionEng, String menuNameKor, String descriptionKor, BigDecimal menuPrice, String imagePath) {
     this.menuId = menuId;

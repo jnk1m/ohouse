@@ -6,10 +6,10 @@ import java.math.BigDecimal;
 
 @Getter
 public class CartOptionDTO {
-  private int parentCartId;
-  private int optionId;
-  private String optionName;
-  private BigDecimal optionPrice;
+  private final int parentCartId;
+  private final int optionId;
+  private final String optionName;
+  private final BigDecimal optionPrice;
 
   public CartOptionDTO(int parentCartId, int optionId, String optionName, BigDecimal optionPrice) {
     this.parentCartId = parentCartId;

@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 
 @Getter
 public class CartMenuDTO {
-  private int menuId;
-  private String menuNameEng;
-  private BigDecimal menuPrice;
+  private final int menuId;
+  private final String menuNameEng;
+  private final BigDecimal menuPrice;
 
   public CartMenuDTO(int menuId, String menuNameEng, BigDecimal menuPrice) {
     this.menuId = menuId;
