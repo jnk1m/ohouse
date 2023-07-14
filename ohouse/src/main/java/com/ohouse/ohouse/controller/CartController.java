@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +29,23 @@ public class CartController {
   private final OptionService optionService;
 
   @GetMapping
-  public String getCartList(HttpSession session, Model model){
+  public String getCartList(HttpSession session, Model model) {
     UserDTO userDTO = (UserDTO) session.getAttribute("user");
-    List<CartItemDTO> cartList = cartService.getCartList(userDTO.getUserId());
+    List<CartItemDTO> cartList = cartService.getCartItemList(userDTO.getUserId());
 
-    model.addAttribute("cartList",cartList);
+    BigDecimal totalPrice = cartList.stream()
+            .map(cartItem -> {
+              int quantity = cartItem.getQuantity();
+              BigDecimal menuPrice = cartItem.getCartMenuDTO().getMenuPrice().multiply(new BigDecimal(quantity));
+              BigDecimal optionsPrice = cartItem.getOptions().stream()
+                      .map(option -> option.getOptionPrice().multiply(new BigDecimal(quantity)))
+                      .reduce(BigDecimal.ZERO, BigDecimal::add);
+              return menuPrice.add(optionsPrice);
+            })
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    model.addAttribute("cartList", cartList);
+    model.addAttribute("totalPrice", totalPrice);
     return "carts";
   }
 
@@ -62,5 +75,8 @@ public class CartController {
     return "index";
   }
 
+  @DeleteMapping
+  public void deleteCartItem(@RequestParam("cardId") int cartId) {
 
+  }
 }
