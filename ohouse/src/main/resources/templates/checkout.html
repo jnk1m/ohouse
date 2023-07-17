@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O House | Check Out</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV5JTYY4LL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-VV5JTYY4LL');
+    </script>
+    <meta charset="utf-8">
+    <title>O House | Cart</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
+    <!-- SEO Meta Tags-->
+    <meta name="description"
+          content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
+    <meta name="author" content="Createx Studio">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+    <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Header -->
+<header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
+        th:include="header :: header"></header>
+
+<main class="page-wrapper">
+    <div class="container pt-4 pb-3 py-sm-4">
+        <div class="rounded-3 shadow-lg mt-4 mb-5">
+            <ul class="nav nav-tabs nav-justified mb-4">
+                <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4" href="/carts">1. Your order</a>
+                </li>
+                <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4 active" href="/orders/checkout">2.
+                    Checkout</a>
+                </li>
+            </ul>
+            <form action="/orders" method="post" class="needs-validation px-3 px-sm-4 px-xl-5 pt-sm-1 pb-4 pb-sm-5"
+                  novalidate>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                <div class="row pb-4 pt-3">
+                    <div class="col-sm-6 mb-4">
+                        <label class="form-label" for="name">Your name<sup class="text-danger ms-1">*</sup></label>
+                        <input class="form-control" type="text" name="name" required id="name"
+                               placeholder="First Name, Last Name">
+                        <div class="invalid-feedback">Please enter your name!</div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <label class="form-label" for="phone">Phone number<sup
+                                class="text-danger ms-1">*</sup></label>
+                        <input class="form-control" type="text" name="phone" required id="phone">
+                        <div class="invalid-feedback">Please enter your phone number!</div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <label class="form-label" for="time">Delivery time<sup
+                                class="text-danger ms-1">*</sup></label>
+                        <select class="form-select" id="time">
+                            <option value="asap">As soon as possible</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <div class="fs-sm fw-medium mb-3">Drop-off options</div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="dropoff" checked id="hand-to-me">
+                            <label class="form-check-label" for="hand-to-me">Hand it to me</label>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="h5 pb-3">Delivery address</h2>
+                <div class="row mb-4">
+                    <div class="col-sm-6 mb-4">
+                        <label class="form-label" for="bldgNo">Building Number<sup
+                                class="text-danger ms-1">*</sup></label>
+                        <input class="form-control" type="text" name="bldgNo" required id="bldgNo">
+                        <div class="invalid-feedback">Please enter your building number!</div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <label class="form-label" for="roomNo">Room Number<sup class="text-danger ms-1">*</sup></label>
+                        <input class="form-control" type="text" name="roomNo" required id="roomNo">
+                        <div class="invalid-feedback">Please enter your room number!</div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <label class="form-label mb-3" for="instruction"><span
+                                class="badge bg-info fs-xs me-2">Note</span>Special Instruction</label>
+                        <textarea class="form-control" rows="3" name="instruction" id="instruction"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 mb-4 mb-sm-0">
+                        <h2 class="h5 pb-2">Pay on delivery</h2>
+                        <div class="form-check form-check-inline mb-3">
+                            <input class="form-check-input" type="radio" name="payment" value="cash" id="cash" checked>
+                            <label class="form-check-label" for="cash">Pay with cash to the courier</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="payment" value="card" id="card">
+                            <label class="form-check-label" for="card">Pay with card to the courier</label>
+                        </div>
+                        <button class="btn btn-primary d-block w-100 mt-3" type="submit">Complete order</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-fle flex-column h-100 rounded-3 bg-secondary px-3 px-sm-4 py-4">
+                            <h2 class="h5 pb-3">Your total</h2>
+                            <div class="d-flex justify-content-between fs-md border-bottom pb-3 mb-3">
+                                <span>Subtotal:</span><span class="text-heading" th:text=" '$' + ${subTotal}"></span>
+                            </div>
+                            <div class="d-flex justify-content-between fs-md border-bottom pb-3 mb-3">
+                                <span>Delivery:</span><span class="text-heading">$2.50</span></div>
+                            <div class="d-flex justify-content-between fs-md mb-2"><span>Total:</span><span
+                                    class="text-heading fw-medium" th:text=" '$' + ${total}"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- Footer-->
+<footer class="footer bg-dark pt-5" th:include="footer :: footer"></footer>
+
+<!-- Main theme script-->
+<script src="/js/theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
