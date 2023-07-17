@@ -16,5 +16,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
           "WHERE cart.user.userId = :userId")
   List<CartItemDTO> findCartItemsByUserId(int userId);
 
+  void deleteByCartId(int cartId);
+
 
 }

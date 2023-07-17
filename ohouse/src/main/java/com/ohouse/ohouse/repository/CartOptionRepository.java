@@ -15,5 +15,7 @@ public interface CartOptionRepository extends JpaRepository<CartOption, Integer>
           "JOIN co.option o " +
           "WHERE co.cart.cartId = :parentCartId")
   List<CartOptionDTO> findOptionByCartId(int parentCartId);
+
+  void deleteByCart_CartId(int cartId);
 }
 
