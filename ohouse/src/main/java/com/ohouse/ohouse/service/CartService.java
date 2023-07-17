@@ -13,4 +13,6 @@ public interface CartService {
   List<CartOption> createCartOption(List<CartOption> cartOptionList);
 
   List<CartItemDTO> getCartItemList(int userId);
+
+  void deleteCartItem(int cartId);
 }

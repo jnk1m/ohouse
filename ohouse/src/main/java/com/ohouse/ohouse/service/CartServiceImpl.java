@@ -8,6 +8,7 @@ import com.ohouse.ohouse.repository.CartOptionRepository;
 import com.ohouse.ohouse.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,13 @@ public class CartServiceImpl implements CartService {
     });
 
     return cartItemsByUserId;
+  }
+
+  @Transactional
+  @Override
+  public void deleteCartItem(int cartId) {
+    cartOptionRepository.deleteByCart_CartId(cartId);
+    cartRepository.deleteByCartId(cartId);
   }
 
 
