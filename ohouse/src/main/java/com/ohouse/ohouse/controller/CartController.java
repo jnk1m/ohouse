@@ -33,7 +33,15 @@ public class CartController {
     UserDTO userDTO = (UserDTO) session.getAttribute("user");
     List<CartItemDTO> cartList = cartService.getCartItemList(userDTO.getUserId());
 
-    BigDecimal totalPrice = cartList.stream()
+    BigDecimal totalPrice = getTotalPrice(cartList);
+
+    model.addAttribute("cartList", cartList);
+    model.addAttribute("totalPrice", totalPrice);
+    return "carts";
+  }
+
+  static BigDecimal getTotalPrice(List<CartItemDTO> cartList) {
+    return cartList.stream()
             .map(cartItem -> {
               int quantity = cartItem.getQuantity();
               BigDecimal menuPrice = cartItem.getCartMenuDTO().getMenuPrice().multiply(new BigDecimal(quantity));
@@ -43,10 +51,6 @@ public class CartController {
               return menuPrice.add(optionsPrice);
             })
             .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-    model.addAttribute("cartList", cartList);
-    model.addAttribute("totalPrice", totalPrice);
-    return "carts";
   }
 
   @PostMapping
@@ -76,7 +80,8 @@ public class CartController {
   }
 
   @DeleteMapping
-  public void deleteCartItem(@RequestParam("cardId") int cartId) {
-
+  public String deleteCartItem(@RequestParam("cartId") int cartId) {
+    cartService.deleteCartItem(cartId);
+    return "redirect:/carts";
   }
 }
