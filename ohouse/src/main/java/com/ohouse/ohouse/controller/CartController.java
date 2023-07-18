@@ -10,6 +10,8 @@ import com.ohouse.ohouse.service.MenuService;
 import com.ohouse.ohouse.service.OptionService;
 import com.ohouse.ohouse.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,34 +56,40 @@ public class CartController {
   }
 
   @PostMapping
-  public String addItemToCart(@RequestParam(value = "menuOption", required = false) List<Integer> optionId,
-                              @RequestParam("quantity") int quantity,
-                              @RequestParam("menuId") int menuId,
-                              HttpSession session
-  ) throws MenuNotFoundException {
-    UserDTO userDTO = (UserDTO) session.getAttribute("user");
+  public ResponseEntity<String> addItemToCart(@RequestParam(value = "menuOption", required = false) List<Integer> optionId,
+                                      @RequestParam("quantity") int quantity,
+                                      @RequestParam("menuId") int menuId,
+                                      HttpSession session
+  ){
+    try {
+      UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
-    Cart cart = Cart.builder()
-            .quantity(quantity)
-            .menu(menuService.getMenu(menuId))
-            .user(userService.getUserById(userDTO.getUserId()))
-            .build();
-    Cart createdCart = cartService.createCart(cart);
+      Cart cart = Cart.builder()
+              .quantity(quantity)
+              .menu(menuService.getMenu(menuId))
+              .user(userService.getUserById(userDTO.getUserId()))
+              .build();
+      Cart createdCart = cartService.createCart(cart);
 
-    if (optionId != null) {
-      List<CartOption> cartOptionList = optionId.stream().map(id -> CartOption.builder().cart(createdCart)
-              .option(optionService.getById(id)).build()).collect(Collectors.toList());
+      if (optionId != null) {
+        List<CartOption> cartOptionList = optionId.stream().map(id -> CartOption.builder().cart(createdCart)
+                .option(optionService.getById(id)).build()).collect(Collectors.toList());
 
-      List<CartOption> cartOption = cartService.createCartOption(cartOptionList);
+        cartService.createCartOption(cartOptionList);
+      }
+      return new ResponseEntity<>("{\"message\": \"Item added\"}", HttpStatus.OK);
+    }catch (Exception e){
+      return new ResponseEntity<>("{\"message\": \"Error while adding item to cart\"}", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    //TODO: responseEntity로 리턴하도록 수정하기. 전화번호 인증처럼 특정 메세지 받으면 장바구니 담기 완료했다는 팝업 띄워주기
-    return "index";
   }
 
   @DeleteMapping
-  public String deleteCartItem(@RequestParam("cartId") int cartId) {
-    cartService.deleteCartItem(cartId);
-    return "redirect:/carts";
+  public ResponseEntity<String> deleteCartItem(@RequestParam("cartId") int cartId) {
+    try {
+      cartService.deleteCartItem(cartId);
+      return new ResponseEntity<>("{\"message\": \"Item deleted\"}", HttpStatus.OK);
+    }catch (Exception e){
+      return new ResponseEntity<>("{\"message\": \"Error while deleting item to cart\"}", HttpStatus.OK);
+    }
   }
 }
