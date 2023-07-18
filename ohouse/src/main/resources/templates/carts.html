@@ -33,18 +33,28 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+    <style>
+        #quantity {
+            width: 50px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
 <!-- Header -->
 <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
         th:include="header :: header"></header>
 
-<main class="page-wrapper">
-    <div class="container pt-4 pb-3 py-sm-4">
+<main class="page-wrapper" style="font-family: 'Lato', sans-serif;">
+    <div class="container pt-1 pb-3 py-sm-4">
         <div class="rounded-3 shadow-lg mt-4 mb-5">
             <ul class="nav nav-tabs nav-justified mb-4">
-                <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4 active" href="/carts">1. Your order</a>
+                <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4 active" href="/carts">1. Cart</a>
                 </li>
                 <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4" href="/orders/checkout">2. Checkout</a></li>
             </ul>
@@ -71,12 +81,12 @@
                                          th:text="'$' + ${cartItem.cartMenuDTO.menuPrice}"></div>
                                 </div>
                             </div>
-                            <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start"
+                            <div class="d-flex flex-column align-items-center pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start"
                                  style="max-width: 9rem;">
-                                <label class="form-label" for="quantity1">Quantity</label>
-                                <input class="form-control" type="number" id="quantity1" th:value="${cartItem.quantity}"
-                                       min="1" disabled>
-                                <form action="/carts" method="post">
+                                <label class="form-label" for="quantity">Quantity</label>
+                                <input class="form-control text-center" type="number" id="quantity" th:value="${cartItem.quantity}"
+                                       min="1" readonly>
+                                <form action="/carts" method="post" id="deleteForm" class="d-flex justify-content-center">
                                     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="cartId" th:value="${cartItem.cartId}">
@@ -106,7 +116,7 @@
 </main>
 
 <!-- Footer-->
-<footer class="footer bg-dark pt-5" th:include="footer :: footer"></footer>
+<footer class="footer pt-5" th:include="footer :: footer"></footer>
 
 <!-- Main theme script-->
 <script src="/js/theme.min.js"></script>
@@ -114,4 +124,25 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 </body>
+
+<script>
+    document.getElementById('deleteForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        let formData = new FormData(e.target);
+        let response = await fetch(e.target.action, {
+            method: 'POST',
+            body: formData
+        });
+
+        let result = await response.json();
+
+        if (result.message === "Item deleted") {
+            alert('Item successfully deleted from the cart');
+            location.reload();
+        } else {
+            alert('Error occurred while deleting item from the cart');
+        }
+    });
+</script>
 </html>
