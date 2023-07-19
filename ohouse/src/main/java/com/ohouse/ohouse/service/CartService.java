@@ -10,7 +10,9 @@ public interface CartService {
 
   Cart createCart(Cart cart);
 
-  List<CartOption> createCartOption(List<CartOption> cartOptionList);
+  Cart createCartAndCartOptions(Cart cart, List<Integer> optionIdList);
+
+//  List<CartOption> createCartOption(List<CartOption> cartOptionList);
 
   List<CartItemDTO> getCartItemList(int userId);
 

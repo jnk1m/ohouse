@@ -12,25 +12,38 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
   private final CartRepository cartRepository;
   private final CartOptionRepository cartOptionRepository;
+  private final OptionService optionService;
 
   @Override
   public Cart createCart(Cart cart) {
     return cartRepository.save(cart);
   }
 
+
+  @Transactional
   @Override
-  public List<CartOption> createCartOption(List<CartOption> cartOptionList) {
+  public Cart createCartAndCartOptions(Cart cart, List<Integer> optionIdList) {
+
+    Cart createdCart = cartRepository.save(cart);
+    List<CartOption> cartOptionList = optionIdList.stream().map(id ->
+                      CartOption.builder()
+                              .cart(createdCart)
+                              .option(optionService.getById(id))
+                              .build())
+              .collect(Collectors.toList());
+
     List<CartOption> savedCartOptions = new ArrayList<>();
     for (CartOption cartOption : cartOptionList) {
       savedCartOptions.add(cartOptionRepository.save(cartOption));
     }
-    return savedCartOptions;
+      return createdCart;
   }
 
   @Override
