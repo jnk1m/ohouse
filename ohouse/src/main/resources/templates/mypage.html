@@ -40,6 +40,12 @@
 
 </head>
 <body class="handheld-toolbar-enabled">
+<script th:if="${alertMessage}" th:inline="javascript">
+    /*<![CDATA[*/
+    alert([[${alertMessage}]]);
+    /*]]>*/
+</script>
+
 <main class="page-wrapper">
     <!-- Header -->
     <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"

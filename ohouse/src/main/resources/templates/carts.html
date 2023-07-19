@@ -50,6 +50,12 @@
 <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
         th:include="header :: header"></header>
 
+<script th:if="${alertMessage}" th:inline="javascript">
+    /*<![CDATA[*/
+    alert([[${alertMessage}]]);
+    /*]]>*/
+</script>
+
 <main class="page-wrapper" style="font-family: 'Lato', sans-serif;">
     <div class="container pt-1 pb-3 py-sm-4">
         <div class="rounded-3 shadow-lg mt-4 mb-5">
