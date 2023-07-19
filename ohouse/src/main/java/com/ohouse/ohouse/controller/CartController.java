@@ -3,11 +3,8 @@ package com.ohouse.ohouse.controller;
 import com.ohouse.ohouse.domain.CartItemDTO;
 import com.ohouse.ohouse.domain.UserDTO;
 import com.ohouse.ohouse.entity.Cart;
-import com.ohouse.ohouse.entity.CartOption;
-import com.ohouse.ohouse.exception.MenuNotFoundException;
 import com.ohouse.ohouse.service.CartService;
 import com.ohouse.ohouse.service.MenuService;
-import com.ohouse.ohouse.service.OptionService;
 import com.ohouse.ohouse.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +24,6 @@ public class CartController {
   private final CartService cartService;
   private final MenuService menuService;
   private final UserService userService;
-  private final OptionService optionService;
 
   @GetMapping
   public String getCartList(HttpSession session, Model model) {
@@ -56,11 +51,11 @@ public class CartController {
   }
 
   @PostMapping
-  public ResponseEntity<String> addItemToCart(@RequestParam(value = "menuOption", required = false) List<Integer> optionId,
-                                      @RequestParam("quantity") int quantity,
-                                      @RequestParam("menuId") int menuId,
-                                      HttpSession session
-  ){
+  public String addItemToCart(@RequestParam(value = "menuOption", required = false) List<Integer> optionId,
+                              @RequestParam("quantity") int quantity,
+                              @RequestParam("menuId") int menuId,
+                              HttpSession session
+  ) {
     try {
       UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
@@ -69,17 +64,18 @@ public class CartController {
               .menu(menuService.getMenu(menuId))
               .user(userService.getUserById(userDTO.getUserId()))
               .build();
-      Cart createdCart = cartService.createCart(cart);
 
-      if (optionId != null) {
-        List<CartOption> cartOptionList = optionId.stream().map(id -> CartOption.builder().cart(createdCart)
-                .option(optionService.getById(id)).build()).collect(Collectors.toList());
-
-        cartService.createCartOption(cartOptionList);
+      if (optionId == null) {
+        cartService.createCart(cart);
+      } else {
+        cartService.createCartAndCartOptions(cart, optionId);
       }
-      return new ResponseEntity<>("{\"message\": \"Item added\"}", HttpStatus.OK);
-    }catch (Exception e){
-      return new ResponseEntity<>("{\"message\": \"Error while adding item to cart\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+
+      return "redirect:/carts";
+//      return new ResponseEntity<>("{\"message\": \"Item added\"}", HttpStatus.OK);
+    } catch (Exception e) {
+//      return new ResponseEntity<>("{\"message\": \"Error while adding item to cart\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+      return "redirect:/carts";
     }
   }
 
@@ -88,7 +84,7 @@ public class CartController {
     try {
       cartService.deleteCartItem(cartId);
       return new ResponseEntity<>("{\"message\": \"Item deleted\"}", HttpStatus.OK);
-    }catch (Exception e){
+    } catch (Exception e) {
       return new ResponseEntity<>("{\"message\": \"Error while deleting item to cart\"}", HttpStatus.OK);
     }
   }
