@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,17 +32,15 @@ public class CartServiceImpl implements CartService {
 
     Cart createdCart = cartRepository.save(cart);
     List<CartOption> cartOptionList = optionIdList.stream().map(id ->
-                      CartOption.builder()
-                              .cart(createdCart)
-                              .option(optionService.getById(id))
-                              .build())
-              .collect(Collectors.toList());
+                    CartOption.builder()
+                            .cart(createdCart)
+                            .option(optionService.getById(id))
+                            .build())
+            .collect(Collectors.toList());
 
-    List<CartOption> savedCartOptions = new ArrayList<>();
-    for (CartOption cartOption : cartOptionList) {
-      savedCartOptions.add(cartOptionRepository.save(cartOption));
-    }
-      return createdCart;
+    cartOptionRepository.saveAll(cartOptionList);
+
+    return createdCart;
   }
 
   @Override
