@@ -57,16 +57,20 @@
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                 <div class="row pb-4 pt-3">
                     <div class="col-sm-6 mb-4">
-                        <label class="form-label" for="name">Name<sup class="text-danger ms-1">*</sup></label>
-                        <input class="form-control" type="text" name="name" required id="name"
-                               placeholder="First Name, Last Name">
-                        <div class="invalid-feedback">Please enter your name!</div>
+                        <label class="form-label" for="fistName">First Name<sup class="text-danger ms-1">*</sup></label>
+                        <input class="form-control" type="text" name="firstName" required id="fistName">
+                        <div class="invalid-feedback">Please enter your first name!</div>
                     </div>
                     <div class="col-sm-6 mb-4">
-                        <label class="form-label" for="phone">Phone number<sup
+                        <label class="form-label" for="lastName">Last Name<sup class="text-danger ms-1">*</sup></label>
+                        <input class="form-control" type="text" name="lastName" required id="lastName">
+                        <div class="invalid-feedback">Please enter your last name!</div>
+                    </div>
+
+                    <div class="col-sm-6 mb-4">
+                        <label class="form-label" for="phone">Telephone<sup
                                 class="text-danger ms-1">*</sup></label>
-                        <input class="form-control" type="text" name="phone" required id="phone">
-                        <div class="invalid-feedback">Please enter your phone number!</div>
+                        <input class="form-control" type="text" required id="phone" th:value="${telephone}" readonly>
                     </div>
                     <div class="col-sm-6 mb-4">
                         <label class="form-label" for="time">Delivery time<sup
@@ -97,9 +101,10 @@
                         <div class="invalid-feedback">Please enter your room number!</div>
                     </div>
                     <div class="col-12 mb-4">
-                        <label class="form-label mb-3" for="instruction"><span
-                                class="badge bg-info fs-xs me-2">Note</span>Special Instruction</label>
-                        <textarea class="form-control" rows="3" name="instruction" id="instruction"></textarea>
+                        <label class="form-label mb-3" for="instructions"><span
+
+                                class="badge bg-info fs-xs me-2">Note</span>Instructions</label>
+                        <textarea class="form-control" rows="3" name="instructions" id="instructions"></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -114,7 +119,8 @@
                             <div class="d-flex justify-content-between fs-md mb-2"><span
                                     style="font-weight: bold; font-size: large">Total:</span><span
                                     style="font-weight: bold; font-size: large"
-                                    class="text-heading fw-medium" th:text=" '$' + ${total}"></span></div>
+                                    class="text-heading fw-medium" th:text=" '$' + ${total}"></span>
+                            <input type="hidden" name="totalPrice" th:value="${total}"></div>
                         </div>
                     </div>
                     <div class="col-sm-6 mb-4 mb-sm-0">
