@@ -27,8 +27,8 @@ public class Order {
   @NotNull
   private User user;
 
-  /*The current time is set as the default value in the database (CURRENT_TIMESTAMP)*/
   @Column(name = "order_date")
+  @NotNull
   private LocalDateTime orderDate;
 
   @Column(name = "price")
@@ -63,6 +63,7 @@ public class Order {
   @Builder
   public Order(User user, BigDecimal price, PaymentMethod paymentMethod, String deliveryAddress, String deliveryContact, String specialInstruction, OrderStatus orderStatus, String name) {
     this.user = user;
+    this.orderDate = LocalDateTime.now();
     this.price = price;
     this.paymentMethod = paymentMethod;
     this.deliveryAddress = deliveryAddress;
