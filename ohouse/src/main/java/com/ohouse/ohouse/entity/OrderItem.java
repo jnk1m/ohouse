@@ -1,6 +1,7 @@
 package com.ohouse.ohouse.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,5 +31,12 @@ public class OrderItem {
   @Column(name = "quantity")
   @NotNull
   private int quantity;
+
+  @Builder
+  public OrderItem(Order order, Menu menu, int quantity) {
+    this.order = order;
+    this.menu = menu;
+    this.quantity = quantity;
+  }
 
 }

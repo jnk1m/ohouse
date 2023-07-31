@@ -1,6 +1,7 @@
 package com.ohouse.ohouse.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,10 @@ public class OrderItemOption {
   @JoinColumn(name = "option_id")
   @NotNull
   private Options option;
+
+  @Builder
+  public OrderItemOption(OrderItem orderItem, Options option) {
+    this.orderItem = orderItem;
+    this.option = option;
+  }
 }
