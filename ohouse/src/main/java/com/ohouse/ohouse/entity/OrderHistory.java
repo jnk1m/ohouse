@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 @Entity
 @Table(name = "order_history")
@@ -20,30 +21,37 @@ public class OrderHistory {
   @Column(name = "order_history_id")
   private int orderHistoryId;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "google_id")
+  @Column(name = "history_date")
   @NotNull
-  private User user;
+  private LocalDateTime historyDate;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "order_id")
+  @Column(name = "history_timezone")
   @NotNull
-  private Order order;
+  private String historyTimeZone;
 
   @Column(name = "order_status")
   @Enumerated(EnumType.STRING)
   @NotNull
   private OrderStatus orderStatus;
 
-  /*The current time is set as the default value in the database (CURRENT_TIMESTAMP)*/
-  @Column(name = "history_date")
-  private LocalDateTime historyDate;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "order_id")
+  @NotNull
+  private Order order;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  @NotNull
+  private User user;
+
 
   @Builder
-  public OrderHistory(User user, Order order, OrderStatus orderStatus) {
-    this.user = user;
-    this.order = order;
+  public OrderHistory(OrderStatus orderStatus, Order order, User user ) {
+    this.historyDate = LocalDateTime.now();
+    this.historyTimeZone = TimeZone.getDefault().getID();
     this.orderStatus = orderStatus;
+    this.order = order;
+    this.user = user;
   }
 }
 
@@ -54,5 +62,4 @@ OrderHistory.builder()
         .order(orderInstance)
         .orderStatus(OrderStatus.CREATED)
         .build();
-
 */
