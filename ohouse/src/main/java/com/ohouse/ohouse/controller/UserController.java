@@ -42,6 +42,12 @@ public class UserController {
     return "mypage";
   }
 
+  @GetMapping("/orders")
+  public String getAccountOrdersPage(Model model, @ModelAttribute("userDTO") UserDTO userDTO) {
+    model.addAttribute("user", userDTO);
+    return "account-orders";
+  }
+
   @PostMapping("/verification-codes")
   public ResponseEntity<String> sendVerificationCode(@RequestBody Map<String, String> payload) {
     try {
