@@ -1,7 +1,7 @@
 package com.ohouse.ohouse.repository;
 
-import com.ohouse.ohouse.entity.OrderItemOption;
+import com.ohouse.ohouse.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderItemRepository extends JpaRepository<OrderItemOption, Integer> {
+public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 }
