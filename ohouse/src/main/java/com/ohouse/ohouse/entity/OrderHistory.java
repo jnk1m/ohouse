@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "order_history")
@@ -23,7 +23,7 @@ public class OrderHistory {
 
   @Column(name = "history_date")
   @NotNull
-  private LocalDateTime historyDate;
+  private ZonedDateTime historyDate;
 
   @Column(name = "history_timezone")
   @NotNull
@@ -46,15 +46,14 @@ public class OrderHistory {
 
 
   @Builder
-  public OrderHistory(OrderStatus orderStatus, Order order, User user ) {
-    this.historyDate = LocalDateTime.now();
-    this.historyTimeZone = TimeZone.getDefault().getID();
+  public OrderHistory(OrderStatus orderStatus, Order order, User user) {
+    this.historyDate = ZonedDateTime.now(ZoneId.of("UTC"));
+    this.historyTimeZone = ZonedDateTime.now().getZone().toString();
     this.orderStatus = orderStatus;
     this.order = order;
     this.user = user;
   }
 }
-
 
 /*Builder Example
 OrderHistory.builder()
