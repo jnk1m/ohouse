@@ -69,22 +69,22 @@ public class OrderController {
                            @RequestParam(name = "instructions", required = false) String instructions,
                            @RequestParam(name = "totalPrice") String totalPrice,
                            @RequestParam("payment") String paymentMethod) {
+    int userId = userDTO.getUserId();
 
     Order newOrder = Order.builder()
-            .user(userService.getUserById(userDTO.getUserId()))
+            .user(userService.getUserById(userId))
             .price(new BigDecimal(totalPrice))
             .paymentMethod(PaymentMethod.valueOf(paymentMethod.toUpperCase()))
             .deliveryAddress(bldgNo.concat(" " + roomNo))
-            .deliveryContact(userService.getPhoneById(userDTO.getUserId()))
+            .deliveryContact(userService.getPhoneById(userId))
             .specialInstruction(instructions)
             .orderStatus(OrderStatus.PROCESSING)
             .name(firstName.concat(" " + lastName)).build();
 
-    orderService.createOrder(newOrder);
-
+    List<Integer> usersCartId = cartService.getUsersCartId(userId);
+    orderService.placeOrder(newOrder, usersCartId);
 
     return "index";
-
   }
 }
 
