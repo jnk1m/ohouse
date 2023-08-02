@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "orders")
@@ -57,8 +58,21 @@ public class Order {
   @NotNull
   private String name;
 
+  @Column(name = "order_number")
+  @NotNull
+  private String orderNumber;
+
+  @Column(name = "order_date")
+  @NotNull
+  private ZonedDateTime orderDate;
+
+  @Column(name = "order_timezone")
+  @NotNull
+  private String orderTimezone;
+
+
   @Builder
-  public Order(User user, BigDecimal price, PaymentMethod paymentMethod, String deliveryAddress, String deliveryContact, String specialInstruction, OrderStatus orderStatus, String name) {
+  public Order(User user, BigDecimal price, PaymentMethod paymentMethod, String deliveryAddress, String deliveryContact, String specialInstruction, OrderStatus orderStatus, String name, String orderNumber) {
     this.user = user;
     this.price = price;
     this.paymentMethod = paymentMethod;
@@ -67,5 +81,8 @@ public class Order {
     this.specialInstruction = specialInstruction;
     this.orderStatus = orderStatus;
     this.name = name;
+    this.orderNumber = orderNumber;
+    this.orderDate = ZonedDateTime.now(ZoneId.of("UTC"));
+    this.orderTimezone = ZonedDateTime.now().getZone().toString();
   }
 }
