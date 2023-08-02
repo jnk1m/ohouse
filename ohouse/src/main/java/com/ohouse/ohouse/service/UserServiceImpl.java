@@ -1,6 +1,5 @@
 package com.ohouse.ohouse.service;
 
-import com.ohouse.ohouse.domain.UserDTO;
 import com.ohouse.ohouse.entity.User;
 import com.ohouse.ohouse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class UserServiceImpl implements UserService {
   @Transactional
   @Override
   public User getUserById(int userId) {
-    return userRepository.findById(userId).orElseThrow();
+    return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found with id " + userId));
   }
 
   @Override
