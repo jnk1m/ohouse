@@ -1,6 +1,9 @@
 package com.ohouse.ohouse.controller;
 
+import com.ohouse.ohouse.domain.FormattedOrderListDTO;
+import com.ohouse.ohouse.domain.OrderListDTO;
 import com.ohouse.ohouse.domain.UserDTO;
+import com.ohouse.ohouse.service.OrderService;
 import com.ohouse.ohouse.service.PhoneValidationService;
 import com.ohouse.ohouse.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +29,7 @@ public class UserController {
 
   private final UserService userService;
   private final PhoneValidationService phoneValidationService;
+  private final OrderService orderService;
 
   @ModelAttribute("userDTO")
   @CachePut(value = "userDTO", key = "#session.getAttribute('user').email")
@@ -44,7 +53,20 @@ public class UserController {
 
   @GetMapping("/orders")
   public String getAccountOrdersPage(Model model, @ModelAttribute("userDTO") UserDTO userDTO) {
+    List<OrderListDTO> orders = orderService.getOrders(userDTO.getUserId());
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy HH:mm");
+
+    List<FormattedOrderListDTO> formattedOrderList = orders.stream()
+            .map(order -> {
+              //TODO: Modify to fetch the timezone ID from the client.
+              ZonedDateTime customerDateTime = order.getOrderDate().withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+              String formattedDateTime = customerDateTime.format(formatter);
+              return new FormattedOrderListDTO(order.getOrderNumber(), formattedDateTime, order.getOrderStatus(), order.getOrderPrice());
+            })
+            .collect(Collectors.toList());
+
     model.addAttribute("user", userDTO);
+    model.addAttribute("orders", formattedOrderList);
     return "account-orders";
   }
 
