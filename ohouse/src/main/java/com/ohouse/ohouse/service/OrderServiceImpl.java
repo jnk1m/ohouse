@@ -2,6 +2,7 @@ package com.ohouse.ohouse.service;
 
 import com.ohouse.ohouse.domain.CartItemDTO;
 import com.ohouse.ohouse.domain.CartOptionDTO;
+import com.ohouse.ohouse.domain.OrderListDTO;
 import com.ohouse.ohouse.entity.Order;
 import com.ohouse.ohouse.entity.OrderHistory;
 import com.ohouse.ohouse.entity.OrderItem;
@@ -36,6 +37,11 @@ public class OrderServiceImpl implements OrderService {
     Order savedOrder = createOrder(newOrder);
     cartService.deleteAllCartItem(usersCartId, newOrder.getUser().getUserId());
     return savedOrder;
+  }
+
+  @Override
+  public List<OrderListDTO> getOrders(int userId) {
+    return orderRepository.findOrdersByUser(userId);
   }
 
   @Transactional
