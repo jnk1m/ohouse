@@ -16,7 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Random;
 
 import static com.ohouse.ohouse.controller.CartController.getTotalPrice;
 
@@ -27,7 +30,6 @@ public class OrderController {
   private final UserService userService;
   private final CartService cartService;
   private final OrderService orderService;
-
 
   @ModelAttribute("userDTO")
   public UserDTO getUserDTO(HttpSession session) {
@@ -69,22 +71,113 @@ public class OrderController {
                            @RequestParam(name = "instructions", required = false) String instructions,
                            @RequestParam(name = "totalPrice") String totalPrice,
                            @RequestParam("payment") String paymentMethod) {
+
+    validateIsNull(firstName, lastName, bldgNo, roomNo);
+    validateLength(firstName, lastName, bldgNo, roomNo);
+    if (instructions != null && !instructions.isEmpty()) {
+      validateInstructionLength(instructions);
+    }
+    validateRegex(firstName, lastName, bldgNo, roomNo);
+
     int userId = userDTO.getUserId();
 
     Order newOrder = Order.builder()
             .user(userService.getUserById(userId))
             .price(new BigDecimal(totalPrice))
             .paymentMethod(PaymentMethod.valueOf(paymentMethod.toUpperCase()))
-            .deliveryAddress(bldgNo.concat(" " + roomNo))
+            .deliveryAddress(bldgNo + ", " + roomNo)
             .deliveryContact(userService.getPhoneById(userId))
             .specialInstruction(instructions)
-            .orderStatus(OrderStatus.PROCESSING)
-            .name(firstName.concat(" " + lastName)).build();
+            .orderStatus(OrderStatus.ACCEPTING)
+            .name(firstName + " " + lastName)
+            .orderNumber(generateOrderNumber(ZonedDateTime.now())).build();
 
     List<Integer> usersCartId = cartService.getUsersCartId(userId);
     orderService.placeOrder(newOrder, usersCartId);
 
     return "index";
   }
+
+  protected void validateIsNull(String firstName, String lastName, String bldgNo, String roomNo) {
+    if (firstName == null || firstName.isEmpty()) {
+      throw new IllegalArgumentException("First name must not be empty");
+    }
+    if (lastName == null || lastName.isEmpty()) {
+      throw new IllegalArgumentException("Last name must not be empty");
+    }
+    if (bldgNo == null || bldgNo.isEmpty()) {
+      throw new IllegalArgumentException("Building number must not be empty");
+    }
+    if (roomNo == null || roomNo.isEmpty()) {
+      throw new IllegalArgumentException("Room number must not be empty");
+    }
+  }
+
+  protected void validateLength(String firstName, String lastName, String bldgNo, String roomNo) {
+    StringBuilder fullName = new StringBuilder();
+    fullName.append(firstName).append(" ").append(lastName);
+
+    if (fullName.length() > 50) {
+      throw new IllegalArgumentException("Full name must be 50 characters or less");
+    }
+
+    StringBuilder fullAddress = new StringBuilder();
+    fullAddress.append(bldgNo).append(" ").append(roomNo);
+
+    if (fullAddress.length() > 200) {
+      throw new IllegalArgumentException("Delivery address must be 200 characters or less");
+    }
+  }
+
+  protected void validateRegex(String firstName, String lastName, String bldgNo, String roomNo) {
+    String namePattern = "^[\\p{L} .'-]+$";
+    String bldgNoPattern = "^[\\p{L}0-9 .'-]+$";
+    String roomNoPattern = "^[0-9]+$";
+
+    if (!firstName.matches(namePattern) || !lastName.matches(namePattern)) {
+      throw new IllegalArgumentException("Name must contain only alphabet characters");
+    }
+
+    if (!bldgNo.matches(bldgNoPattern)) {
+      throw new IllegalArgumentException("Building number must contain only alphanumeric characters");
+    }
+
+    if (!roomNo.matches(roomNoPattern)) {
+      throw new IllegalArgumentException("Room number must contain only numeric characters");
+    }
+  }
+
+  protected void validateInstructionLength(String instruction) {
+    if (instruction.length() > 200) {
+      throw new IllegalArgumentException("Special Instruction must be 200 characters or less");
+    }
+  }
+
+
+  protected String getCurrentTimeZone(ZonedDateTime now) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ssSSS");
+    return now.format(formatter);
+  }
+
+  protected String generateRandomAlphaNumeric() {
+    final int LENGTH = 5;
+    String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    StringBuilder generatedString = new StringBuilder(LENGTH);
+    Random random = new Random();
+    for (int i = 0; i < LENGTH; i++) {
+      int index = random.nextInt(alphaNumericString.length());
+      char randomChar = alphaNumericString.charAt(index);
+      generatedString.append(randomChar);
+    }
+    return generatedString.toString();
+  }
+
+  protected String generateOrderNumber(ZonedDateTime zonedId) {
+    String time = getCurrentTimeZone(zonedId);
+    String randomAlphaNumeric = generateRandomAlphaNumeric();
+    return time + randomAlphaNumeric;
+  }
+
+
 }
 
