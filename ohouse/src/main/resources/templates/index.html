@@ -65,13 +65,27 @@
                 text-shadow:1px 1px 1px #000;
             }
         }
-
     </style>
 </head>
 <!-- Body-->
 <body class="handheld-toolbar-enabled">
-<main class="page-wrapper">
+<!--Pop Up-->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img class="modal-content" id="img01" src="/images/main/pickup.png" alt="Pick Up">
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-accent p-2" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary p-2" data-bs-dismiss="modal" id="hideFor24Hours">Hide for 24 hours</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<main class="page-wrapper">
     <!-- Header -->
     <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
             th:include="header :: header"></header>
@@ -226,4 +240,33 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 </body>
-</html>
+
+<script>
+    $(document).ready(function() {
+        var lastModalOpenTime = localStorage.getItem('lastModalOpenTime');
+
+        // 24 hours in milliseconds
+        var twentyFourHours = 24 * 60 * 60 * 1000;
+
+        var currentTime = new Date().getTime();
+
+        // Show modal only if it has not been shown in the last 24 hours
+        if (!lastModalOpenTime || (currentTime - lastModalOpenTime) > twentyFourHours) {
+            $('#modal').modal('show');
+        }
+
+        // When user clicks the "Hide for 24 hours" button, store the current time
+        $('#hideFor24Hours').on('click', function() {
+            localStorage.setItem('lastModalOpenTime', currentTime);
+        });
+
+        // If the modal is dismissed without clicking the "Hide for 24 hours" button, remove the lastModalOpenTime item from localStorage
+        $('#modal').on('hidden.bs.modal', function () {
+            if (!localStorage.getItem('lastModalOpenTime')) {
+                localStorage.removeItem('lastModalOpenTime');
+            }
+        });
+    });
+
+</script>
+    </html>
