@@ -52,7 +52,7 @@
                     Checkout</a>
                 </li>
             </ul>
-            <form action="/orders" onsubmit="return validateForm()" method="post"
+            <form action="/orders" method="post" onsubmit="return validateForm()"
                   class="needs-validation px-3 px-sm-4 px-xl-5 pt-sm-1 pb-4 pb-sm-5"
                   novalidate name="myForm">
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
@@ -124,20 +124,22 @@
                                 <input type="hidden" name="totalPrice" th:value="${total}"></div>
                         </div>
                     </div>
-                    <div class="col-sm-6 mb-4 mb-sm-0">
-                        <h2 class="h5 py-2">Pay on delivery</h2>
-                        <div class="form-check form-check-inline mb-3">
-                            <input class="form-check-input" type="radio" name="payment" value="cash" id="cash" checked>
-                            <label class="form-check-label" for="cash"><b>Cash</b> payment to the driver</label>
+                    <div class="col-sm-6">
+                        <div class="d-fle flex-column h-100 rounded-3 bg-secondary px-3 px-sm-4 py-4">
+                            <h2 class="h5 pb-3">Pay on delivery</h2>
+                            <div class="form-check form-check-inline mb-3">
+                                <input class="form-check-input" type="radio" name="payment" value="cash" id="cash" checked>
+                                <label class="form-check-label" for="cash"><b>Cash</b> payment to the driver</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="payment" value="card" id="card">
+                                <label class="form-check-label" for="card"><b>Card</b> payment to the driver</label>
+                            </div>
+                            <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    onclick="return confirm('Please note that our delivery service is currently under development and not yet accepting actual food orders. We are working diligently to bring you a seamless and convenient ordering experience.')">
+                                Delivery service launching soon!
+                            </button>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="payment" value="card" id="card">
-                            <label class="form-check-label" for="card"><b>Card</b> payment to the driver</label>
-                        </div>
-                        <button class="btn btn-primary d-block w-100 mt-3" type="submit"
-                                onclick="return">
-                            Delivery service launching soon!
-                        </button>
                     </div>
                 </div>
             </form>
@@ -163,6 +165,10 @@
         var namePattern = /^[A-Za-z .'-]+$/;
         var bldgNoPattern = /^[A-Za-z0-9 .'-]+$/;
         var roomNoPattern = /^[0-9]+$/;
+
+        if(firstName === "" || lastName === "" || bldgNo === "" || roomNo === "") {
+            return false;
+        }
 
         if (!firstName.match(namePattern) || !lastName.match(namePattern)) {
             alert("Name must contain only alphabet characters");
