@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
   @Query("SELECT new com.ohouse.ohouse.domain.OrderListDTO(" +
@@ -19,5 +20,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
   "order.orderId, order.price, order.paymentMethod, order.deliveryAddress, order.deliveryContact, order.specialInstruction, order.orderStatus, order.name, order.orderDate)"+
           "FROM Order order " +
           "WHERE order.orderNumber = :orderNumber")
-  OrderDetailDTO findOrderDetailDTOByOrderNumber(String orderNumber);
+  Optional<OrderDetailDTO> findOrderDetailDTOByOrderNumber(String orderNumber);
 }
