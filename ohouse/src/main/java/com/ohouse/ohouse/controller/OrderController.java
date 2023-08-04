@@ -1,6 +1,7 @@
 package com.ohouse.ohouse.controller;
 
 import com.ohouse.ohouse.domain.CartItemDTO;
+import com.ohouse.ohouse.domain.OrderDetailDTO;
 import com.ohouse.ohouse.domain.UserDTO;
 import com.ohouse.ohouse.entity.Order;
 import com.ohouse.ohouse.enums.OrderStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -96,6 +98,21 @@ public class OrderController {
     orderService.placeOrder(newOrder, usersCartId);
 
     return "index";
+  }
+
+  @GetMapping("/details/{orderNumber}")
+  public String getOrder(@PathVariable("orderNumber") String orderNumber, Model model) {
+    OrderDetailDTO orderWithOrderNumber = orderService.getOrderWithOrderNumber(orderNumber);
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy HH:mm");
+    ZonedDateTime customerDateTime = orderWithOrderNumber.getOrderDate().withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+    String formattedOrderDate = customerDateTime.format(formatter);
+
+    model.addAttribute("order", orderWithOrderNumber);
+    model.addAttribute("orderDate", formattedOrderDate);
+
+    return "order-detail";
+
   }
 
   protected void validateIsNull(String firstName, String lastName, String bldgNo, String roomNo) {
