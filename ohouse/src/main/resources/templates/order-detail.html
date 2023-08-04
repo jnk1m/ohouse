@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV5JTYY4LL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-VV5JTYY4LL');
+    </script>
+    <meta charset="utf-8">
+    <title>O House | Order Detail</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
+    <!-- SEO Meta Tags-->
+    <meta name="description"
+          content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
+    <meta name="author" content="Createx Studio">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+    <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<!-- Header -->
+<header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
+        th:include="header :: header"></header>
+
+<main class="page-wrapper" style="font-family: 'Lato', sans-serif;">
+    <div class="container pb-5 mb-2 mb-md-4">
+        <div class="row">
+            <section class="col-lg-8">
+
+                <!-- Order details-->
+                <h2 class="h6 pt-1 pb-3 mb-3 border-bottom">Review your order</h2>
+
+                <!-- Item-->
+                <div class="d-sm-flex justify-content-between my-4 pb-3 border-bottom">
+                    <div class="d-sm-flex text-center text-sm-start"><a
+                            class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img
+                            src="img/shop/cart/01.jpg" width="160" alt="Product"></a>
+                        <div class="pt-2">
+                            <h3 class="product-title fs-base mb-2"><a href="shop-single-v1.html">Women Colorblock
+                                Sneakers</a></h3>
+                            <div class="fs-sm"><span class="text-muted me-2">Size:</span>8.5</div>
+                            <div class="fs-sm"><span class="text-muted me-2">Color:</span>White &amp; Blue</div>
+                            <div class="fs-lg text-accent pt-2">$154.<small>00</small></div>
+                        </div>
+                    </div>
+                    <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-end" style="max-width: 9rem;">
+                        <p class="mb-0"><span class="text-muted fs-sm">Quantity:</span><span>&nbsp;1</span></p>
+                        <button class="btn btn-link px-0" type="button"><i class="ci-edit me-2"></i><span class="fs-sm">Edit</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Client details-->
+                <div class="bg-secondary rounded-3 px-4 pt-4 pb-2">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4 class="h6">Order Detail:</h4>
+                            <ul class="list-unstyled fs-sm">
+                                <li><span class="text-muted">Customer: &nbsp;</span><span
+                                        th:text="${order.name}"></span></li>
+                                <li><span class="text-muted">Address: &nbsp;</span><span
+                                        th:text="${order.deliveryAddress}"></span></li>
+                                <li><span class="text-muted">Phone: &nbsp;</span><span
+                                        th:text="${order.deliveryContact}"></span></li>
+                                <li><span class="text-muted">Order Status: &nbsp;</span><span
+                                        th:text="${order.orderStatus}"></span></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="h6">Payment method:</h4>
+                            <ul class="list-unstyled fs-sm">
+                                <li><span class="text-muted">Pay on delivery by&nbsp;</span><span
+                                        th:text="${order.paymentMethod}"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar-->
+            <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
+                <div class="bg-white rounded-3 shadow-lg p-4 ms-lg-auto">
+                    <div class="py-2 px-xl-2">
+                        <h2 class="h6 text-center mb-4">Order summary</h2>
+                        <ul class="list-unstyled fs-sm pb-2 border-bottom">
+                            <li class="d-flex justify-content-between align-items-center"><span
+                                    class="me-2">Order Date:</span><span class="text-end" th:text="${orderDate}"></span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center"><span
+                                    class="me-2">Subtotal:</span>$<span class="text-end"
+                                                                       th:text="${order.price - 2.50}"></span></li>
+                            <li class="d-flex justify-content-between align-items-center"><span class="me-2">Delivery Fee:</span><span
+                                    class="text-end">$2.50</span></li>
+                        </ul>
+                        <h3 class="fw-normal text-center my-4" th:text="${'$'+order.price}"></h3>
+                        <div class="special-instruction">
+                            <div class="mb-3"><b>Special Instruction:</b>
+                                <div th:text="${order.specialInstruction}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</main>
+
+<!-- Footer-->
+<footer class="footer pt-5" th:include="footer :: footer"></footer>
+
+<!-- Main theme script-->
+<script src="/js/theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+
+
+</html>
