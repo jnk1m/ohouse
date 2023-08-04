@@ -2,6 +2,7 @@ package com.ohouse.ohouse.service;
 
 import com.ohouse.ohouse.domain.CartItemDTO;
 import com.ohouse.ohouse.domain.CartOptionDTO;
+import com.ohouse.ohouse.domain.OrderDetailDTO;
 import com.ohouse.ohouse.domain.OrderListDTO;
 import com.ohouse.ohouse.entity.Order;
 import com.ohouse.ohouse.entity.OrderHistory;
@@ -42,6 +43,11 @@ public class OrderServiceImpl implements OrderService {
   @Override
   public List<OrderListDTO> getOrders(int userId) {
     return orderRepository.findOrdersByUser(userId);
+  }
+
+  @Override
+  public OrderDetailDTO getOrderWithOrderNumber(String orderNumber) {
+    return orderRepository.findOrderDetailDTOByOrderNumber(orderNumber).orElseThrow(()-> new IllegalArgumentException("Order not found with orderNumber" + orderNumber));
   }
 
   @Transactional

@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.service;
 
+import com.ohouse.ohouse.domain.OrderDetailDTO;
 import com.ohouse.ohouse.domain.OrderListDTO;
 import com.ohouse.ohouse.entity.Order;
 
@@ -12,4 +13,6 @@ public interface OrderService {
   Order placeOrder(Order newOrder, List<Integer> usersCartId);
 
   List<OrderListDTO> getOrders(int userId);
+
+  OrderDetailDTO getOrderWithOrderNumber(String orderNumber);
 }
