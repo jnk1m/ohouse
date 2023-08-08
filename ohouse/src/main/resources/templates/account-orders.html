@@ -137,7 +137,7 @@
                         </a>
                     </div>
                     <!-- Orders list-->
-                    <div th:if="${#lists.isEmpty(orders)}">
+                    <div class="table-responsive fs-md mb-4">
                         <table class="table table-hover mb-0">
                             <thead>
                             <tr>
@@ -148,26 +148,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:if="${#lists.isEmpty(orders)}">
                                 <td colspan="4" class="py-3">No orders yet</td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
 
-                    <div th:unless="${#lists.isEmpty(orders)}" th:each="order : ${orders}" class="table-responsive fs-md mb-4">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                            <tr>
-                                <th>Order #</th>
-                                <th>Date Purchased</th>
-                                <th>Status</th>
-                                <th>Total</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="py-3"><a class="nav-link-style fw-medium fs-sm"  th:href="@{/orders/details/{orderNumber}(orderNumber=${order.orderNumber})}"
+                            <tr th:unless="${#lists.isEmpty(orders)}" th:each="order : ${orders}">
+                                <td class="py-3"><a class="nav-link-style fw-medium fs-sm"
+                                                    th:href="@{/orders/details/{orderNumber}(orderNumber=${order.orderNumber})}"
                                                     th:text="${order.orderNumber}"></a></td>
                                 <td class="py-3" th:text="${order.orderDate}"></td>
                                 <td class="py-3"><span class="badge bg-info m-0" th:text="${order.orderStatus}"></span>
@@ -178,25 +165,25 @@
                         </table>
                     </div>
                     <!-- Pagination-->
-<!--                    <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">-->
-<!--                        <ul class="pagination">-->
-<!--                            <li class="page-item"><a class="page-link" href="#"><i-->
-<!--                                    class="ci-arrow-left me-2"></i>Prev</a></li>-->
-<!--                        </ul>-->
-<!--                        <ul class="pagination">-->
-<!--                            <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>-->
-<!--                            <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span-->
-<!--                                    class="visually-hidden">(current)</span></span></li>-->
-<!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>-->
-<!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>-->
-<!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">4</a></li>-->
-<!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">5</a></li>-->
-<!--                        </ul>-->
-<!--                        <ul class="pagination">-->
-<!--                            <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next<i-->
-<!--                                    class="ci-arrow-right ms-2"></i></a></li>-->
-<!--                        </ul>-->
-<!--                    </nav>-->
+                    <!--                    <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">-->
+                    <!--                        <ul class="pagination">-->
+                    <!--                            <li class="page-item"><a class="page-link" href="#"><i-->
+                    <!--                                    class="ci-arrow-left me-2"></i>Prev</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                        <ul class="pagination">-->
+                    <!--                            <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>-->
+                    <!--                            <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span-->
+                    <!--                                    class="visually-hidden">(current)</span></span></li>-->
+                    <!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>-->
+                    <!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>-->
+                    <!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">4</a></li>-->
+                    <!--                            <li class="page-item d-none d-sm-block"><a class="page-link" href="#">5</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                        <ul class="pagination">-->
+                    <!--                            <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next<i-->
+                    <!--                                    class="ci-arrow-right ms-2"></i></a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </nav>-->
 
                 </section>
             </div>
