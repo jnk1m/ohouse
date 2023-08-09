@@ -3,7 +3,7 @@ package com.ohouse.ohouse.service;
 import com.ohouse.ohouse.domain.CartItemDTO;
 import com.ohouse.ohouse.domain.CartOptionDTO;
 import com.ohouse.ohouse.domain.OrderDetailDTO;
-import com.ohouse.ohouse.domain.OrderListDTO;
+import com.ohouse.ohouse.domain.OrderSummaryDTO;
 import com.ohouse.ohouse.entity.Order;
 import com.ohouse.ohouse.entity.OrderHistory;
 import com.ohouse.ohouse.entity.OrderItem;
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public List<OrderListDTO> getOrders(int userId) {
+  public List<OrderSummaryDTO> getOrders(int userId) {
     return orderRepository.findOrdersByUser(userId);
   }
 
