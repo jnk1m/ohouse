@@ -7,6 +7,8 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+/*Represents detailed information of an order to be displayed.*/
+
 @Getter
 public class OrderDetailDTO {
   private final int orderId;
