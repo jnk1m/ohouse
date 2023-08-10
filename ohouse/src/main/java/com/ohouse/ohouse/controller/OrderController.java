@@ -2,6 +2,7 @@ package com.ohouse.ohouse.controller;
 
 import com.ohouse.ohouse.domain.CartItemDTO;
 import com.ohouse.ohouse.domain.OrderDetailDTO;
+import com.ohouse.ohouse.domain.OrderedItemDTO;
 import com.ohouse.ohouse.domain.UserDTO;
 import com.ohouse.ohouse.entity.Order;
 import com.ohouse.ohouse.enums.OrderStatus;
@@ -108,8 +109,12 @@ public class OrderController {
     ZonedDateTime customerDateTime = orderWithOrderNumber.getOrderDate().withZoneSameInstant(ZoneId.of("Asia/Seoul"));
     String formattedOrderDate = customerDateTime.format(formatter);
 
+    int orderId = orderService.getOrderIdWithOrderNumber(orderNumber);
+    List<OrderedItemDTO> orderItemList = orderService.getOrderItemList(orderId);
+
     model.addAttribute("order", orderWithOrderNumber);
     model.addAttribute("orderDate", formattedOrderDate);
+    model.addAttribute("orderItemList", orderItemList);
 
     return "order-detail";
 
