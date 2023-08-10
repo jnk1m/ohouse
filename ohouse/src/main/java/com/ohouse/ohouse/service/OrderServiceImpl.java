@@ -1,9 +1,6 @@
 package com.ohouse.ohouse.service;
 
-import com.ohouse.ohouse.domain.CartItemDTO;
-import com.ohouse.ohouse.domain.CartOptionDTO;
-import com.ohouse.ohouse.domain.OrderDetailDTO;
-import com.ohouse.ohouse.domain.OrderSummaryDTO;
+import com.ohouse.ohouse.domain.*;
 import com.ohouse.ohouse.entity.Order;
 import com.ohouse.ohouse.entity.OrderHistory;
 import com.ohouse.ohouse.entity.OrderItem;
@@ -47,7 +44,25 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   public OrderDetailDTO getOrderWithOrderNumber(String orderNumber) {
-    return orderRepository.findOrderDetailDTOByOrderNumber(orderNumber).orElseThrow(()-> new IllegalArgumentException("Order not found with orderNumber" + orderNumber));
+    return orderRepository.findOrderDetailDTOByOrderNumber(orderNumber).orElseThrow(() -> new IllegalArgumentException("Order not found with orderNumber" + orderNumber));
+  }
+
+  @Override
+  public List<OrderedItemDTO> getOrderItemList(int orderId) {
+    List<OrderedItemDTO> orderItemList = orderRepository.findOrderItemByOrderId(orderId);
+    orderItemList.forEach(orderedItemDTO -> {
+      List<OrderedItemOptionDTO> optionsByOrderId = orderItemOptionRepository.findOptionByParentOrderId(orderId);
+      optionsByOrderId.stream()
+              .filter(optionDTO -> optionDTO.getParentOrderId() == orderedItemDTO.getOrderId())
+              .forEach(matchingOption -> orderedItemDTO.getOptions().add(matchingOption));
+    });
+
+    return orderItemList;
+  }
+
+  @Override
+  public int getOrderIdWithOrderNumber(String orderNumber) {
+    return orderRepository.findOrderIdByOrderNumber(orderNumber);
   }
 
   @Transactional
