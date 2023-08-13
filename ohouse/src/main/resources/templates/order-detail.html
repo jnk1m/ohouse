@@ -54,27 +54,27 @@
                      class="d-sm-flex justify-content-between my-4 pb-3 border-bottom">
                     <div class="d-sm-flex text-center text-sm-start">
                         <div class="pt-2">
-                            <h3 class="product-title fs-base mb-2"><a href="shop-single-v1.html"
-                                                                      th:text="${orderItem.menu.menuNameEng}"></a></h3>
+                            <h3 class="product-title fs-base mb-2" th:text="${orderItem.menu.menuNameEng}"></h3>
                             <div th:unless="${#lists.isEmpty(orderItem.options)}" class="fs-sm">
                                 <span class="text-muted me-2">Options:</span>
                                 <span th:each="option : ${orderItem.options}"
                                       th:text="'*'+${option.optionName}+' '"></span>
                             </div>
+
                             <div class="fs-lg text-accent pt-2"
                                  th:text="'$' + ${orderItem.menu.menuPrice}"></div>
                         </div>
                     </div>
                     <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-end" style="max-width: 9rem;">
-                        <p class="mb-0"><span class="text-muted fs-sm">Quantity:</span><span
+                        <p class="mb-0"><span class="text-muted fs-sm">Quantity: </span><span
                                 th:text="${orderItem.quantity}">&nbsp</span></p>
                     </div>
                 </div>
 
                 <!-- Client details-->
-                <div class="bg-secondary rounded-3 px-4 pt-4 pb-2">
-                    <div class="row">
-                        <div class="col-sm-6">
+                <div class="bg-secondary rounded-3 px-4 pt-4 pb-2 d-flex justify-content-center align-items-center">
+                    <div class="row w-100">
+                        <div class="col-sm-6 d-flex flex-column">
                             <h4 class="h6">Order Detail:</h4>
                             <ul class="list-unstyled fs-sm">
                                 <li><span class="text-muted">Customer: &nbsp;</span><span
@@ -87,13 +87,24 @@
                                         th:text="${order.orderStatus}"></span></li>
                             </ul>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 d-flex flex-column">
                             <h4 class="h6">Payment method:</h4>
                             <ul class="list-unstyled fs-sm">
                                 <li><span class="text-muted">Pay on delivery by&nbsp;</span><span
                                         th:text="${order.paymentMethod}"></span></li>
                             </ul>
+                            <div class="row justify-content-center align-items-center px-3 pb-3" th:if="${order.orderStatus.name() eq 'ACCEPTING'}">
+                                <a class="btn btn-danger btn-sm" href="#" data-scroll style="white-space: normal;">
+                                    To cancel the order, please call [DSN] 784-4926, <i class="fa-solid fa-phone"></i> 0505-784-4926
+                                </a>
+                            </div>
+                            <div class="row justify-content-center align-items-center px-3 pb-3" th:if="${order.orderStatus.name() eq 'PROCESSING'}">
+                                <a class="btn btn-danger btn-sm" href="#" style="white-space: normal;">
+                                    The order is being prepared and cannot be canceled
+                                </a>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </section>
@@ -114,9 +125,13 @@
                             <li class="d-flex justify-content-between align-items-center"><span class="me-2">Delivery Fee:</span><span
                                     class="text-end">$2.50</span></li>
                         </ul>
-                        <h3 class="fw-normal text-center my-4" th:text="${'$'+order.price}"></h3>
-
-                        <div class="special-instruction" th:unless="${order.specialInstruction.isEmpty()}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3>
+                                <span class="me-2">Total: </span>
+                                <span class="text-end"  th:text="${'$'+order.price}"></span>
+                            </h3>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center" th:unless="${order.specialInstruction.isEmpty()}">
                             <div class="mb-3"><b>Special Instruction:</b>
                                 <div th:text="${order.specialInstruction}"></div>
                             </div>
