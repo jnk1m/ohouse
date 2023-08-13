@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV5JTYY4LL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-VV5JTYY4LL');
+    </script>
+    <meta charset="utf-8">
+    <title>O House | Orders</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
+    <!-- SEO Meta Tags-->
+    <meta name="description"
+          content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
+    <meta name="author" content="Createx Studio">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+    <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&&family=Merriweather:ital,wght@1,900&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/js/intlTelInput.min.js"></script>
+
+
+</head>
+<body class="handheld-toolbar-enabled">
+
+<main class="page-wrapper">
+    <!-- Header -->
+    <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
+            th:include="header :: header"></header>
+
+    <!-- Page Title-->
+    <div style="font-family: 'Lato', sans-serif">
+
+        <div class="page-title-overlap bg-info pt-4">
+            <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
+                <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
+                            <li class="breadcrumb-item">
+                                <a class="text-nowrap" href="">
+                                    <i class="fa-solid fa-house"></i>
+                                    Home > Account > Admin > Orders
+                                </a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
+                    <h1 class="h3 text-light mb-0">Admin Page</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="container pb-5 mb-2 mb-md-4">
+            <div class="row">
+                <!-- Sidebar-->
+                <aside class="col-lg-4 pt-4 pt-lg-0 pe-xl-5">
+                    <div class="bg-white rounded-3 shadow-lg pt-1 mb-5 mb-lg-0">
+                        <div class="d-md-flex justify-content-between align-items-center text-center text-md-start p-4">
+                            <div class="d-md-flex align-items-center">
+                            </div>
+                            <a class="btn btn-danger d-lg-none mb-2 mt-3 mt-md-0" href="#account-menu"
+                               data-bs-toggle="collapse" aria-expanded="false">
+                                <i class="fa-solid fa-caret-down"> </i>
+                                Account menu
+                            </a>
+                        </div>
+                        <div class="d-lg-block collapse" id="account-menu">
+                            <div class="bg-secondary px-4 py-3">
+                                <h3 class="fs-sm mb-0 text-muted">Dashboard</h3>
+                            </div>
+                            <ul class="list-unstyled mb-0">
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center px-4 py-3"
+                                       href="/admin/orders">
+                                        Orders
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Content  -->
+                <section class="col-lg-8">
+                    <!-- Toolbar-->
+                    <div class="d-none d-lg-flex justify-content-between align-items-center pt-lg-3 pb-4 pb-lg-5 mb-lg-3">
+                        <a class="btn btn-danger btn-sm" href="/logout"
+                           onclick="return confirm('We kindly remind you that remaining logged into Google may result in automatic sign-in on O House. For a different account access, please ensure to first log out from Google.');">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            Sign out
+                        </a>
+                    </div>
+                    <!-- Orders list-->
+                    <div class="table-responsive fs-md mb-4">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Date Purchased</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${#lists.isEmpty(orders)}">
+                                <td colspan="4" class="py-3">No orders yet</td>
+                            </tr>
+
+                            <tr th:unless="${#lists.isEmpty(orders.content)}" th:each="order : ${orders.content}">
+                                <td class="py-3"><a class="nav-link-style fw-medium fs-sm"
+                                                    th:href="@{/orders/details/{orderNumber}(orderNumber=${order.orderNumber})}"
+                                                    th:text="${order.orderNumber}"></a></td>
+                                <td class="py-3" th:text="${order.orderDate}"></td>
+                                <td class="py-3"><span class="badge bg-info m-0" th:text="${order.orderStatus}"></span>
+                                </td>
+                                <td class="py-3" th:text="'$' + ${order.orderPrice}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--Pagination-->
+                    <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item" th:if="${orders.number > 0}">
+                                <a class="page-link" th:href="@{/orders?page=${orders.number - 1}}">
+                                    <i class="ci-arrow-left me-2"></i>Prev
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="pagination">
+                            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, orders.totalPages - 1)}">
+                                <a class="page-link" th:href="@{/orders?page=${pageNumber}}" th:text="${pageNumber + 1}"
+                                   th:class="${pageNumber == orders.number ? 'active' : ''}"></a>
+                            </li>
+                        </ul>
+                        <ul class="pagination">
+                            <li class="page-item" th:if="${orders.number < orders.totalPages - 1}">
+                                <a class="page-link" th:href="@{/orders?page=${orders.number + 1}}" aria-label="Next">
+                                    Next<i class="ci-arrow-right ms-2"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer-->
+<footer class="footer pt-5" th:include="footer :: footer"></footer>
+
+<!-- Main theme script-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="/js/theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
