@@ -12,6 +12,8 @@ import com.ohouse.ohouse.repository.OrderItemOptionRepository;
 import com.ohouse.ohouse.repository.OrderItemRepository;
 import com.ohouse.ohouse.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,13 +53,18 @@ public class OrderServiceImpl implements OrderService {
   public List<OrderedItemDTO> getOrderItemList(int orderId) {
     List<OrderedItemDTO> orderItemList = orderRepository.findOrderItemByOrderId(orderId);
     orderItemList.forEach(orderedItemDTO -> {
-      List<OrderedItemOptionDTO> optionsByOrderId = orderItemOptionRepository.findOptionByParentOrderId(orderId);
-      optionsByOrderId.stream()
-              .filter(optionDTO -> optionDTO.getParentOrderId() == orderedItemDTO.getOrderId())
+      List<OrderedItemOptionDTO> optionsByOrderItemId = orderItemOptionRepository.findOptionByParentOrderItemId(orderedItemDTO.getOrderItemId());
+      optionsByOrderItemId.stream()
+              .filter(optionDTO -> optionDTO.getParentOrderItemId() == orderedItemDTO.getOrderItemId())
               .forEach(matchingOption -> orderedItemDTO.getOptions().add(matchingOption));
     });
 
     return orderItemList;
+  }
+
+  @Override
+  public Page<OrderSummaryDTO> getAllOrders(Pageable pageable) {
+    return orderRepository.findAllOrderSummaryDTO(pageable);
   }
 
   @Override
