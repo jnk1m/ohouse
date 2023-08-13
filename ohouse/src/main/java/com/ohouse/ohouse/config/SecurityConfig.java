@@ -1,6 +1,5 @@
 package com.ohouse.ohouse.config;
 
-import com.ohouse.ohouse.enums.Role;
 import com.ohouse.ohouse.security.CustomAuthenticationSuccessHandler;
 import com.ohouse.ohouse.security.auth.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers("/", "/menus/**", "/css/**", "/js/**", "/images/**", "/policies/**", "/contacts", "/about").permitAll()
-            .antMatchers("/accounts", "/carts").hasRole(Role.USER.name())
+            .antMatchers("/accounts", "/carts").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+            .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
             .anyRequest().authenticated()
             .and()
             .formLogin()
