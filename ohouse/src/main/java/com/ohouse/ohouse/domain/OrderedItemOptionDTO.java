@@ -11,14 +11,12 @@ import java.math.BigDecimal;
 
 @Getter
 public class OrderedItemOptionDTO {
-  private final int parentOrderId;
-  private final int optionId;
+  private final int parentOrderItemId;
   private final String optionName;
   private final BigDecimal optionPrice;
 
-  public OrderedItemOptionDTO(int parentOrderId, int optionId, String optionName, BigDecimal optionPrice) {
-    this.parentOrderId = parentOrderId;
-    this.optionId = optionId;
+  public OrderedItemOptionDTO(int parentOrderItemId, String optionName, BigDecimal optionPrice) {
+    this.parentOrderItemId = parentOrderItemId;
     this.optionName = optionName;
     this.optionPrice = optionPrice;
   }
