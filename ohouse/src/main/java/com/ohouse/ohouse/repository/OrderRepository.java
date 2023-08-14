@@ -43,4 +43,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
           countQuery = "SELECT count(o) FROM Order o")
   Page<OrderSummaryDTO> findAllOrderSummaryDTO(Pageable pageable);
 
+  Order findByOrderNumber(String orderNumber);
 }
