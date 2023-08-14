@@ -70,7 +70,6 @@ public class Order {
   @NotNull
   private String orderTimezone;
 
-
   @Builder
   public Order(User user, BigDecimal price, PaymentMethod paymentMethod, String deliveryAddress, String deliveryContact, String specialInstruction, OrderStatus orderStatus, String name, String orderNumber) {
     this.user = user;
@@ -84,5 +83,9 @@ public class Order {
     this.orderNumber = orderNumber;
     this.orderDate = ZonedDateTime.now(ZoneId.of("UTC"));
     this.orderTimezone = ZonedDateTime.now().getZone().toString();
+  }
+
+  public void updateOrderStatus(OrderStatus newOrderStatus) {
+    this.orderStatus = newOrderStatus;
   }
 }
