@@ -4,6 +4,7 @@ import com.ohouse.ohouse.domain.OrderDetailDTO;
 import com.ohouse.ohouse.domain.OrderSummaryDTO;
 import com.ohouse.ohouse.domain.OrderedItemDTO;
 import com.ohouse.ohouse.entity.Order;
+import com.ohouse.ohouse.enums.OrderStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,4 +25,6 @@ public interface OrderService {
   List<OrderedItemDTO> getOrderItemList(int orderId);
 
   Page<OrderSummaryDTO> getAllOrders(Pageable pageable);
+
+  void updateOrderStatus(String orderNumber, OrderStatus orderStatus);
 }

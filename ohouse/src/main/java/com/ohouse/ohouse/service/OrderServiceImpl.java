@@ -5,6 +5,7 @@ import com.ohouse.ohouse.entity.Order;
 import com.ohouse.ohouse.entity.OrderHistory;
 import com.ohouse.ohouse.entity.OrderItem;
 import com.ohouse.ohouse.entity.OrderItemOption;
+import com.ohouse.ohouse.enums.OrderStatus;
 import com.ohouse.ohouse.exception.MenuNotFoundException;
 import com.ohouse.ohouse.exception.OrderProcessingException;
 import com.ohouse.ohouse.repository.OrderHistoryRepository;
@@ -65,6 +66,14 @@ public class OrderServiceImpl implements OrderService {
   @Override
   public Page<OrderSummaryDTO> getAllOrders(Pageable pageable) {
     return orderRepository.findAllOrderSummaryDTO(pageable);
+  }
+
+  @Override
+  @Transactional
+  public void updateOrderStatus(String orderNumber, OrderStatus orderStatus) {
+
+    Order order = orderRepository.findByOrderNumber(orderNumber);
+    order.updateOrderStatus(orderStatus);
   }
 
   @Override
