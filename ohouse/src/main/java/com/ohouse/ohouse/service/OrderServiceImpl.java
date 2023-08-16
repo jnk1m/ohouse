@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
 
   private OrderItem createOrderItem(Order savedOrder, CartItemDTO cartItemDTO) throws MenuNotFoundException {
     OrderItem orderItem = OrderItem.builder().order(savedOrder)
-            .menu(menuService.getMenu(cartItemDTO.getCartMenuDTO().getMenuId()))
+            .menu(menuService.getAvailableMenuById(cartItemDTO.getCartMenuDTO().getMenuId()))
             .quantity(cartItemDTO.getQuantity())
             .build();
 
