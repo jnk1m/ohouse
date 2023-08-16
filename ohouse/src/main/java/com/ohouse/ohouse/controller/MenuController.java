@@ -49,7 +49,7 @@ public class MenuController {
   public String getMenuWithOptions(@PathVariable int menuId, Model model) throws MenuNotFoundException {
     MenuDTO menuDTO = menuService.getMenuDTO(menuId);
 
-    Map<String, List<MenuOptionDTO>> menuOptions = menuService.getMenuOptions(menuService.getMenu(menuId));
+    Map<String, List<MenuOptionDTO>> menuOptions = menuService.getMenuOptions(menuService.getAvailableMenuById(menuId));
 
     Set<Map.Entry<String, List<MenuOptionDTO>>> menuOptionSet = menuOptions.entrySet();
 
