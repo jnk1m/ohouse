@@ -1,8 +1,10 @@
 package com.ohouse.ohouse.controller;
 
+import com.ohouse.ohouse.domain.AdminMenuListDTO;
 import com.ohouse.ohouse.domain.OrderSummaryDTO;
 import com.ohouse.ohouse.domain.OrderSummaryDisplayDTO;
 import com.ohouse.ohouse.enums.OrderStatus;
+import com.ohouse.ohouse.service.MenuService;
 import com.ohouse.ohouse.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,11 +31,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin")
 public class AdminController {
   private final OrderService orderService;
+  private final MenuService menuService;
 
   @GetMapping
   public String getAdminPage() {
     return "admin/admin";
   }
+
+  /*Order*/
 
   @GetMapping("/orders")
   public String getOrdersPage(Model model, Pageable pageable) {
@@ -84,6 +89,22 @@ public class AdminController {
     } catch (Exception e) {
       return null;
     }
+  }
+
+  /*Menu*/
+
+  @GetMapping("/menus")
+  public String getMenuListPage(Model model, Pageable pageable) {
+    Page<AdminMenuListDTO> allMenus = menuService.getAllMenus(pageable);
+
+    model.addAttribute("menus", allMenus);
+
+    return "admin/menu-list";
+  }
+
+  @GetMapping("/menu/{menuId}")
+  public String getMenuDetail(Model model, @PathVariable("menuId") int menuId) {
+    return "admin/menu-detail";
   }
 
 
