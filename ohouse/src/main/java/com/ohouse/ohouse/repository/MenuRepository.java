@@ -1,8 +1,11 @@
 package com.ohouse.ohouse.repository;
 
+import com.ohouse.ohouse.domain.AdminMenuListDTO;
 import com.ohouse.ohouse.domain.MenuOptionDTO;
 import com.ohouse.ohouse.entity.Category;
 import com.ohouse.ohouse.entity.Menu;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +28,15 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
           "JOIN mo.options o " +
           "WHERE mo.menu = :menu")
   List<MenuOptionDTO> findOptionByMenuId(@Param("menu") Menu menu);
+
+  @Query(value = "SELECT new com.ohouse.ohouse.domain.AdminMenuListDTO(" +
+          "m.menuId, m.menuNameEng, m.menuPrice, c.categoryName, m.isAvailable) " +
+          "FROM Menu m " +
+          "JOIN Category c " +
+          "on m.category.categoryId = c.categoryId",
+          countQuery = "SELECT count(m) FROM Menu m")
+  Page<AdminMenuListDTO> findAllAdminMenuListDTO(Pageable pageable);
+
+  Menu findByMenuId(int menuId);
 
 }
