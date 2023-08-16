@@ -1,5 +1,6 @@
 package com.ohouse.ohouse.service;
 
+import com.ohouse.ohouse.domain.AdminMenuListDTO;
 import com.ohouse.ohouse.domain.MenuDTO;
 import com.ohouse.ohouse.domain.MenuOptionDTO;
 import com.ohouse.ohouse.entity.Category;
@@ -7,6 +8,8 @@ import com.ohouse.ohouse.entity.Menu;
 import com.ohouse.ohouse.exception.MenuNotFoundException;
 import com.ohouse.ohouse.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ public class MenuServiceImpl implements MenuService {
   }
 
   @Override
-  public Menu getMenu(int menuId) throws MenuNotFoundException {
+  public Menu getAvailableMenuById(int menuId) throws MenuNotFoundException {
     return menuRepository.findByMenuIdAndIsAvailableTrue(menuId).orElseThrow(() -> new MenuNotFoundException("Menu Not Found"));
   }
 
@@ -53,7 +56,11 @@ public class MenuServiceImpl implements MenuService {
 
     return menuOptionDTOList.stream()
             .collect(Collectors.groupingBy(MenuOptionDTO::getCategoryName));
+  }
 
+  @Override
+  public Page<AdminMenuListDTO> getAllMenus(Pageable pageable) {
+    return menuRepository.findAllAdminMenuListDTO(pageable);
   }
 
 }
