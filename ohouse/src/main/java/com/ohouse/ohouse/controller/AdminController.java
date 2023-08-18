@@ -119,7 +119,7 @@ public class AdminController {
   }
 
   @PostMapping("/menu/new")
-  public ResponseEntity<String> addNewMenu(@RequestParam(name = "imageFile", required = false)  MultipartFile imageFile,
+  public ResponseEntity<String> addNewMenu(@RequestParam(name = "imageFile", required = false) MultipartFile imageFile,
                                            @RequestParam("menuNameEng") String menuNameEng,
                                            @RequestParam("menuNameKor") String menuNameKor,
                                            @RequestParam("menuPrice") BigDecimal menuPrice,
