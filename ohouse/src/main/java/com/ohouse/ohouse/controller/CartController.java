@@ -54,14 +54,13 @@ public class CartController {
   public String addItemToCart(@RequestParam(value = "menuOption", required = false) List<Integer> optionId,
                               @RequestParam("quantity") int quantity,
                               @RequestParam("menuId") int menuId,
-                              HttpSession session
-  ) {
+                              HttpSession session) {
     try {
       UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
       Cart cart = Cart.builder()
               .quantity(quantity)
-              .menu(menuService.getMenu(menuId))
+              .menu(menuService.getAvailableMenuById(menuId))
               .user(userService.getUserById(userDTO.getUserId()))
               .build();
 
@@ -72,7 +71,7 @@ public class CartController {
       }
 
       return "redirect:/carts";
-//      return new ResponseEntity<>("{\"message\": \"Item added\"}", HttpStatus.OK);
+//      return new ResponseEntity<>("{\"message\": \"Item added\"}", HttpStatus.CREATED);
     } catch (Exception e) {
 //      return new ResponseEntity<>("{\"message\": \"Error while adding item to cart\"}", HttpStatus.INTERNAL_SERVER_ERROR);
       return "redirect:/carts";
