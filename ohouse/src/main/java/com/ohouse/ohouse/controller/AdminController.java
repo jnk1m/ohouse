@@ -3,7 +3,9 @@ package com.ohouse.ohouse.controller;
 import com.ohouse.ohouse.domain.AdminMenuListDTO;
 import com.ohouse.ohouse.domain.OrderSummaryDTO;
 import com.ohouse.ohouse.domain.OrderSummaryDisplayDTO;
+import com.ohouse.ohouse.entity.MenuCategoryView;
 import com.ohouse.ohouse.enums.OrderStatus;
+import com.ohouse.ohouse.service.CategoryService;
 import com.ohouse.ohouse.service.MenuService;
 import com.ohouse.ohouse.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
 public class AdminController {
   private final OrderService orderService;
   private final MenuService menuService;
+  private final CategoryService categoryService;
 
   @GetMapping
   public String getAdminPage() {
@@ -105,6 +107,29 @@ public class AdminController {
   @GetMapping("/menu/{menuId}")
   public String getMenuDetail(Model model, @PathVariable("menuId") int menuId) {
     return "admin/menu-detail";
+  }
+
+  @GetMapping("/menus/new")
+  public String getMenuRegistrationPage(Model model) {
+    List<MenuCategoryView> menuCategory = categoryService.getAllMenuCategoryView();
+
+    model.addAttribute("menuCategory", menuCategory);
+
+    return "admin/menu-registration";
+  }
+
+  @PostMapping("/menu/new")
+  public ResponseEntity<String> addNewMenu(@RequestParam(name = "imageFile", required = false)  MultipartFile imageFile,
+                                           @RequestParam("menuNameEng") String menuNameEng,
+                                           @RequestParam("menuNameKor") String menuNameKor,
+                                           @RequestParam("menuPrice") BigDecimal menuPrice,
+                                           @RequestParam("descriptionEng") String descriptionEng,
+                                           @RequestParam("descriptionKor") String descriptionKor,
+                                           @RequestParam("categoryId") int categoryId,
+                                           @RequestParam("isAvailable") boolean isAvailable,
+                                           @RequestParam("chitName") String chitName) {
+    System.out.println(menuNameEng + menuNameKor + menuPrice + descriptionEng + descriptionKor + categoryId + isAvailable + chitName);
+    return null;
   }
 
 
