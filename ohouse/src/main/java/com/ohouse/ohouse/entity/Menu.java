@@ -69,5 +69,9 @@ public class Menu {
     this.chitName = chitName;
   }
 
+  public void setImgPath(String imgPath){
+    this.imagePath = imgPath;
+  }
+
 
 }
