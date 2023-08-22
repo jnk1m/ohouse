@@ -37,6 +37,14 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
           countQuery = "SELECT count(m) FROM Menu m")
   Page<AdminMenuListDTO> findAllAdminMenuListDTO(Pageable pageable);
 
-  Menu findByMenuId(int menuId);
+  @Query("SELECT imagePath " +
+          "FROM Menu " +
+          "WHERE menuId = :menuId")
+  String findImgPathByMenuId(int menuId);
 
+  @Query("SELECT c.categoryName " +
+          "FROM Menu m " +
+          "JOIN Category  c on m.category.categoryId = c.categoryId " +
+          "WHERE m.menuId = :menuId")
+  String findCategoryNameByMenuId(int menuId);
 }
