@@ -20,6 +20,7 @@ public class CartServiceImpl implements CartService {
   private final CartOptionRepository cartOptionRepository;
   private final OptionService optionService;
 
+  @Transactional
   @Override
   public Cart createCart(Cart cart) {
     return cartRepository.save(cart);
