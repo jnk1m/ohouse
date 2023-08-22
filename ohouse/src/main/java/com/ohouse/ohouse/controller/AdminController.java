@@ -1,14 +1,20 @@
 package com.ohouse.ohouse.controller;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ohouse.ohouse.domain.AdminMenuListDTO;
+import com.ohouse.ohouse.domain.NewMenuDTO;
 import com.ohouse.ohouse.domain.OrderSummaryDTO;
 import com.ohouse.ohouse.domain.OrderSummaryDisplayDTO;
+import com.ohouse.ohouse.entity.Menu;
 import com.ohouse.ohouse.entity.MenuCategoryView;
 import com.ohouse.ohouse.enums.OrderStatus;
 import com.ohouse.ohouse.service.CategoryService;
 import com.ohouse.ohouse.service.MenuService;
 import com.ohouse.ohouse.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +26,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,6 +43,10 @@ public class AdminController {
   private final OrderService orderService;
   private final MenuService menuService;
   private final CategoryService categoryService;
+  private final AmazonS3Client s3;
+
+  @Value("${aws.s3.bucket}")
+  private String bucket;
 
   @GetMapping
   public String getAdminPage() {
@@ -106,6 +119,8 @@ public class AdminController {
 
   @GetMapping("/menu/{menuId}")
   public String getMenuDetail(Model model, @PathVariable("menuId") int menuId) {
+    Menu menu = menuService.getMenuById(menuId);
+    model.addAttribute("menu", menu);
     return "admin/menu-detail";
   }
 
@@ -119,18 +134,68 @@ public class AdminController {
   }
 
   @PostMapping("/menu/new")
-  public ResponseEntity<String> addNewMenu(@RequestParam(name = "imageFile", required = false) MultipartFile imageFile,
-                                           @RequestParam("menuNameEng") String menuNameEng,
-                                           @RequestParam("menuNameKor") String menuNameKor,
-                                           @RequestParam("menuPrice") BigDecimal menuPrice,
-                                           @RequestParam("descriptionEng") String descriptionEng,
-                                           @RequestParam("descriptionKor") String descriptionKor,
-                                           @RequestParam("categoryId") int categoryId,
-                                           @RequestParam("isAvailable") boolean isAvailable,
-                                           @RequestParam("chitName") String chitName) {
-    System.out.println(menuNameEng + menuNameKor + menuPrice + descriptionEng + descriptionKor + categoryId + isAvailable + chitName);
-    return null;
+  public String addNewMenu(@ModelAttribute NewMenuDTO newMenuDTO) {
+    menuService.addMenu(newMenuDTO);
+    return "redirect:admin/menus";
   }
 
+  @GetMapping("/menu/{menuId}/image")
+  public String getImageSettingPage(Model model, @PathVariable("menuId") int menuId) {
+    String menuImgPath = menuService.getMenuImgPath(menuId);
+    model.addAttribute("menuImgPath", menuImgPath);
+    model.addAttribute("menuId", menuId);
+    return "admin/image-upload";
 
+  }
+
+  @PostMapping("/menu/{menuId}/image")
+  public String setMenuImage(@PathVariable("menuId") int menuId,
+                             @RequestParam("imageFile") MultipartFile file) throws IOException {
+    long maxFileSize = 100 * 1024;
+    if (file.getSize() > maxFileSize) {
+      throw new FileSizeLimitExceededException("File size must be less than 100KB.", file.getSize(), maxFileSize);
+    }
+    String menuCategoryName = menuService.getMenuCategoryName(menuId).toLowerCase();
+    String folderPath = menuCategoryName + "/";
+
+    String fileName = folderPath + Objects.requireNonNull(file.getOriginalFilename()).trim().toLowerCase().replaceAll("\\s", "-");
+
+    File tempFile = convertMultiPartToFile(file);
+
+
+    PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, fileName, tempFile);
+    s3.putObject(putObjectRequest);
+
+    tempFile.delete();
+
+    String imgUrl = s3.getUrl(bucket, fileName).toString();
+
+    menuService.setMenuImage(menuId, imgUrl);
+
+    return "redirect:/admin/menu/" + menuId;
+  }
+
+  private File convertMultiPartToFile(MultipartFile file) throws IOException {
+    File convFile = File.createTempFile("temp", null);
+    try (FileOutputStream fos = new FileOutputStream(convFile)) {
+      fos.write(file.getBytes());
+    }
+    return convFile;
+  }
+
+  @GetMapping("/menu/edit/{menuId}")
+  public String getMenuModifyPage(Model model, @PathVariable("menuId") int menuId) {
+    List<MenuCategoryView> menuCategory = categoryService.getAllMenuCategoryView();
+
+    model.addAttribute("menuCategory", menuCategory);
+    model.addAttribute("menuId", menuId);
+    return "admin/modify-menu";
+  }
+
+//  @PostMapping("/menu/edit/{menuId}")
+//  public String ModifyMenuDetail(@ModelAttribute NewMenuDTO newMenuDTO,Model model, @PathVariable("menuId") int menuId) {
+//    model.addAttribute("menu",newMenuDTO);
+//    model.addAttribute("menuId",menuId);
+//    return "admin/modify-menu";
+//  }
 }
