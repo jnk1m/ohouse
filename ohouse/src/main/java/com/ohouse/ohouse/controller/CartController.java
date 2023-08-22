@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -54,7 +55,7 @@ public class CartController {
   public String addItemToCart(@RequestParam(value = "menuOption", required = false) List<Integer> optionId,
                               @RequestParam("quantity") int quantity,
                               @RequestParam("menuId") int menuId,
-                              HttpSession session) {
+                              HttpSession session, RedirectAttributes redirectAttributes) {
     try {
       UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
@@ -69,11 +70,10 @@ public class CartController {
       } else {
         cartService.createCartAndCartOptions(cart, optionId);
       }
-
+      redirectAttributes.addFlashAttribute("message", "Item successfully added!");
       return "redirect:/carts";
-//      return new ResponseEntity<>("{\"message\": \"Item added\"}", HttpStatus.CREATED);
     } catch (Exception e) {
-//      return new ResponseEntity<>("{\"message\": \"Error while adding item to cart\"}", HttpStatus.INTERNAL_SERVER_ERROR);
+      redirectAttributes.addFlashAttribute("message", "Something wet wrong. Please try again.");
       return "redirect:/carts";
     }
   }
