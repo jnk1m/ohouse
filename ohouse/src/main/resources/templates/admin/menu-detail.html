@@ -1,124 +1,134 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV5JTYY4LL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV5JTYY4LL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-    gtag('js', new Date());
+        gtag('js', new Date());
 
-    gtag('config', 'G-VV5JTYY4LL');
-  </script>
-  <meta charset="utf-8">
-  <title>O House | Admin</title>
-  <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
-  <!-- SEO Meta Tags-->
-  <meta name="description"
-        content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
-  <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
-  <meta name="author" content="Createx Studio">
-  <!-- Viewport-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Main Theme Styles + Bootstrap-->
-  <link rel="stylesheet" media="screen" href="/css/theme.min.css">
-  <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
+        gtag('config', 'G-VV5JTYY4LL');
+    </script>
+    <meta charset="utf-8">
+    <title>O House | Admin</title>
+    <link rel="icon" href="/images/icon/favicon.ico" type="image/x-icon">
+    <!-- SEO Meta Tags-->
+    <meta name="description"
+          content="O House is a restaurant located near Osan Air Base, serving delicious meals and a variety of cuisines. Visit us for a great dining experience!">
+    <meta name="keywords" content="O House, Osan Air Base, restaurant, dining, cuisine, food">
+    <meta name="author" content="Createx Studio">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+    <script src="https://kit.fontawesome.com/57a9f91f4b.js" crossorigin="anonymous"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato&&family=Merriweather:ital,wght@1,900&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&&family=Merriweather:ital,wght@1,900&display=swap"
+          rel="stylesheet">
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/css/intlTelInput.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/js/intlTelInput.min.js"></script>
 
 
 </head>
 <body class="handheld-toolbar-enabled">
 
 <main class="page-wrapper">
-  <!-- Header -->
-  <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
-          th:include="header :: header"></header>
+    <!-- Header -->
+    <header class="navbar d-block navbar-sticky navbar-expand-lg navbar-light bg-light"
+            th:include="header :: header"></header>
 
-  <!-- Page Title-->
-  <div style="font-family: 'Lato', sans-serif;">
-    <div class="page-title-overlap bg-secondary pt-4">
-      <div class="container d-lg-flex justify-content-between py-1 py-lg-1">
-        <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-1">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-              <li class="breadcrumb-item">
-                <a class="text-nowrap" href="">
-                  <i class="fa-solid fa-house"></i>
-                  Home > Account > Admin
-                </a>
-              </li>
-            </ol>
-          </nav>
+    <!-- Page Title-->
+    <div style="font-family: 'Lato', sans-serif;">
+        <div class="page-title-overlap bg-secondary pt-4">
+            <div class="container d-lg-flex justify-content-between py-1 py-lg-1">
+                <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
+                    <h1 class="h3 text-light mb-0"><a href="/admin" style="color: black">Admin Page</a></h1>
+                </div>
+            </div>
         </div>
-        <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
-          <h1 class="h3 text-light mb-0"><a href="/admin" style="color: black">Admin Page</a></h1>
-        </div>
-      </div>
-    </div>
 
-    <div class="container py-5 mb-2 mt-3">
-      <div class="row justify-content-center">
-        <!-- Content -->
-        <section class="col-lg-8">
-          <!-- Toolbar-->
-          <div class="row">
-            <div class="col-md-4">
-              <img src="/images/main/neobiani.jpg" alt="Menu Image" class="img-fluid" style="max-width: 100%; height: auto;" />
+        <div class="container py-5 mb-2 mt-3">
+            <div class="row justify-content-center">
+                <!-- Content -->
+                <section class="col-lg-8">
+                    <!-- Toolbar-->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div th:if="${menu.imagePath != null}">
+                                <a href="#" onclick="openImagePopup(); return false;">
+                                    <img th:src="${menu.imagePath}" alt="Menu Image" class="img-fluid"/>
+                                </a>
+                                <a class="btn btn-outline-primary mt-3"
+                                   th:href="@{/admin/menu/{menuId}/image(menuId=${menu.menuId})}">Edit Image</a>
+                            </div>
+                            <div th:if="${menu.imagePath == null}">
+                                <p>No Image Available.</p>
+                                <a class="btn btn-outline-primary mt-3"
+                                   th:href="@{/admin/menu/{menuId}/image(menuId=${menu.menuId})}">Add Image</a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <form action="#">
+                                <div class="form-group p-2">
+                                    <label for="menuPrice"><strong>Name(Eng):</strong></label>
+                                    <input readonly type="text" class="form-control" id="menuNameEng" name="menuNameEng"
+                                           th:value="${menu.menuNameEng}"/>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label for="menuPrice" readonly><strong>Name(Kor):</strong></label>
+                                    <input readonly type="text" class="form-control" id="menuNameKor" name="menuNameKor"
+                                           th:value="${menu.menuNameKor}"/>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label for="menuPrice" readonly><strong>Price:</strong></label>
+                                    <input readonly type="text" class="form-control" id="menuPrice" name="menuPrice"
+                                           th:value="${'$' + menu.menuPrice}"/>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label for="descriptionEng" readonly><strong>Description(Eng):</strong></label>
+                                    <textarea readonly rows="3" class="form-control" id="descriptionEng"
+                                              name="descriptionEng" th:text="${menu.descriptionEng}"></textarea>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label for="descriptionKor" readonly><strong>Description(Kor):</strong></label>
+                                    <textarea readonly rows="3" class="form-control" id="descriptionKor"
+                                              name="descriptionKor" th:text="${menu.descriptionKor}"></textarea>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label for="categoryId" readonly><strong>Category:</strong></label>
+                                    <input readonly type="text" class="form-control" id="categoryId" name="categoryId"
+                                           th:value="${menu.category.categoryName}"
+                                           th:hidden="${menu.category.categoryId}"/>
+                                </div>
+                                <div class="form-group p-2">
+                                    <label for="isAvailable" readonly><strong>Is Available:</strong></label>
+                                    <input readonly type="text" class="form-control" id="isAvailable"
+                                           name="isAvailable" th:value="${menu.isAvailable ? 'Yes' : 'No'}"/>
+                                </div>
+
+                                <div class="form-group p-2">
+                                    <label for="chitName" readonly><strong>Chit Name:</strong></label>
+                                    <input readonly type="text" class="form-control" id="chitName" name="chitName"
+                                           th:value="${menu.chitName}"/>
+                                </div>
+                            </form>
+                            <a th:href="@{/admin/menu/edit/{menuId}(menuId=${menu.menuId})}"
+                               class="btn btn-primary m-2">Update</a>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div class="col-md-8">
-              <form action="/updateMenu" method="post">
-                <div class="form-group p-2">
-                  <label for="menuPrice" readonly><strong>Name(Eng):</strong></label>
-                  <input type="text" class="form-control" id="menuNameEng" name="menuNameEng" value="${menu.menuNameEng}" />
-                </div>
-                <div class="form-group p-2">
-                  <label for="menuPrice" readonly><strong>Name(Kor)::</strong></label>
-                  <input type="text" class="form-control" id="menuNameKor" name="menuNameKor" value="${menu.menuNameKor}" />
-                </div>
-                <div class="form-group p-2">
-                  <label for="menuPrice" readonly><strong>Price:</strong></label>
-                  <input type="text" class="form-control" id="menuPrice" name="menuPrice" value="${menu.menuPrice}" />
-                </div>
-                <div class="form-group p-2">
-                  <label for="descriptionEng" readonly><strong>Description(Eng):</strong></label>
-                  <input type="text" class="form-control" id="descriptionEng" name="descriptionEng" value="${menu.descriptionEng}" />
-                </div>
-                <div class="form-group p-2">
-                  <label for="descriptionKor" readonly><strong>Description(Kor):</strong></label>
-                  <input type="text" class="form-control" id="descriptionKor" name="descriptionKor" value="${menu.descriptionKor}" />
-                </div>
-                <div class="form-group p-2">
-                  <label for="categoryId" readonly><strong>Category:</strong></label>
-                  <input type="text" class="form-control" id="categoryId" name="categoryId" value="${menu.categoryId}" />
-                </div>
-                <div class="form-group p-2">
-                  <label for="isAvailable" readonly><strong>Is Available:</strong></label>
-                  <input type="checkbox" class="form-control" id="isAvailable" name="isAvailable" ${menu.isAvailable ? 'checked' : ''} />
-                </div>
-                <div class="form-group p-2">
-                  <label for="chitName" readonly><strong>Chit Name:</strong></label>
-                  <input type="text" class="form-control" id="chitName" name="chitName" value="${menu.chitName}" />
-                </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-              </form>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
     </div>
-  </div>
 </main>
 
 <!-- Footer-->
@@ -133,6 +143,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+<script>
+    function openImagePopup() {
+        var imageUrl = document.querySelector('.img-fluid').getAttribute('src');
+        window.open(imageUrl, 'Image Popup', 'width=100%,height=100%');
+    }
+
+</script>
 
 </body>
 
