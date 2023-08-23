@@ -50,18 +50,6 @@
     <div style="font-family: 'Lato', sans-serif">
         <div class="page-title-overlap bg-secondary pt-2">
             <div class="container d-lg-flex justify-content-between py-1 py-lg-1">
-                <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-1">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                            <li class="breadcrumb-item">
-                                <a class="text-nowrap" href="">
-                                    <i class="fa-solid fa-house"></i>
-                                    Home > Account > Admin
-                                </a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
                 <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
                     <h1 class="h3 text-light mb-0"><a href="/admin" style="color: black">Admin Page</a></h1>
                 </div>
@@ -108,24 +96,10 @@
                     <!--Pagination-->
                     <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
                         <ul class="pagination">
-                            <li class="page-item" th:if="${menus.number > 0}">
-                                <a class="page-link" th:href="@{/orders?page=${menus.number - 1}}">
-                                    <i class="ci-arrow-left me-2"></i>Prev
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="pagination">
                             <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, menus.totalPages - 1)}">
-                                <a class="page-link" th:href="@{'/menus?page=' + ${pageNumber}}"
+                                <a class="page-link" th:href="@{'/admin/menus?page=' + ${pageNumber}}"
                                    th:text="${pageNumber + 1}"
                                    th:class="${pageNumber == menus.number ? 'active' : ''}"></a>
-                            </li>
-                        </ul>
-                        <ul class="pagination">
-                            <li class="page-item" th:if="${menus.number < menus.totalPages - 1}">
-                                <a class="page-link" th:href="@{/menus?page=${menus.number + 1}}" aria-label="Next">
-                                    Next<i class="ci-arrow-right ms-2"></i>
-                                </a>
                             </li>
                         </ul>
                     </nav>
