@@ -48,16 +48,21 @@
 
     <!-- Page Title-->
     <div style="font-family: 'Lato', sans-serif;">
-        <div class="page-title-overlap bg-secondary pt-4">
+
             <div class="container d-lg-flex justify-content-between py-1 py-lg-1">
                 <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
                     <h1 class="h3 text-light mb-0"><a href="/admin" style="color: black">Admin Page</a></h1>
                 </div>
             </div>
-        </div>
 
-        <div class="container py-5 mb-2 mt-3">
+
+        <div class="container py-5 mb-2 mt-1">
             <div class="row justify-content-center">
+                <ul class="nav nav-tabs nav-justified mb-4">
+                    <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4 active" th:href="@{/admin/menu/{menuId}(menuId=${menu.menuId})}">1. Menu</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link fs-lg fw-medium py-4" href="/orders/checkout">2. Options</a></li>
+                </ul>
                 <!-- Content -->
                 <section class="col-lg-8">
                     <!-- Toolbar-->
