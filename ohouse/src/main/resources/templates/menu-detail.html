@@ -90,7 +90,7 @@
                     <div class="pb-3" th:text="${menu.descriptionEng}"></div>
                     <div th:text="${menu.descriptionKor}"></div>
                 </form>
-                <form th:action="@{/carts}" method="post" onsubmit="return process(event)">
+                <form th:action="@{/carts}" method="post">
                     <div class="pt-2 pb-2" th:each="entry : ${menuOptions}">
                         <label class="form-label" for="1" th:text="${entry.key}"></label>
                         <select class="form-select" id="1" name="menuOption">
@@ -129,26 +129,5 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 </body>
-<script>
-    async function process(e) {
-        e.preventDefault();
-
-        let formData = new FormData(e.target);
-        let response = await fetch(e.target.action, {
-            method: 'POST',
-            body: formData
-        });
-
-        let data = await response.json();
-
-        if (response.ok && data.message === "Item added") {
-            alert('Item successfully added to the cart');
-        } else {
-            alert('Error occurred while adding item to the cart');
-        }
-        return false;
-    }
-</script>
-
 
 </html>
