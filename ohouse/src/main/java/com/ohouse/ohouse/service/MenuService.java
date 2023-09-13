@@ -33,4 +33,8 @@ public interface MenuService {
   String getMenuCategoryName(int menuId);
 
   void setMenuImage(int menuId, String imgUrl);
+
+  NewMenuDTO getNewMenuDTO(int menuId);
+
+  void updateMenuDetail(NewMenuDTO newMenuDTO, int menuId);
 }

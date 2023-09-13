@@ -105,4 +105,46 @@ public class MenuServiceImpl implements MenuService {
     menu.setImgPath(imgUrl);
   }
 
+  @Override
+  public NewMenuDTO getNewMenuDTO(int menuId) {
+    Menu menu = menuRepository.findById(menuId).orElseThrow();
+    return new NewMenuDTO(menu.getMenuNameEng(), menu.getDescriptionEng(), menu.getMenuNameKor(), menu.getDescriptionKor(), menu.getMenuPrice(), menu.getCategory().getCategoryId(),
+            menu.isAvailable(), menu.getChitName());
+  }
+
+  @Transactional
+  @Override
+  public void updateMenuDetail(NewMenuDTO newMenuDTO, int menuId) {
+    Menu menu = menuRepository.findById(menuId).orElseThrow();
+    updateMenuFieldsIfChanged(newMenuDTO, menu);
+  }
+
+  private void updateMenuFieldsIfChanged(NewMenuDTO newMenuDTO, Menu menu) {
+    if (!menu.getMenuNameEng().equals(newMenuDTO.getMenuNameEng())) {
+      menu.setMenuNameEng(newMenuDTO.getMenuNameEng());
+    }
+    if (!menu.getDescriptionEng().equals(newMenuDTO.getDescriptionEng())) {
+      menu.setDescriptionEng(newMenuDTO.getDescriptionEng());
+    }
+    if (!menu.getMenuNameKor().equals(newMenuDTO.getMenuNameKor())) {
+      menu.setMenuNameKor(newMenuDTO.getMenuNameKor());
+    }
+    if (!menu.getDescriptionKor().equals(newMenuDTO.getDescriptionKor())) {
+      menu.setDescriptionKor(newMenuDTO.getDescriptionKor());
+    }
+    if (menu.getMenuPrice().compareTo(newMenuDTO.getMenuPrice()) != 0) {
+      menu.setMenuPrice(newMenuDTO.getMenuPrice());
+    }
+    if (menu.getCategory().getCategoryId() != newMenuDTO.getCategoryId()) {
+      Category newCategory = categoryService.findCategory(newMenuDTO.getCategoryId());
+      menu.setCategory(newCategory);
+    }
+    if (menu.isAvailable() != newMenuDTO.isAvailable()) {
+      menu.setAvailable(newMenuDTO.isAvailable());
+    }
+    if (!menu.getChitName().equals(newMenuDTO.getChitName())) {
+      menu.setChitName(newMenuDTO.getChitName());
+    }
+  }
+
 }
