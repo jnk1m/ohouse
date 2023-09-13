@@ -73,5 +73,35 @@ public class Menu {
     this.imagePath = imgPath;
   }
 
+  public void setMenuNameEng(String menuNameEng) {
+    this.menuNameEng = menuNameEng;
+  }
 
+  public void setDescriptionEng(String descriptionEng) {
+    this.descriptionEng = descriptionEng;
+  }
+
+  public void setMenuNameKor(String menuNameKor) {
+    this.menuNameKor = menuNameKor;
+  }
+
+  public void setDescriptionKor(String descriptionKor) {
+    this.descriptionKor = descriptionKor;
+  }
+
+  public void setMenuPrice(BigDecimal menuPrice) {
+    this.menuPrice = menuPrice;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
+  public void setAvailable(boolean available) {
+    isAvailable = available;
+  }
+
+  public void setChitName(String chitName) {
+    this.chitName = chitName;
+  }
 }
