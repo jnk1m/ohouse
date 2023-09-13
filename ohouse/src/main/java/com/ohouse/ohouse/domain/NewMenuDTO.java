@@ -22,7 +22,17 @@ public class NewMenuDTO {
 
   private boolean isAvailable;
 
-  private String imagePath;
-
   private String chitName;
+
+
+  public NewMenuDTO(String menuNameEng, String descriptionEng, String menuNameKor, String descriptionKor, BigDecimal menuPrice, int categoryId, boolean isAvailable, String chitName) {
+    this.menuNameEng = menuNameEng;
+    this.descriptionEng = descriptionEng;
+    this.menuNameKor = menuNameKor;
+    this.descriptionKor = descriptionKor;
+    this.menuPrice = menuPrice;
+    this.categoryId = categoryId;
+    this.isAvailable = isAvailable;
+    this.chitName = chitName;
+  }
 }
