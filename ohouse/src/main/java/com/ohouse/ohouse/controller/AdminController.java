@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -184,18 +185,20 @@ public class AdminController {
   }
 
   @GetMapping("/menu/edit/{menuId}")
-  public String getMenuModifyPage(Model model, @PathVariable("menuId") int menuId) {
+  public String getMenuUpdateForm(Model model, @PathVariable("menuId") int menuId) {
     List<MenuCategoryView> menuCategory = categoryService.getAllMenuCategoryView();
+    NewMenuDTO newMenuDTO = menuService.getNewMenuDTO(menuId);
 
+    model.addAttribute(("menu"), newMenuDTO);
     model.addAttribute("menuCategory", menuCategory);
     model.addAttribute("menuId", menuId);
     return "admin/modify-menu";
   }
 
-//  @PostMapping("/menu/edit/{menuId}")
-//  public String ModifyMenuDetail(@ModelAttribute NewMenuDTO newMenuDTO,Model model, @PathVariable("menuId") int menuId) {
-//    model.addAttribute("menu",newMenuDTO);
-//    model.addAttribute("menuId",menuId);
-//    return "admin/modify-menu";
-//  }
+  @PostMapping("/menu/edit/{menuId}")
+  public String updateMenuDetail(@ModelAttribute NewMenuDTO newMenuDTO, @PathVariable("menuId") int menuId, RedirectAttributes redirectAttributes) {
+    menuService.updateMenuDetail(newMenuDTO, menuId);
+    redirectAttributes.addFlashAttribute("message", "변경완료!");
+    return "redirect:/admin/menu/" + menuId;
+  }
 }
