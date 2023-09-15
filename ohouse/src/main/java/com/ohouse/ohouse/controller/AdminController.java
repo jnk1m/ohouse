@@ -184,7 +184,7 @@ public class AdminController {
     return convFile;
   }
 
-  @GetMapping("/menu/edit/{menuId}")
+  @GetMapping("/menu/{menuId}/modification")
   public String getMenuUpdateForm(Model model, @PathVariable("menuId") int menuId) {
     List<MenuCategoryView> menuCategory = categoryService.getAllMenuCategoryView();
     NewMenuDTO newMenuDTO = menuService.getNewMenuDTO(menuId);
@@ -192,12 +192,12 @@ public class AdminController {
     model.addAttribute(("menu"), newMenuDTO);
     model.addAttribute("menuCategory", menuCategory);
     model.addAttribute("menuId", menuId);
-    return "admin/modify-menu";
+    return "admin/menu-modification";
   }
 
-  @PostMapping("/menu/edit/{menuId}")
-  public String updateMenuDetail(@ModelAttribute NewMenuDTO newMenuDTO, @PathVariable("menuId") int menuId, RedirectAttributes redirectAttributes) {
-    menuService.updateMenuDetail(newMenuDTO, menuId);
+  @PutMapping("/menu/{menuId}/modification")
+  public String modifyMenuDetail(@ModelAttribute NewMenuDTO newMenuDTO, @PathVariable("menuId") int menuId, RedirectAttributes redirectAttributes) {
+    menuService.modifyMenuDetail(newMenuDTO, menuId);
     redirectAttributes.addFlashAttribute("message", "변경완료!");
     return "redirect:/admin/menu/" + menuId;
   }

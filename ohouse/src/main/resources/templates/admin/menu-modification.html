@@ -63,7 +63,7 @@
                     <!-- Toolbar-->
                     <div class="row">
                         <div class="col-md-8">
-                            <form th:href="@{/admin/menu/edit/{menuId}(menuId=${menuId})}" method="post" onsubmit="return validateForm()"
+                            <form th:href="@{/admin/menu/{menuId}/modification(menuId=${menuId})}" method="post" onsubmit="return validateForm()"
                                   novalidate name="menuForm" class="needs-validation">
                                 <div class="form-group p-2">
                                     <label for="menuPrice"><strong>Name(Eng):</strong><sup
