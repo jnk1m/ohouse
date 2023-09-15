@@ -114,7 +114,7 @@ public class MenuServiceImpl implements MenuService {
 
   @Transactional
   @Override
-  public void updateMenuDetail(NewMenuDTO newMenuDTO, int menuId) {
+  public void modifyMenuDetail(NewMenuDTO newMenuDTO, int menuId) {
     Menu menu = menuRepository.findById(menuId).orElseThrow();
     updateMenuFieldsIfChanged(newMenuDTO, menu);
   }
@@ -136,8 +136,7 @@ public class MenuServiceImpl implements MenuService {
       menu.setMenuPrice(newMenuDTO.getMenuPrice());
     }
     if (menu.getCategory().getCategoryId() != newMenuDTO.getCategoryId()) {
-      Category newCategory = categoryService.findCategory(newMenuDTO.getCategoryId());
-      menu.setCategory(newCategory);
+      menu.setCategory(categoryService.findCategory(newMenuDTO.getCategoryId()));
     }
     if (menu.isAvailable() != newMenuDTO.isAvailable()) {
       menu.setAvailable(newMenuDTO.isAvailable());

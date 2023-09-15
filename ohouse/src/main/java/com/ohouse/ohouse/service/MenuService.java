@@ -36,5 +36,5 @@ public interface MenuService {
 
   NewMenuDTO getNewMenuDTO(int menuId);
 
-  void updateMenuDetail(NewMenuDTO newMenuDTO, int menuId);
+  void modifyMenuDetail(NewMenuDTO newMenuDTO, int menuId);
 }
