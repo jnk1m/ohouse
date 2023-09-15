@@ -126,8 +126,8 @@
                                            th:value="${menu.chitName}"/>
                                 </div>
                             </form>
-                            <a th:href="@{/admin/menu/edit/{menuId}(menuId=${menu.menuId})}"
-                               class="btn btn-primary m-2">:</a>
+                            <a th:href="@{/admin/menu/{menuId}/modification(menuId=${menu.menuId})}"
+                               class="btn btn-primary m-2">Modify Detail</a>
                         </div>
                     </div>
                 </section>
