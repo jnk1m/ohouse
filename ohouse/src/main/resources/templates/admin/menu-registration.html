@@ -65,7 +65,8 @@
                         <div class="col-md-8">
 
                             <div class="p-3">
-                                <strong>Image files can be uploaded on the detailed page after menu addition is completed</strong>
+                                <strong>Image files can be uploaded on the detailed page after menu addition is
+                                    completed</strong>
                             </div>
                             <form action="/admin/menu/new" method="post" onsubmit="return validateForm()"
                                   novalidate name="menuForm" class="needs-validation">
@@ -164,6 +165,7 @@
             return false;
         }
 
+        //Regular expression validation
         if (!menuNameEng.match(engPattern)) {
             alert("Name(Eng) must contain only alphabet characters");
             return false;
@@ -194,22 +196,36 @@
             return false;
         }
 
-        //
-        //
-        // if ((firstName + " " + lastName).length > 50) {
-        //     alert("Full name must be 50 characters or less");
-        //     return false;
-        // }
-        //
-        // if ((bldgNo + " " + roomNo).length > 200) {
-        //     alert("Delivery address must be 200 characters or less");
-        //     return false;
-        // }
-        //
-        // if ((instructions).length > 200) {
-        //     alert("Instructions must be 200 characters or less");
-        //     return false;
-        // }
+        //Input length validation
+        if (menuNameEng.length > 100) {
+            alert("Menu name in English must be 100 characters or less");
+            return false;
+        }
+
+        if (descriptionEng && descriptionEng.length > 300) {
+            alert("Description in English must be 300 characters or less");
+            return false;
+        }
+
+        if (menuNameKor.length > 50) {
+            alert("Menu name in Korean must be 50 characters or less");
+            return false;
+        }
+
+        if (descriptionKor.length > 200) {
+            alert("Description in Korean must be 200 characters or less");
+            return false;
+        }
+
+        if (menuPrice <= 0) {
+            alert("Menu price must be a positive number");
+            return false;
+        }
+
+        if (chitName.length > 30) {
+            alert("Chit name must be 30 characters or less");
+            return false;
+        }
     }
 </script>
 
