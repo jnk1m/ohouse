@@ -137,7 +137,7 @@ public class AdminController {
   @PostMapping("/menu/new")
   public String addNewMenu(@ModelAttribute NewMenuDTO newMenuDTO) {
     menuService.addMenu(newMenuDTO);
-    return "redirect:admin/menus";
+    return "redirect:/admin/menus";
   }
 
   @GetMapping("/menu/{menuId}/image")
@@ -195,10 +195,16 @@ public class AdminController {
     return "admin/menu-modification";
   }
 
-  @PutMapping("/menu/{menuId}/modification")
+  @PostMapping("/menu/{menuId}/modification")
   public String modifyMenuDetail(@ModelAttribute NewMenuDTO newMenuDTO, @PathVariable("menuId") int menuId, RedirectAttributes redirectAttributes) {
     menuService.modifyMenuDetail(newMenuDTO, menuId);
     redirectAttributes.addFlashAttribute("message", "변경완료!");
     return "redirect:/admin/menu/" + menuId;
+  }
+
+  @PostMapping("/menu/delete-selected")
+  public String deleteSelectedMenus(@RequestParam("selectedMenuIds") List<Integer> menuIds){
+    menuService.deleteMenu(menuIds);
+    return "redirect:/admin/menus";
   }
 }
