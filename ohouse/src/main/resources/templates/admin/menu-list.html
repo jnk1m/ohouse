@@ -65,33 +65,45 @@
                         <a href="/admin/menus/new" class="btn btn-primary">Add new menu</a>
                     </div>
                     <!-- Orders list-->
-                    <div class="table-responsive fs-md mb-4 justify-content-center">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                            <tr style="font-weight: bold">
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Available</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <form id="deleteForm" method="post" action="/admin/menu/delete-selected">
+                        <div class="table-responsive fs-md mb-4 justify-content-center">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                <tr style="font-weight: bold">
+                                    <th></th>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Available</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                            <tr th:each="menu : ${menus.content}">
-                                <td class="py-3" th:text="${menu.menuId}"></td>
-                                <td class="py-3" style="font-weight: bold">
-                                    <a class="nav-link-style fw-medium fs-sm"
-                                       th:href="@{/admin/menu/{menuId}(menuId=${menu.menuId})}"
-                                       th:text="${menu.menuNameEng}"></a>
-                                </td>
-                                <td class="py-3" th:text="${'$'+ menu.menuPrice}"></td>
-                                <td class="py-3" th:text="${menu.categoryName}"></td>
-                                <td class="py-3" th:text="${menu.isAvailable ? 'Yes' : 'No'}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                <tr th:each="menu : ${menus.content}">
+                                    <td class="py-3">
+                                        <input type="checkbox" class="menu-checkbox" name="selectedMenuIds"
+                                               th:value="${menu.menuId}"/>
+                                    </td>
+                                    <td class="py-3" th:text="${menu.menuId}"></td>
+                                    <td class="py-3" style="font-weight: bold">
+                                        <a class="nav-link-style fw-medium fs-sm"
+                                           th:href="@{/admin/menu/{menuId}(menuId=${menu.menuId})}"
+                                           th:text="${menu.menuNameEng}"></a>
+                                    </td>
+                                    <td class="py-3" th:text="${'$'+ menu.menuPrice}"></td>
+                                    <td class="py-3" th:text="${menu.categoryName}"></td>
+                                    <td class="py-3" th:text="${menu.isAvailable ? 'Yes' : 'No'}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="submit"
+                                onclick="return confirm('Confirm to permanently delete. No undo.')">
+                            Delete Selected
+                        </button>
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                    </form>
 
                     <!--Pagination-->
                     <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
@@ -122,6 +134,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteForm = document.getElementById('deleteForm');
+
+        deleteForm.addEventListener('submit', function(e) {
+            var checkboxes = document.querySelectorAll('.menu-checkbox');
+            var checkedCount = 0;
+
+            for(var i = 0; i < checkboxes.length; i++) {
+                if(checkboxes[i].checked) {
+                    checkedCount++;
+                }
+            }
+
+            if(checkedCount === 0) {
+                alert('Please select at least one menu to delete.');
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 
 </body>
 
