@@ -37,4 +37,6 @@ public interface MenuService {
   NewMenuDTO getNewMenuDTO(int menuId);
 
   void modifyMenuDetail(NewMenuDTO newMenuDTO, int menuId);
+
+  void deleteMenu(List<Integer> menuIds);
 }
