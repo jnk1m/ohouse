@@ -105,8 +105,10 @@
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                     </form>
 
+                    <div>
                     <!--Pagination-->
                     <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
+                        <ul></ul>
                         <ul class="pagination">
                             <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, menus.totalPages - 1)}">
                                 <a class="page-link" th:href="@{'/admin/menus?page=' + ${pageNumber}}"
@@ -114,7 +116,9 @@
                                    th:class="${pageNumber == menus.number ? 'active' : ''}"></a>
                             </li>
                         </ul>
+                        <ul></ul>
                     </nav>
+                    </div>
 
                 </section>
             </div>
