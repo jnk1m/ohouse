@@ -11,4 +11,6 @@ public interface CategoryService {
   Category findCategory(int categoryId);
 
   List<MenuCategoryView> getAllMenuCategoryView();
+
+  List<Integer> getAllMenuCategoryIds();
 }
