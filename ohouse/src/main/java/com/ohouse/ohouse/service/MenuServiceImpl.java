@@ -121,9 +121,11 @@ public class MenuServiceImpl implements MenuService {
 
   @Override
   public void deleteMenu(List<Integer> menuIds) {
-    if(menuIds.size() == 1){
+    if (menuIds.size() == 1) {
       menuRepository.deleteById(menuIds.get(0));
-    } //TODO: else문 만들기. (여러개의 아이디가 들어올때) 쿼리문 in 활용
+    } else {
+      menuRepository.deleteAllById(menuIds);
+    }
   }
 
   private void updateMenuFieldsIfChanged(NewMenuDTO newMenuDTO, Menu menu) {
