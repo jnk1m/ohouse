@@ -41,6 +41,7 @@
             font-family: 'Lato', sans-serif;
         }
 
+
     </style>
 
 </head>
@@ -54,11 +55,11 @@
         <div class="container py-md-4 d-flex flex-column align-items-center hero">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start align-items-center p-2">
-                    <li class="breadcrumb-item"><a class="text-nowrap" href=""><i class="fa-solid fa-house" style="color: #ffffff;"></i> Home > <span th:text="${category.categoryName}"/></a></li>
+                    <li class="breadcrumb-item"><a class="text-nowrap" href=""><i class="fa-solid fa-house" style="color: #ffffff;"></i><span th:if="${category != null}" th:text="${'Home >'+ category.categoryName}"/></a></li>
                 </ol>
             </nav>
             <em class="display-1 text-light text-center text-lg-start p-1" style="backdrop-filter: blur(2px); text-shadow:1px 1px 1px #000">
-                <span th:text="${category.categoryName}"></span></em>
+                <span th:if="${category != null}" th:text="${category.categoryName}"></span> </em>
         </div>
     </section>
 
@@ -73,6 +74,8 @@
     <!-- Menu (Products grid)-->
     <section class="container tab-content py-3 body">
         <div class="row row-cols-auto pt-3 pt-sm-0 ">
+            <div th:if="${#lists.isEmpty(menus)}" >
+            </div>
             <div class="col-lg-3 col-md-4 col-6 mb-grid-gutter" th:each="menu : ${menus}">
                 <div class="card product-card border pb-2">
                     <a class="d-block" th:href="@{/menus/detail/{menuId}(menuId=${menu.menuId})}">
