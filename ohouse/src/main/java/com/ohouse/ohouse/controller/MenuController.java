@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,17 +29,21 @@ public class MenuController {
   private final CategoryService categoryService;
 
   @GetMapping("/{categoryId}")
-  public String getMenusInCategory(@PathVariable int categoryId, Model model) throws InvalidCategoryIdException {
-    Category category = categoryService.findCategory(categoryId);
+  public String getMenusInCategory(@PathVariable int categoryId, Model model){
+    List<Integer> allMenuCategoryIds = categoryService.getAllMenuCategoryIds();
 
-    // Categories 8, 10, and 11 are not in use due to menu consolidation.
-    // Starting from ID 12, they are not used for menu retrieval.
-    // Exception is thrown if the category ID is 8 or greater than or equal to 10.
-    if (categoryId >= 10 || categoryId == 8) {
-      throw new InvalidCategoryIdException("Invalid Category");
+    Category category;
+    List<MenuDTO> menuDTOList;
+
+    if (allMenuCategoryIds.contains(categoryId)) {
+      category = categoryService.findCategory(categoryId);
+
+      menuDTOList = menuService.getMenusInCategory(category);
+
+    } else {
+      category = null;
+      menuDTOList = Collections.emptyList();
     }
-
-    List<MenuDTO> menuDTOList = menuService.getMenusInCategory(category);
 
     model.addAttribute("category", category);
     model.addAttribute("menus", menuDTOList);
